@@ -6,14 +6,16 @@
 </p>
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="examples/contact-dark.svg">
-    <img src="examples/contact-light.svg" alt="Twelve illustrations: teams, categories, workspace access, documentation, connectors, contributors, notifications, API gateway, roles, audit log, app approval, invoices">
-  </picture>
+  <img src="examples/contact-light.svg" alt="Twelve illustrations in light mode: teams, categories, workspace access, documentation, connectors, contributors, notifications, API gateway, roles and access, audit log, app approval, invoices">
 </p>
 
 <p align="center">
-  <sub>Twelve features, twelve layouts. One set of rules. Same twelve files in both themes.</sub>
+  <img src="examples/contact-dark.svg" alt="The same twelve illustrations rendered in dark mode">
+</p>
+
+<p align="center">
+  <sub>Twelve features, twelve layouts, one set of rules —<br>
+  and the same twelve files in both themes, from twelve CSS variables.</sub>
 </p>
 
 ---
