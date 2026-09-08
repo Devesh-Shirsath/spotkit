@@ -1,0 +1,24 @@
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Notifications" class="il">
+  <defs>
+    <linearGradient id="fadeG-notifications" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-notifications"><rect width="160" height="160" fill="url(#fadeG-notifications)"/></mask>
+    <linearGradient id="panelG-notifications" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E2C29"/>
+      <stop offset="1" stop-color="#262523"/>
+    </linearGradient>
+    <filter id="lift-notifications" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="liftL-notifications" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-notifications)">
+<rect x="34" y="38" width="108" height="100" rx="10" fill="#1F1E1C" stroke="#5C564D" stroke-width="0.5"/><rect x="26" y="30" width="108" height="100" rx="10" fill="url(#panelG-notifications)" stroke="#5C564D" stroke-width="0.5"/><g><rect x="38.0" y="80.0" width="92.0" height="32.0" rx="10.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><circle cx="53" cy="96" r="9.5" fill="#2F9468" opacity="0.8"/><rect x="69.0" y="89.0" width="34.0" height="4.8" rx="2.40" fill="#4A463E"/><rect x="69.0" y="98.5" width="50.0" height="5.4" rx="2.70" fill="#4A463E"/>
+  </g>
+<g filter="url(#liftL-notifications)"><rect x="16.0" y="44.0" width="112.0" height="34.0" rx="10.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><circle cx="33" cy="61" r="10" fill="#C25E3E" opacity="0.8"/><rect x="50.0" y="53.0" width="40.0" height="5.0" rx="2.50" fill="#4A463E"/><rect x="50.0" y="63.0" width="62.0" height="5.6" rx="2.80" fill="#4A463E"/>
+</svg>

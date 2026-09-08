@@ -1,0 +1,67 @@
+/* Product UI Illustrations — token definitions.
+   Preset: "Soft Layered" (warm neutral, layered depth, fade-out edge).
+
+   One stroke colour for the entire system: --il-line. Every stroke in every
+   illustration uses it, at width 0.5. Hierarchy comes from fills and elevation,
+   never from varying line weight.
+
+   The line is deliberately darker than a UI border would be: at half a unit it
+   antialiases to roughly half its own value, so a lighter colour disappears.
+
+   The steps between canvas → panel → surface are deliberately wider than a real
+   product UI would use. At 160px an illustration has no text to carry hierarchy,
+   so the surfaces have to do it alone. */
+
+:root,
+[data-theme="light"] {
+  --il-canvas:       #EDEAE6;
+  --il-ghost:        #EAE7E2;
+  --il-panel:        #F7F5F2;
+  --il-panel-top:    #FCFBF9;
+  --il-line:         #B9B1A4;
+  --il-surface:      #FFFFFF;
+  --il-stroke:       #35322D;
+  --il-stroke-soft:  #9B948A;
+  --il-fill:         #DCD6CE;
+  --il-fill-soft:    #E9E4DC;
+  --il-accent:       #3E9077;
+  --il-shadow-c:     #4A3F33;
+  --il-shadow-o:     0.16;
+}
+
+[data-theme="dark"] {
+  --il-canvas:       #1A1918;
+  --il-ghost:        #1F1E1C;
+  --il-panel:        #262523;
+  --il-panel-top:    #2E2C29;
+  --il-line:         #5C564D;
+  --il-surface:      #322F2B;
+  --il-stroke:       #DDD9D3;
+  --il-stroke-soft:  #877F74;
+  --il-fill:         #4A463E;
+  --il-fill-soft:    #35322D;
+  --il-accent:       #5FB694;
+  --il-shadow-c:     #000000;
+  --il-shadow-o:     0.55;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --il-canvas:       #1A1918;
+    --il-ghost:        #1F1E1C;
+    --il-panel:        #262523;
+    --il-panel-top:    #2E2C29;
+  --il-panel-top:    #2E2C29;
+    --il-line:         #5C564D;
+    --il-surface:      #322F2B;
+      --il-stroke:       #DDD9D3;
+    --il-stroke-soft:  #877F74;
+    --il-fill:         #4A463E;
+    --il-fill-soft:    #35322D;
+    --il-accent:       #5FB694;
+    --il-shadow-c:     #000000;
+    --il-shadow-o:     0.55;
+  }
+}
+
+.il { display: block; width: 100%; height: auto; }

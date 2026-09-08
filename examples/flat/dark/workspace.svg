@@ -1,0 +1,24 @@
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Workspace access" class="il">
+  <defs>
+    <linearGradient id="fadeG-workspace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-workspace"><rect width="160" height="160" fill="url(#fadeG-workspace)"/></mask>
+    <linearGradient id="panelG-workspace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E2C29"/>
+      <stop offset="1" stop-color="#262523"/>
+    </linearGradient>
+    <filter id="lift-workspace" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="liftL-workspace" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-workspace)">
+<path d="M22 18a10 10 0 0 1 10 -10h96a10 10 0 0 1 10 10V160H22z" fill="url(#panelG-workspace)" stroke="#5C564D" stroke-width="0.5"/><circle cx="41.0" cy="66" r="6.2" fill="#C25E3E" opacity="0.7"/><circle cx="55.8" cy="66" r="6.2" fill="#2F9468" opacity="0.7"/><circle cx="70.6" cy="66" r="6.2" fill="#5C82CE" opacity="0.7"/><circle cx="85.4" cy="66" r="6.2" fill="#B08A3E" opacity="0.7"/><circle cx="100.2" cy="66" r="6.2" fill="#35322D"/><rect x="97.0" y="64.6" width="6.4" height="2.8" rx="1.40" fill="#877F74"/><rect x="22" y="82" width="116" height="0.5" fill="#5C564D" opacity="0.8"/><g transform="translate(32.00 84.50) scale(0.04297)" fill="#877F74"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="87.8" width="54.0" height="4.4" rx="2.20" fill="#4A463E"/><g transform="translate(119.00 85.50) scale(0.03516)" fill="#5FB694"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(32.00 100.50) scale(0.04297)" fill="#877F74"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="103.8" width="54.0" height="4.4" rx="2.20" fill="#4A463E"/><g transform="translate(119.00 101.50) scale(0.03516)" fill="#4A463E"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(32.00 116.50) scale(0.04297)" fill="#877F74"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="119.8" width="54.0" height="4.4" rx="2.20" fill="#4A463E"/><g transform="translate(119.00 117.50) scale(0.03516)" fill="#4A463E"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g>
+  </g>
+<g filter="url(#liftL-workspace)"><rect x="11.0" y="24.0" width="138.0" height="26.0" rx="9.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><rect x="26" y="31.5" width="12" height="12" rx="4" fill="#C25E3E"/><rect x="49" y="31.5" width="12" height="12" rx="4" fill="#2F9468"/><rect x="72" y="31.5" width="12" height="12" rx="4" fill="#5C82CE"/><rect x="95" y="31.5" width="12" height="12" rx="4" fill="#B08A3E"/><rect x="119" y="31" width="0.5" height="12" fill="#5C564D" opacity="0.8"/><g transform="translate(128.00 32.00) scale(0.03906)" fill="#877F74"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></g>
+</svg>

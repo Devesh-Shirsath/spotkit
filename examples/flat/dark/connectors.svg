@@ -1,0 +1,24 @@
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Connectors" class="il">
+  <defs>
+    <linearGradient id="fadeG-connectors" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-connectors"><rect width="160" height="160" fill="url(#fadeG-connectors)"/></mask>
+    <linearGradient id="panelG-connectors" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E2C29"/>
+      <stop offset="1" stop-color="#262523"/>
+    </linearGradient>
+    <filter id="lift-connectors" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="liftL-connectors" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-connectors)">
+<rect x="3" y="18" width="154" height="152" rx="15" fill="#1F1E1C" stroke="#5C564D" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="#1F1E1C" stroke="#5C564D" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-connectors)" stroke="#5C564D" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="#5C564D"/><circle cx="28.5" cy="17.0" r="1.7" fill="#5C564D"/><circle cx="34.0" cy="17.0" r="1.7" fill="#5C564D"/><rect x="13" y="24" width="134" height="0.5" fill="#5C564D" opacity="0.55"/><g filter="url(#lift-connectors)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><rect x="26" y="37" width="12" height="12" rx="4" fill="#C25E3E"/><rect x="44.0" y="40.6" width="22.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="73" y="38" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="80.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="110" y="38" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="117.0" y="40.6" width="12.0" height="4.4" rx="2.20" fill="#4A463E"/><circle cx="134.0" cy="39.4" r="1.15" fill="#877F74"/><circle cx="134.0" cy="43.0" r="1.15" fill="#877F74"/><circle cx="134.0" cy="46.6" r="1.15" fill="#877F74"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><rect x="26" y="59" width="12" height="12" rx="4" fill="#2F9468"/><rect x="44.0" y="62.6" width="22.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="73" y="60" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="80.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="110" y="60" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="117.0" y="62.6" width="12.0" height="4.4" rx="2.20" fill="#4A463E"/><circle cx="134.0" cy="61.4" r="1.15" fill="#877F74"/><circle cx="134.0" cy="65.0" r="1.15" fill="#877F74"/><circle cx="134.0" cy="68.6" r="1.15" fill="#877F74"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><rect x="26" y="81" width="12" height="12" rx="4" fill="#5C82CE"/><rect x="44.0" y="84.6" width="22.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="73" y="82" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="80.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="#4A463E"/><rect x="110" y="82" width="0.5" height="10" fill="#5C564D" opacity="0.7"/><rect x="117.0" y="84.6" width="12.0" height="4.4" rx="2.20" fill="#4A463E"/><circle cx="134.0" cy="83.4" r="1.15" fill="#877F74"/><circle cx="134.0" cy="87.0" r="1.15" fill="#877F74"/><circle cx="134.0" cy="90.6" r="1.15" fill="#877F74"/>
+  </g>
+
+</svg>

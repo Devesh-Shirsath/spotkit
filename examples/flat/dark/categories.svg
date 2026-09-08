@@ -1,0 +1,24 @@
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
+  <defs>
+    <linearGradient id="fadeG-categories" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-categories"><rect width="160" height="160" fill="url(#fadeG-categories)"/></mask>
+    <linearGradient id="panelG-categories" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E2C29"/>
+      <stop offset="1" stop-color="#262523"/>
+    </linearGradient>
+    <filter id="lift-categories" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="liftL-categories" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-categories)">
+<rect x="17" y="12" width="126" height="158" rx="16" fill="#1F1E1C" stroke="#5C564D" stroke-width="0.5"/><path d="M24 18a10 10 0 0 1 10 -10h92a10 10 0 0 1 10 10V160H24z" fill="url(#panelG-categories)" stroke="#5C564D" stroke-width="0.5"/><g transform="translate(34.00 62.00) scale(0.05078)" fill="#877F74"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="61.5" width="30.0" height="4.2" rx="2.10" fill="#4A463E"/><rect x="54.0" y="68.9" width="54.0" height="5.2" rx="2.60" fill="#4A463E"/><g transform="translate(34.00 84.00) scale(0.05078)" fill="#877F74"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="83.5" width="30.0" height="4.2" rx="2.10" fill="#4A463E"/><rect x="54.0" y="90.9" width="54.0" height="5.2" rx="2.60" fill="#4A463E"/><g transform="translate(34.00 106.00) scale(0.05078)" fill="#877F74"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="105.5" width="30.0" height="4.2" rx="2.10" fill="#4A463E"/><rect x="54.0" y="112.9" width="54.0" height="5.2" rx="2.60" fill="#4A463E"/>
+  </g>
+<g filter="url(#liftL-categories)"><rect x="11.0" y="24.0" width="138.0" height="24.0" rx="8.0" fill="#322F2B" stroke="#5C564D" stroke-width="0.5"/></g><g transform="translate(21.00 29.50) scale(0.05078)" fill="#877F74"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></g><rect x="40.0" y="30.5" width="22.0" height="11" rx="5.5" fill="none" stroke="#5C564D" stroke-width="0.5"/><rect x="45.0" y="34.6" width="12.0" height="2.8" rx="1.40" fill="#4A463E"/><rect x="66.0" y="30.5" width="26.0" height="11" rx="5.5" fill="#35322D"/><rect x="71.0" y="34.6" width="16.0" height="2.8" rx="1.40" fill="#877F74"/><rect x="96.0" y="30.5" width="20.0" height="11" rx="5.5" fill="none" stroke="#5C564D" stroke-width="0.5"/><rect x="101.0" y="34.6" width="10.0" height="2.8" rx="1.40" fill="#4A463E"/><rect x="120.0" y="30.5" width="18.0" height="11" rx="5.5" fill="none" stroke="#5C564D" stroke-width="0.5"/><rect x="125.0" y="34.6" width="8.0" height="2.8" rx="1.40" fill="#4A463E"/>
+</svg>

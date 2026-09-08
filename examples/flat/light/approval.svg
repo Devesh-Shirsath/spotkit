@@ -1,0 +1,24 @@
+<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="App approval" class="il">
+  <defs>
+    <linearGradient id="fadeG-approval" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-approval"><rect width="160" height="160" fill="url(#fadeG-approval)"/></mask>
+    <linearGradient id="panelG-approval" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCFBF9"/>
+      <stop offset="1" stop-color="#F7F5F2"/>
+    </linearGradient>
+    <filter id="lift-approval" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="#4A3F33" flood-opacity="0.16"/>
+    </filter>
+    <filter id="liftL-approval" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="#4A3F33" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-approval)">
+<rect x="15" y="34" width="130" height="106" rx="16" fill="#EAE7E2" stroke="#B9B1A4" stroke-width="0.5"/><rect x="22" y="30" width="116" height="100" rx="10" fill="url(#panelG-approval)" stroke="#B9B1A4" stroke-width="0.5"/><g><rect x="30.0" y="62.0" width="46.0" height="44.0" rx="8.0" fill="#FFFFFF" stroke="#B9B1A4" stroke-width="0.5"/></g><rect x="38.0" y="71.0" width="28.0" height="4.6" rx="2.30" fill="#DCD6CE"/><rect x="38.0" y="80.0" width="20.0" height="4.6" rx="2.30" fill="#DCD6CE"/><circle cx="40.5" cy="93.5" r="3.2" fill="none" stroke="#B9B1A4" stroke-width="0.5"/><g><rect x="84.0" y="62.0" width="46.0" height="44.0" rx="8.0" fill="#FFFFFF" stroke="#B9B1A4" stroke-width="0.5"/></g><rect x="92.0" y="71.0" width="28.0" height="4.6" rx="2.30" fill="#DCD6CE"/><rect x="92.0" y="80.0" width="20.0" height="4.6" rx="2.30" fill="#DCD6CE"/><g transform="translate(91.00 89.00) scale(0.03516)" fill="#3E9077"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(74.00 78.00) scale(0.04688)" fill="#9B948A"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></g><rect x="56.0" y="116.0" width="48.0" height="4.6" rx="2.30" fill="#DCD6CE"/>
+  </g>
+<g><circle cx="80" cy="30" r="14" fill="#FFFFFF" stroke="#B9B1A4" stroke-width="0.5"/></g><g transform="translate(72.50 22.50) scale(0.05859)" fill="#35322D"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></g>
+</svg>
