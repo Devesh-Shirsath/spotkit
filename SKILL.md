@@ -1,9 +1,9 @@
 ---
-name: product-ui-illustrations
+name: spotkit
 description: Generate minimal, abstract, UI-inspired illustrations for software product features — as deterministic SVG. Use when asked for a feature illustration, product illustration, spot illustration, empty-state graphic, feature-card artwork, docs or developer-portal illustration, or a consistent illustration set/family for a product. Also use to turn a feature description or a product screenshot into an abstract UI illustration, to add a new illustration to an existing family, or to retheme an existing set.
 ---
 
-# Product UI Illustrations
+# Spotkit
 
 Turn a feature description into a quiet, abstract illustration that looks like a
 product interface reduced to its most recognizable primitives.

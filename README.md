@@ -1,4 +1,4 @@
-<h1 align="center">Product UI Illustrations</h1>
+<h1 align="center">Spotkit</h1>
 
 <p align="center">
   A Claude skill that turns a feature description into a clean, abstract product
@@ -41,8 +41,8 @@ A good one makes someone think *"I understand what this feature does."* Never
 ## Install
 
 ```bash
-git clone https://github.com/Devesh-Shirsath/product-ui-illustrations.git \
-  ~/.claude/skills/product-ui-illustrations
+git clone https://github.com/Devesh-Shirsath/spotkit.git \
+  ~/.claude/skills/spotkit
 ```
 
 Restart Claude Code and just ask. The skill picks itself up whenever you mention
