@@ -149,8 +149,18 @@ licenses content that overflows its right edge.
 Separately: **when the floating element covers only one side of the panel's top
 edge, answer it on the other side.** A chip floating over the top-left of an
 otherwise empty header leaves a visible hole. A short bar and a kebab at the
-right, with a rule beneath, closes it. This is the difference between a
-composition and an arrangement.
+right closes it. This is the difference between a composition and an
+arrangement.
+
+This applies to **every** layout with a one-sided float, not just the ones where
+it looks obviously wrong. Measure it: if the band between the float's far edge
+and the panel's far edge is more than about **25 units**, it is a dead zone and
+needs something in it.
+
+Equally, **a float with a large empty band beneath it is too small or too high.**
+If there is more than ~12 units of nothing between a medallion and the content it
+introduces, grow the medallion and push it down. Empty space is structural in
+this style, but only when it is doing something.
 
 ### Floating header card
 
@@ -210,6 +220,54 @@ Keep it barely separated from the canvas. If you notice it before you notice the
 panel, it is too strong.
 
 ---
+
+## Three defects that ship silently
+
+All three were found by people using the output, not by looking at it. They share
+a property: the eye skims past them at 160px and they only become obvious once
+someone stares at one illustration at full size. Check them by **arithmetic**.
+
+`build.py` provides guards that raise at build time rather than let these
+through — use them instead of trusting a coordinate.
+
+### 1 · A glyph between two elements must fit inside the gap
+
+An arrow between two cards, a plus between two panels, a divider between two
+tiles. If the glyph is wider than the gap it crosses the neighbours' strokes,
+and that reads as a rendering bug rather than a design choice.
+
+```python
+x = fits(left_card_right, right_card_left, glyph_size, 'flow arrow')
+```
+
+`fits()` returns the centred x and **raises** if the glyph needs more room than
+the gap has, with clearance of 2 units each side. A real failure:
+
+```
+flow arrow is 12 wide and needs 16.0 of room,
+but the gap 76..84 is only 8. Widen the gap or shrink the glyph.
+```
+
+The fix is nearly always to widen the gap, not shrink the glyph — a glyph small
+enough to squeeze into 8 units is too small to read.
+
+### 2 · A rail is capped by its first node
+
+A timeline rail that starts above its first dot leaves a 2-unit stub poking out
+of the top. Two units. Invisible in a contact sheet, obvious at full size, and it
+makes the whole thing look unfinished.
+
+```python
+b += rail(x, [56, 80, 104])      # starts at the first node's centre
+```
+
+The rail **may** run past the last node — that tail says "and more" and is the
+point of the fade. Only the top end is capped. Asymmetric on purpose.
+
+### 3 · Content must not touch a card's bottom edge
+
+See below. `padded(card_y, card_h, content_top, content_bottom)` raises on both
+overflow and lopsided padding.
 
 ## Padding inside a card
 

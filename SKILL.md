@@ -95,6 +95,9 @@ nothing in the method changes when one is added.
 - **Equal top and bottom padding inside every card**, bottom never zero. This
   fails silently more than anything else here — verify it by arithmetic.
 - **The panel sits above its backdrop**, and no two sheets share a top edge.
+- **Nothing overlaps what it sits between.** A glyph in a gap fits inside it
+  with clearance; a rail is capped by its first node. `build.py` has guards
+  (`fits`, `rail`, `padded`) that raise rather than ship these — use them.
 - **One icon family, one radius language, one shadow** across the entire set.
 - **Every card carries a hairline**, not just a shadow — at 160px there is no text
   to hold the hierarchy, so the surfaces have to, and a shadow alone does not

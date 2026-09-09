@@ -38,6 +38,10 @@ almost always removal.
 - [ ] At most one gradient, structural, on the base panel only.
 - [ ] No gloss, bevel, 3D, or glassmorphism.
 - [ ] Every card has a hairline, not just a shadow.
+- [ ] **Nothing placed in a gap crosses its neighbours' strokes.** Use `fits()`.
+- [ ] **No rail, connector or line protrudes past its first node.** Use `rail()`.
+- [ ] No dead band wider than ~25 units beside a one-sided float.
+- [ ] No empty band deeper than ~12 units under a medallion.
 - [ ] Outer ~10px empty except for shadow spill.
 
 ## Color

@@ -209,6 +209,55 @@ def medallion(uid, ic, cx=80, cy=None, r=None, lift=False):
             + icon(ic, cx - 7.5, cy - 7.5, 15))
 
 
+
+# ------------------------------------------------------------------ guards --
+# Three defect classes that shipped before anyone noticed them, now impossible:
+# a glyph overlapping the neighbours it sits between, a rail protruding past its
+# first node, and a card whose content touches its own bottom edge. Each raises
+# at build time rather than producing a subtly wrong illustration.
+
+CLEARANCE = 2.0          # minimum breathing room on each side of a gap glyph
+
+
+def fits(x0, x1, size, what='glyph'):
+    """Centre a glyph of `size` in the gap x0..x1 and return its x.
+
+    Raises if it would touch or cross either neighbour. An arrow between two
+    cards must sit *inside* the gap -- crossing their strokes reads as a
+    rendering bug, not a design choice.
+    """
+    room = x1 - x0
+    if size + 2 * CLEARANCE > room:
+        raise ValueError(
+            f'{what} is {size} wide and needs {size + 2 * CLEARANCE} of room, '
+            f'but the gap {x0}..{x1} is only {room}. Widen the gap or shrink the glyph.')
+    return x0 + (room - size) / 2
+
+
+def rail(x, ys, r=3.6, tail=22, accent_first=True):
+    """A vertical rail through a set of nodes.
+
+    Starts at the FIRST node's centre so the node caps it -- a rail that begins
+    above its first dot leaves a visible stub. It may run past the last node
+    (that tail says 'and more'), which is why only the top end is capped.
+    """
+    s = vrule(x, ys[0], ys[-1] + tail, 0.7)
+    for i, y in enumerate(ys):
+        s += dot(x, y, r, True, ACC if (accent_first and i == 0) else FILL)
+    return s
+
+
+def padded(card_y, card_h, top, bottom, what='card'):
+    """Assert a card's content has equal-ish padding and never touches the
+    bottom edge. Content is laid out downward, so the bottom is what fails."""
+    t, b = top - card_y, (card_y + card_h) - bottom
+    if b <= 0:
+        raise ValueError(f'{what}: content overflows the bottom by {-b:.1f}. Grow the card.')
+    if abs(t - b) > 4:
+        raise ValueError(f'{what}: padding is {t:.1f} top vs {b:.1f} bottom. Balance it.')
+    return True
+
+
 # =========================================================== L A Y O U T S ==
 # Each layout sizes its own panel to its own content and picks an edge
 # treatment. Only the language is shared.
@@ -369,23 +418,26 @@ def L11_timeline(uid, label, ic):
     """Narrow panel, narrow float. A full-width bar over a single column of
     events reads as a header bolted onto the wrong shape."""
     b = panel(uid, 28, 104, 8, back='offset')
-    b += vrule(44, 50, 126, 0.7)
-    for i, y in enumerate([56, 80, 104]):
-        b += dot(44, y, 3.6, True, ACC if i == 0 else FILL)
+    ys = [56, 80, 104]
+    b += rail(44, ys)
+    for y in ys:
         b += barpair(58, y - 7, 22, 50, 4.2, 5.2, 7.4)
+    b += bar(102, 22, 18, 4.6) + kebab(124, 24.5)   # answers the chip on the left
     chip = card(18, 14, 74, 22, 8, uid) + icon(ic, 27, 19, 12) + bar(44, 22.4, 34, 4.6)
     return uid, label, svg(uid, label, b, chip)
 
 
 def L12_split(uid, label, ic):
     b = panel(uid, 22, 116, 30, h=100, mode='contained', back='plate')
-    for x, done in ((30, False), (84, True)):
-        b += card(x, 62, 46, 44, 8, uid, lift=False)      # 62..106
-        b += bar(x + 8, 71, 28, 4.6) + bar(x + 8, 80, 20, 4.6)
+    cw, lx, rx = 44, 28, 88               # gap of 16 leaves the arrow room to breathe
+    for x, done in ((lx, False), (rx, True)):
+        b += card(x, 62, cw, 44, 8, uid, lift=False)
+        b += bar(x + 8, 71, 26, 4.6) + bar(x + 8, 80, 18, 4.6)
         b += (check(x + 7, 89) if done else dot(x + 10.5, 93.5, 3.2, False))
-    b += icon('arrow-right', 74, 78, 12, SOFT)
+        padded(62, 44, 71, 98, 'split card')
+    b += icon('arrow-right', fits(lx + cw, rx, 12, 'flow arrow'), 78, 12, SOFT)
     b += bar(56, 116, 48, 4.6)
-    return uid, label, svg(uid, label, b, medallion(uid, ic, cy=30))
+    return uid, label, svg(uid, label, b, medallion(uid, ic, cy=37, r=17))
 
 
 SET = [
