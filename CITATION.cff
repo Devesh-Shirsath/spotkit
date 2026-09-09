@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: Spotkit
+message: >-
+  If you use Spotkit or build on its illustration system, a credit is
+  appreciated.
+type: software
+authors:
+  - given-names: Devesh
+    family-names: Shirsath
+    website: https://deveshshirsath.com
+repository-code: https://github.com/Devesh-Shirsath/spotkit
+url: https://github.com/Devesh-Shirsath/spotkit
+abstract: >-
+  Spotkit is a Claude Code skill that turns a feature description into a
+  minimal, abstract product illustration, written as deterministic SVG rather
+  than generated as an image. It ships twelve layouts, a documented visual
+  language, and build-time guards so every illustration in a set belongs to the
+  same family.
+keywords:
+  - claude-code
+  - claude-skill
+  - product-illustration
+  - spot-illustration
+  - svg
+  - design-system
+  - empty-state
+  - design-automation
+license: MIT

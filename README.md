@@ -201,8 +201,8 @@ of them by hand.
 
 ## Author
 
-Built by **[Devesh Shirsath](https://deveshshirsath.com)**, a product designer
-working on developer tools and API documentation.
+Spotkit was built by **[Devesh Shirsath](https://deveshshirsath.com)**, a product
+designer working on developer tools and API documentation.
 
 [Portfolio](https://deveshshirsath.com) ·
 [LinkedIn](https://www.linkedin.com/in/devesh-shirsath-644625172/) ·
