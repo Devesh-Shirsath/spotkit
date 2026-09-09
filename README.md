@@ -1,8 +1,8 @@
 <h1 align="center">Spotkit</h1>
 
 <p align="center">
-  A Claude skill that turns a feature description into a clean, abstract product
-  illustration — as real SVG, not a picture of one.
+  A Claude Code skill that turns a feature description into a clean, abstract
+  product illustration — as real SVG, not a picture of one.
 </p>
 
 <p align="center">
@@ -195,8 +195,19 @@ Worth stating rather than having you discover:
 ## Who it's for
 
 Product and UX designers, frontend developers, SaaS founders, design system and
-docs teams — anyone who needs a coherent illustration family for a whole product
-and doesn't want to draw twenty of them by hand.
+docs teams — anyone who needs feature illustrations, empty-state graphics or a
+coherent illustration family for a whole product, and doesn't want to draw twenty
+of them by hand.
+
+## Author
+
+Built by **[Devesh Shirsath](https://deveshshirsath.com)**, a product designer
+working on developer tools and API documentation.
+
+[Portfolio](https://deveshshirsath.com) ·
+[LinkedIn](https://www.linkedin.com/in/devesh-shirsath-644625172/) ·
+[GitHub](https://github.com/Devesh-Shirsath) ·
+[Instagram](https://www.instagram.com/devesh.vs/)
 
 ## Credits
 
