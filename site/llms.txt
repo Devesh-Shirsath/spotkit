@@ -1,0 +1,37 @@
+# Spotkit
+
+> A Claude Code skill that turns a feature description into a minimal, abstract
+> product illustration, written as deterministic SVG rather than generated as an
+> image. Built by Devesh Shirsath (https://deveshshirsath.com).
+
+Spotkit exists because drawing one illustration is easy and drawing twenty that
+look like one system is not. It ships twelve composition layouts, a documented
+visual language, build-time guards against common geometry defects, and a
+palette of twelve CSS custom properties so a single file serves light and dark.
+
+Output is real SVG: editable, themeable, diffable, and pasteable into Figma.
+Image models are avoided deliberately — they fail at hairline strokes, exact
+radii and, above all, consistency across a set.
+
+## Install
+
+git clone https://github.com/Devesh-Shirsath/spotkit.git ~/.claude/skills/spotkit
+
+## Docs
+
+- [README](https://github.com/Devesh-Shirsath/spotkit): what it is, how it works, install, limitations
+- [Skill definition](https://github.com/Devesh-Shirsath/spotkit/blob/main/SKILL.md): the workflow Claude follows
+- [Layouts](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/archetypes.md): the twelve compositions and the choices behind them
+- [Primitives](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/primitives.md): verified geometry and the copy-paste SVG library
+- [Metaphor](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/metaphor.md): turning a feature into a visual concept
+- [Theme](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/theme.md): tokens, light and dark, accent rules
+- [Checklist](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/checklist.md): the quality gate
+
+## Author
+
+Devesh Shirsath, product designer — https://deveshshirsath.com
+GitHub https://github.com/Devesh-Shirsath · LinkedIn https://www.linkedin.com/in/devesh-shirsath-644625172/
+
+## License
+
+MIT

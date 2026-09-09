@@ -11,8 +11,11 @@ Writes examples/flat/<theme>/*.svg and a contact sheet per theme.
 """
 import os, re, build
 
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
 def theme_vars(name):
-    css = open('assets/illustration.css').read()
+    css = open(os.path.join(ROOT, 'assets', 'illustration.css')).read()
     marker = ':root,\n[data-theme="light"] {' if name == 'light' else '[data-theme="dark"] {'
     i = css.index(marker); j = css.index('}', i)
     return dict(re.findall(r'(--il-[\w-]+):\s*([^;]+);', css[i:j]))
@@ -27,28 +30,29 @@ def suffix_ids(doc, tag):
         doc = doc.replace(f'"{base}-', f'"{base}-{tag}-').replace(f'(#{base}-', f'(#{base}-{tag}-')
     return doc
 
-items = [f() for f in build.SET]
-
-for theme in ('light', 'dark'):
-    v = theme_vars(theme)
-    out = f'examples/flat/{theme}'
-    os.makedirs(out, exist_ok=True)
-    for uid, label, doc in items:
-        open(f'{out}/{uid}.svg', 'w').write(flatten(doc, v))
-
-    # contact sheet: 6 x 2 grid of 160px cells, 20px gutter, on the theme canvas
-    cell, gap, pad = 160, 18, 22
-    cols, rows = 6, 2
-    W = pad * 2 + cols * cell + (cols - 1) * gap
-    H = pad * 2 + rows * cell + (rows - 1) * gap
-    body = f'<rect width="{W}" height="{H}" fill="{v["--il-canvas"]}"/>'
-    for i, (uid, label, doc) in enumerate(items):
-        x = pad + (i % cols) * (cell + gap)
-        y = pad + (i // cols) * (cell + gap)
-        inner = flatten(suffix_ids(doc, f's{i}'), v)
-        inner = inner[inner.index('>', inner.index('<svg')) + 1: inner.rindex('</svg>')]
-        body += f'<svg x="{x}" y="{y}" width="{cell}" height="{cell}" viewBox="0 0 160 160">{inner}</svg>'
-    open(f'examples/contact-{theme}.svg', 'w').write(
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">{body}</svg>')
-
-print('flat exports + contact sheets written')
+if __name__ == "__main__":
+    items = [f() for f in build.SET]
+    
+    for theme in ('light', 'dark'):
+        v = theme_vars(theme)
+        out = f'examples/flat/{theme}'
+        os.makedirs(out, exist_ok=True)
+        for uid, label, doc in items:
+            open(f'{out}/{uid}.svg', 'w').write(flatten(doc, v))
+    
+        # contact sheet: 6 x 2 grid of 160px cells, 20px gutter, on the theme canvas
+        cell, gap, pad = 160, 18, 22
+        cols, rows = 6, 2
+        W = pad * 2 + cols * cell + (cols - 1) * gap
+        H = pad * 2 + rows * cell + (rows - 1) * gap
+        body = f'<rect width="{W}" height="{H}" fill="{v["--il-canvas"]}"/>'
+        for i, (uid, label, doc) in enumerate(items):
+            x = pad + (i % cols) * (cell + gap)
+            y = pad + (i // cols) * (cell + gap)
+            inner = flatten(suffix_ids(doc, f's{i}'), v)
+            inner = inner[inner.index('>', inner.index('<svg')) + 1: inner.rindex('</svg>')]
+            body += f'<svg x="{x}" y="{y}" width="{cell}" height="{cell}" viewBox="0 0 160 160">{inner}</svg>'
+        open(f'examples/contact-{theme}.svg', 'w').write(
+            f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">{body}</svg>')
+    
+    print('flat exports + contact sheets written')
