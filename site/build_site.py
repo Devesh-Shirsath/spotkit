@@ -21,13 +21,50 @@ items = [(title, sub, fn()) for title, sub, fn in illos.PROMPTS]
 tokens = open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'illustration.css')).read()
 tokens = tokens[tokens.index(':root,'):]
 
-panes = ''.join(
-    f'<div class="illo" data-i="{i}"{"" if i == 0 else " aria-hidden=true"}>{doc}</div>'
-    for i, (t, s, (uid, label, doc)) in enumerate(items))
+# the marquee runs two copies of the set so the loop is seamless
+def _card(i, t, doc, dup):
+    return (f'<div class="card" data-i="{i}" data-t="{t}"'
+            f'{" aria-hidden=true" if dup else ""}>'
+            + doc.replace('-' + f'c{i}' + '"', '"') + '</div>')
 
-chips = ''.join(
-    f'<button class="chip{" on" if i == 0 else ""}" data-i="{i}" type="button">{t}</button>'
-    for i, (t, s, _) in enumerate(items))
+cards = ''
+for pass_ in (0, 1):
+    for i, (t, sub, (uid, label, doc)) in enumerate(items):
+        tag = f'{uid}-m{pass_}'
+        d = doc.replace('-' + uid + '"', '-' + tag + '"').replace('-' + uid + ')', '-' + tag + ')')
+        cards += (f'<div class="card" data-i="{i}"'
+                  f'{" aria-hidden=true" if pass_ else ""}>{d}</div>')
+
+# one illustration per payoff claim, borrowed from the main set
+core_by_uid = {u: (l, d) for u, l, d in [fn() for fn in core.SET]}
+def _mini(uid, tag):
+    l, d = core_by_uid[uid]
+    return d.replace('-' + uid + '"', '-' + tag + '"').replace('-' + uid + ')', '-' + tag + ')')
+
+GETS = [
+    ('Real SVG',
+     'Edit it, paste it into Figma, review it in a pull request. Not a PNG you have to ask someone to change.',
+     _mini('connectors', 'g1')),
+    ('Light and dark',
+     'Twelve CSS variables. One file serves both themes, and retheming the whole set is a three-value edit.',
+     '<div class="duo"><div data-theme="light">' + _mini('categories', 'g2a') +
+     '</div><div data-theme="dark">' + _mini('categories', 'g2b') + '</div></div>'),
+    ('Distinct, not filler',
+     'Twelve layouts picked by meaning, with a budget on reuse, so a set never reads as one drawing repeated.',
+     _mini('contributors', 'g3')),
+    ('Free',
+     'MIT licensed. No signup, no API key, no per-image cost. It runs on the Claude you already pay for.',
+     _mini('gateway', 'g4')),
+]
+gets = ''.join(
+    f'<div class="get"><h3>{h}</h3><p>{p}</p><div class="get-illo">{ill}</div></div>'
+    for h, p, ill in GETS)
+
+LINKS = [('globe-simple', 'Portfolio', AUTHOR_URL), ('linkedin-logo', 'LinkedIn', LINKEDIN),
+         ('github-logo', 'GitHub', GITHUB), ('instagram-logo', 'Instagram', INSTAGRAM)]
+links = ''.join(
+    f'<a href="{u}">{core.icon(ic, 0, 0, 16, "currentColor").replace("<g ", chr(60) + "svg viewBox=" + chr(34) + "0 0 16 16" + chr(34) + " width=" + chr(34) + "16" + chr(34) + " height=" + chr(34) + "16" + chr(34) + " aria-hidden=" + chr(34) + "true" + chr(34) + "><g ").replace("</g>", "</g></svg>")}<span>{n}</span></a>'
+    for ic, n, u in LINKS)
 
 sheet = ''.join(
     '<div class="cell">' +
@@ -117,14 +154,14 @@ nav {{ display:flex; align-items:center; justify-content:space-between; padding:
 .ghost:hover {{ color:var(--ink); border-color:var(--ink-soft); }}
 
 /* ---------- hero ---------- */
-header {{ padding: 90px 0 20px; max-width: 730px; }}
+header {{ padding: 96px 0 0; max-width: 780px; margin: 0 auto; text-align: center; }}
 h1 {{
-  font-size: clamp(31px, 4.3vw, 45px); line-height: 1.12; letter-spacing: -.026em;
-  font-weight: 620; margin: 0 0 22px; text-wrap: balance;
+  font-size: clamp(31px, 4.3vw, 45px); line-height: 1.14; letter-spacing: -.026em;
+  font-weight: 620; margin: 0 0 20px; text-wrap: balance;
 }}
 h1 em {{ font-style: normal; color: var(--ink-soft); }}
-.lede {{ font-size: 17.5px; color: var(--ink-soft); margin: 0 0 30px; max-width: 540px; }}
-.cta-row {{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }}
+.lede {{ font-size: 17px; color: var(--ink-soft); margin: 0 auto 28px; max-width: 560px; }}
+.cta-row {{ display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }}
 .cta {{
   display:inline-flex; align-items:center; gap:9px; background: var(--ink); color: var(--page);
   text-decoration:none; padding: 12px 20px; border-radius: 999px; font-size:14.5px; font-weight:560;
@@ -133,44 +170,36 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .cta:hover {{ transform: translateY(-1px); opacity:.9; }}
 .meta {{ font-size:13.5px; color:var(--ink-soft); }}
 
-/* ---------- demo ---------- */
-.demo {{ margin: 54px 0 0; }}
-.stage {{
-  display:grid; grid-template-columns: 1fr 390px; gap: 0;
-  border:1px solid var(--line); border-radius: var(--radius); overflow:hidden;
-  background: var(--card);
+/* ---------- moving reel ---------- */
+.reel {{ margin: 54px 0 0; overflow: hidden; }}
+.track {{
+  display:flex; gap: 26px; width: max-content; padding: 8px 0;
+  animation: drift 64s linear infinite;
 }}
-.side {{ padding: 34px 36px; display:flex; flex-direction:column; justify-content:center; min-height: 320px; }}
-.side + .side {{ border-left:1px solid var(--line); background: var(--il-panel); padding: 26px; }}
-.tag {{
-  font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft);
-  margin:0 0 14px; font-weight:600;
+.track:hover {{ animation-play-state: paused; }}
+@keyframes drift {{ from {{ transform: translateX(0); }} to {{ transform: translateX(-50%); }} }}
+.card {{
+  width: 186px; flex: none; border-radius: 13px; padding: 8px;
+  background: var(--il-panel); border: 1px solid var(--line);
+  opacity: .5; transform: scale(.92);
+  transition: opacity .5s ease, transform .5s ease;
 }}
-.typed {{ font-size: 24px; line-height:1.4; letter-spacing:-.012em; margin:0; min-height: 2.7em; }}
-.typed .sub {{ display:block; font-size:15px; color:var(--ink-soft); margin-top:7px; letter-spacing:0; }}
-.caret {{ display:inline-block; width:2px; height:1em; background:var(--il-accent); vertical-align:-2px; margin-left:2px; animation:blink 1s steps(1) infinite; }}
-@keyframes blink {{ 50% {{ opacity:0; }} }}
-.illo {{ position:absolute; inset:0; display:grid; place-items:center; opacity:0; transition:opacity .45s ease; pointer-events:none; }}
-.illo.on {{ opacity:1; }}
-.illo svg {{ width:100%; height:auto; max-width:300px; display:block; }}
-.frame {{ position:relative; width:100%; aspect-ratio:1/1; }}
-
-.chips {{ display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }}
-.chip {{
-  appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
-  border-radius:999px; padding:7px 14px; font:inherit; font-size:13px; cursor:pointer;
-  transition: all .2s ease;
+.card.active {{ opacity: 1; transform: scale(1.08); border-color: var(--ink-soft); }}
+.card svg {{ width:100%; height:auto; display:block; }}
+.prompt {{
+  text-align:center; margin: 26px 0 0; font-size: 19px; letter-spacing:-.012em;
+  color: var(--ink); min-height: 1.6em;
 }}
-.chip:hover {{ color:var(--ink); border-color:var(--ink-soft); }}
-.chip.on {{ background:var(--ink); border-color:var(--ink); color:var(--page); }}
+.prompt span::before {{ content:'“'; color:var(--ink-soft); }}
+.prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
 
 /* ---------- argument ---------- */
 .eyebrow {{
   font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
   font-weight:640; margin:0 0 26px; padding-top:22px; border-top:1px solid var(--line);
 }}
-.why {{ margin: 92px 0 0; }}
-.why-grid {{ display:grid; grid-template-columns: 1fr 1fr; gap:56px; align-items:start; }}
+.why {{ margin: 96px 0 0; }}
+.why-grid {{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap:52px; align-items:start; }}
 .why-grid h2 {{
   font-size: clamp(22px, 2.4vw, 28px); line-height:1.2; letter-spacing:-.02em;
   font-weight:620; margin:0; text-wrap: balance;
@@ -178,17 +207,22 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .why-copy p {{ margin:0 0 15px; color:var(--ink-soft); font-size:15.5px; }}
 .why-copy p:last-child {{ margin:0; }}
 .why-copy em {{ font-style:normal; color:var(--ink); }}
-.sheet {{
-  display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:46px 0 0;
-  padding:20px 16px; border:1px solid var(--line); border-radius:var(--radius);
-  background:var(--il-panel);
+.sheets {{ display:grid; gap:14px; }}
+.sheets img {{
+  width:100%; height:auto; display:block; border-radius:11px; border:1px solid var(--line);
 }}
-.cell svg {{ width:100%; height:auto; display:block; }}
 .sheet-note {{ margin:14px 0 0; font-size:13.5px; color:var(--ink-soft); }}
 
 /* ---------- payoff ---------- */
 .gets {{ margin: 92px 0 0; }}
-.get-grid {{ display:grid; grid-template-columns:repeat(4,1fr); gap:34px; }}
+.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap:40px 46px; }}
+.get-illo {{
+  margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:12px;
+  background:var(--il-panel);
+}}
+.get-illo svg {{ width:100%; height:auto; display:block; max-width:158px; margin:0 auto; }}
+.duo {{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }}
+.duo > div {{ border-radius:8px; padding:6px; background:var(--il-canvas); }}
 .get h3 {{ font-size:16px; font-weight:620; letter-spacing:-.012em; margin:0 0 8px; }}
 .get p {{ margin:0; color:var(--ink-soft); font-size:14.5px; }}
 
@@ -214,26 +248,26 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .foot p {{ color:var(--ink-soft); font-size:14.5px; margin:0 0 12px; max-width:520px; }}
 .foot a {{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }}
 .foot a:hover {{ border-color:var(--ink-soft); }}
-.links {{ display:flex; gap:18px; flex-wrap:wrap; font-size:14px; }}
-.links a {{ color:var(--ink-soft); border:0; }}
+.links {{ display:flex; gap:20px; flex-wrap:wrap; font-size:14px; }}
+.links a {{ color:var(--ink-soft); border:0; display:inline-flex; align-items:center; gap:7px; }}
+.links a svg {{ flex:none; opacity:.85; }}
 .links a:hover {{ color:var(--ink); }}
 .fine {{ margin-top:22px; font-size:12.5px; color:var(--ink-soft); opacity:.8; }}
 
 @media (max-width: 900px) {{
-  .why-grid {{ grid-template-columns:1fr; gap:22px; }}
-  .get-grid {{ grid-template-columns:repeat(2,1fr); gap:28px; }}
-  .sheet {{ grid-template-columns:repeat(4,1fr); }}
+  .why-grid {{ grid-template-columns:1fr; gap:24px; }}
 }}
-@media (max-width: 760px) {{
-  header {{ padding-top:58px; }}
-  .sheet {{ grid-template-columns:repeat(3,1fr); gap:10px; padding:18px 14px; }}
-  .get-grid {{ grid-template-columns:1fr; gap:24px; }}
-  .stage {{ grid-template-columns: 1fr; }}
-  .side + .side {{ border-left:0; border-top:1px solid var(--line); }}
-  .side {{ min-height:auto; }}
+@media (max-width: 700px) {{
+  header {{ padding-top:60px; }}
+  .get-grid {{ grid-template-columns:1fr; gap:34px; }}
+  .card {{ width:150px; }}
+  .prompt {{ font-size:16.5px; }}
 }}
 @media (prefers-reduced-motion: reduce) {{
   *, *::before, *::after {{ animation-duration:.001ms !important; transition-duration:.001ms !important; }}
+  .track {{ animation:none; transform:none; }}
+  .reel {{ overflow-x:auto; }}
+  .card {{ opacity:1; transform:none; }}
 }}
 </style>
 </head>
@@ -252,72 +286,43 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   <h1>Every feature wants an illustration.<br><em>Drawing twenty isn't your job.</em></h1>
   <p class="lede">Spotkit is an illustration system that runs inside Claude Code.
   Describe a feature in a sentence and get a clean, distinct SVG that belongs with
-  everything else you've made — light and dark from one file, yours to edit, free.</p>
+  everything else you've made.</p>
   <div class="cta-row">
     <a class="cta" href="{REPO}">Get it on GitHub →</a>
     <span class="meta">MIT · runs on the Claude you already have</span>
   </div>
 </header>
+</div>
 
-<section class="demo">
-  <div class="stage">
-    <div class="side">
-      <p class="tag">You write</p>
-      <p class="typed" id="typed"><span id="tt"></span><span class="caret"></span><span class="sub" id="ts"></span></p>
-      <div class="chips" id="chips">{chips}</div>
-    </div>
-    <div class="side">
-      <p class="tag">Spotkit draws</p>
-      <div class="frame">{panes}</div>
-    </div>
-  </div>
+<section class="reel" aria-label="Example illustrations">
+  <div class="track" id="track">{cards}</div>
+  <p class="prompt" id="prompt"><span id="ptxt"></span></p>
 </section>
+
+<div class="wrap">
 
 <section class="why">
   <p class="eyebrow">The hard part</p>
   <div class="why-grid">
     <h2>Drawing one is easy.<br>Drawing twenty that match is the job.</h2>
     <div class="why-copy">
-      <p>You draw the first three and they look good. By the tenth the corner
-      radius has drifted, the stroke weight is slightly off, and the set reads as
-      assembled rather than designed. That is the part that quietly fails, and it
-      is why most products end up with three good illustrations and stock art
-      everywhere else.</p>
-      <p>Spotkit is a system rather than a generator. Twelve layouts chosen by
-      what a feature <em>means</em>, one stroke width and one colour across every
-      file, and guards that refuse the geometry mistakes you only notice once
-      someone sees a single illustration at full size.</p>
+      <p>By the tenth, the corner radius has drifted and the set reads as
+      assembled rather than designed.</p>
+      <p>Spotkit is a system, not a generator — twelve layouts chosen by what a
+      feature <em>means</em>, one stroke width and one colour throughout.</p>
     </div>
   </div>
-  <div class="sheet">{sheet}</div>
-  <p class="sheet-note">Twelve features, twelve different layouts, one set of rules.
-  Same twelve files in both themes.</p>
+  <div class="sheets">
+    <img src="sheet-light.svg" alt="Twelve Spotkit illustrations in light mode" loading="lazy" width="1116" height="376">
+    <img src="sheet-dark.svg" alt="The same twelve illustrations in dark mode" loading="lazy" width="1116" height="376">
+  </div>
+  <p class="sheet-note">Twelve features, twelve layouts, one set of rules — and the
+  same twelve files in both themes.</p>
 </section>
 
 <section class="gets">
   <p class="eyebrow">What you get</p>
-  <div class="get-grid">
-    <div class="get">
-      <h3>Real SVG</h3>
-      <p>Edit it, paste it into Figma, review it in a pull request. Not a PNG you
-      have to ask someone to change.</p>
-    </div>
-    <div class="get">
-      <h3>Light and dark</h3>
-      <p>Twelve CSS variables. One file serves both themes, and retheming the
-      whole set is a three-value edit.</p>
-    </div>
-    <div class="get">
-      <h3>Distinct, not filler</h3>
-      <p>Twelve layouts picked by meaning, with a budget on reuse, so a set never
-      reads as one drawing repeated.</p>
-    </div>
-    <div class="get">
-      <h3>Free</h3>
-      <p>MIT licensed. No signup, no API key, no per-image cost. It runs on the
-      Claude you already pay for.</p>
-    </div>
-  </div>
+  <div class="get-grid">{gets}</div>
 </section>
 
 <section class="install">
@@ -334,12 +339,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   <p class="eyebrow">Who made this</p>
   <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product designer
   working on developer tools and API documentation.</p>
-  <div class="links">
-    <a href="{AUTHOR_URL}">Portfolio</a>
-    <a href="{LINKEDIN}">LinkedIn</a>
-    <a href="{GITHUB}">GitHub</a>
-    <a href="{INSTAGRAM}">Instagram</a>
-  </div>
+  <div class="links">{links}</div>
   <p class="fine">MIT licensed. Icons by Phosphor.</p>
 </footer>
 
@@ -349,35 +349,31 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   var P = [
       {prompts_js}
   ];
-  var tt = document.getElementById('tt'), ts = document.getElementById('ts');
-  var illos = [].slice.call(document.querySelectorAll('.illo'));
-  var chips = [].slice.call(document.querySelectorAll('.chip'));
-  var i = -1, timer = null, typer = null, auto = true;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function show(n) {{
-    clearTimeout(timer); clearInterval(typer);
-    i = n;
-    illos.forEach(function (el, k) {{
-      el.classList.toggle('on', k === n);
-      el.setAttribute('aria-hidden', k === n ? 'false' : 'true');
-    }});
-    chips.forEach(function (c, k) {{ c.classList.toggle('on', k === n); }});
-    ts.textContent = '';
-    var full = P[n].t, j = 0;
-    if (reduce) {{ tt.textContent = full; ts.textContent = P[n].s; queue(); return; }}
-    tt.textContent = '';
-    typer = setInterval(function () {{
-      tt.textContent = full.slice(0, ++j);
-      if (j >= full.length) {{ clearInterval(typer); ts.textContent = P[n].s; queue(); }}
-    }}, 42);
+  // The caption follows whichever card is nearest the middle of the screen,
+  // rather than a timer — so it can never drift out of step with the marquee.
+  var track  = document.getElementById('track');
+  var ptxt   = document.getElementById('ptxt');
+  var cards  = [].slice.call(track.querySelectorAll('.card'));
+  var last   = -1, queued = false;
+
+  function sync() {{
+    queued = false;
+    var mid = innerWidth / 2, best = null, bestD = Infinity;
+    for (var i = 0; i < cards.length; i++) {{
+      var r = cards[i].getBoundingClientRect();
+      if (r.right < -200 || r.left > innerWidth + 200) continue;
+      var d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestD) {{ bestD = d; best = cards[i]; }}
+    }}
+    if (!best) return;
+    cards.forEach(function (c) {{ c.classList.toggle('active', c === best); }});
+    var n = +best.dataset.i;
+    if (n !== last) {{ last = n; ptxt.textContent = P[n].t + ' — ' + P[n].s; }}
   }}
-  function queue() {{ if (auto) timer = setTimeout(function () {{ show((i + 1) % P.length); }}, 3200); }}
-
-  chips.forEach(function (c) {{
-    c.addEventListener('click', function () {{ auto = false; show(+c.dataset.i); }});
-  }});
-  show(0);
+  function loop() {{ if (!queued) {{ queued = true; requestAnimationFrame(sync); }} requestAnimationFrame(loop); }}
+  requestAnimationFrame(loop);
+  addEventListener('resize', sync);
 
   // theme
   var btn = document.getElementById('theme');

@@ -128,14 +128,14 @@ nav { display:flex; align-items:center; justify-content:space-between; padding:2
 .ghost:hover { color:var(--ink); border-color:var(--ink-soft); }
 
 /* ---------- hero ---------- */
-header { padding: 90px 0 20px; max-width: 730px; }
+header { padding: 96px 0 0; max-width: 780px; margin: 0 auto; text-align: center; }
 h1 {
-  font-size: clamp(31px, 4.3vw, 45px); line-height: 1.12; letter-spacing: -.026em;
-  font-weight: 620; margin: 0 0 22px; text-wrap: balance;
+  font-size: clamp(31px, 4.3vw, 45px); line-height: 1.14; letter-spacing: -.026em;
+  font-weight: 620; margin: 0 0 20px; text-wrap: balance;
 }
 h1 em { font-style: normal; color: var(--ink-soft); }
-.lede { font-size: 17.5px; color: var(--ink-soft); margin: 0 0 30px; max-width: 540px; }
-.cta-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.lede { font-size: 17px; color: var(--ink-soft); margin: 0 auto 28px; max-width: 560px; }
+.cta-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
 .cta {
   display:inline-flex; align-items:center; gap:9px; background: var(--ink); color: var(--page);
   text-decoration:none; padding: 12px 20px; border-radius: 999px; font-size:14.5px; font-weight:560;
@@ -144,44 +144,36 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .cta:hover { transform: translateY(-1px); opacity:.9; }
 .meta { font-size:13.5px; color:var(--ink-soft); }
 
-/* ---------- demo ---------- */
-.demo { margin: 54px 0 0; }
-.stage {
-  display:grid; grid-template-columns: 1fr 390px; gap: 0;
-  border:1px solid var(--line); border-radius: var(--radius); overflow:hidden;
-  background: var(--card);
+/* ---------- moving reel ---------- */
+.reel { margin: 54px 0 0; overflow: hidden; }
+.track {
+  display:flex; gap: 26px; width: max-content; padding: 8px 0;
+  animation: drift 64s linear infinite;
 }
-.side { padding: 34px 36px; display:flex; flex-direction:column; justify-content:center; min-height: 320px; }
-.side + .side { border-left:1px solid var(--line); background: var(--il-panel); padding: 26px; }
-.tag {
-  font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft);
-  margin:0 0 14px; font-weight:600;
+.track:hover { animation-play-state: paused; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.card {
+  width: 186px; flex: none; border-radius: 13px; padding: 8px;
+  background: var(--il-panel); border: 1px solid var(--line);
+  opacity: .5; transform: scale(.92);
+  transition: opacity .5s ease, transform .5s ease;
 }
-.typed { font-size: 24px; line-height:1.4; letter-spacing:-.012em; margin:0; min-height: 2.7em; }
-.typed .sub { display:block; font-size:15px; color:var(--ink-soft); margin-top:7px; letter-spacing:0; }
-.caret { display:inline-block; width:2px; height:1em; background:var(--il-accent); vertical-align:-2px; margin-left:2px; animation:blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity:0; } }
-.illo { position:absolute; inset:0; display:grid; place-items:center; opacity:0; transition:opacity .45s ease; pointer-events:none; }
-.illo.on { opacity:1; }
-.illo svg { width:100%; height:auto; max-width:300px; display:block; }
-.frame { position:relative; width:100%; aspect-ratio:1/1; }
-
-.chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
-.chip {
-  appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
-  border-radius:999px; padding:7px 14px; font:inherit; font-size:13px; cursor:pointer;
-  transition: all .2s ease;
+.card.active { opacity: 1; transform: scale(1.08); border-color: var(--ink-soft); }
+.card svg { width:100%; height:auto; display:block; }
+.prompt {
+  text-align:center; margin: 26px 0 0; font-size: 19px; letter-spacing:-.012em;
+  color: var(--ink); min-height: 1.6em;
 }
-.chip:hover { color:var(--ink); border-color:var(--ink-soft); }
-.chip.on { background:var(--ink); border-color:var(--ink); color:var(--page); }
+.prompt span::before { content:'“'; color:var(--ink-soft); }
+.prompt span::after  { content:'”'; color:var(--ink-soft); }
 
 /* ---------- argument ---------- */
 .eyebrow {
   font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
   font-weight:640; margin:0 0 26px; padding-top:22px; border-top:1px solid var(--line);
 }
-.why { margin: 92px 0 0; }
-.why-grid { display:grid; grid-template-columns: 1fr 1fr; gap:56px; align-items:start; }
+.why { margin: 96px 0 0; }
+.why-grid { display:grid; grid-template-columns: 0.85fr 1.15fr; gap:52px; align-items:start; }
 .why-grid h2 {
   font-size: clamp(22px, 2.4vw, 28px); line-height:1.2; letter-spacing:-.02em;
   font-weight:620; margin:0; text-wrap: balance;
@@ -189,17 +181,22 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .why-copy p { margin:0 0 15px; color:var(--ink-soft); font-size:15.5px; }
 .why-copy p:last-child { margin:0; }
 .why-copy em { font-style:normal; color:var(--ink); }
-.sheet {
-  display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:46px 0 0;
-  padding:20px 16px; border:1px solid var(--line); border-radius:var(--radius);
-  background:var(--il-panel);
+.sheets { display:grid; gap:14px; }
+.sheets img {
+  width:100%; height:auto; display:block; border-radius:11px; border:1px solid var(--line);
 }
-.cell svg { width:100%; height:auto; display:block; }
 .sheet-note { margin:14px 0 0; font-size:13.5px; color:var(--ink-soft); }
 
 /* ---------- payoff ---------- */
 .gets { margin: 92px 0 0; }
-.get-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:34px; }
+.get-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:40px 46px; }
+.get-illo {
+  margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:12px;
+  background:var(--il-panel);
+}
+.get-illo svg { width:100%; height:auto; display:block; max-width:158px; margin:0 auto; }
+.duo { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.duo > div { border-radius:8px; padding:6px; background:var(--il-canvas); }
 .get h3 { font-size:16px; font-weight:620; letter-spacing:-.012em; margin:0 0 8px; }
 .get p { margin:0; color:var(--ink-soft); font-size:14.5px; }
 
@@ -225,26 +222,26 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .foot p { color:var(--ink-soft); font-size:14.5px; margin:0 0 12px; max-width:520px; }
 .foot a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
 .foot a:hover { border-color:var(--ink-soft); }
-.links { display:flex; gap:18px; flex-wrap:wrap; font-size:14px; }
-.links a { color:var(--ink-soft); border:0; }
+.links { display:flex; gap:20px; flex-wrap:wrap; font-size:14px; }
+.links a { color:var(--ink-soft); border:0; display:inline-flex; align-items:center; gap:7px; }
+.links a svg { flex:none; opacity:.85; }
 .links a:hover { color:var(--ink); }
 .fine { margin-top:22px; font-size:12.5px; color:var(--ink-soft); opacity:.8; }
 
 @media (max-width: 900px) {
-  .why-grid { grid-template-columns:1fr; gap:22px; }
-  .get-grid { grid-template-columns:repeat(2,1fr); gap:28px; }
-  .sheet { grid-template-columns:repeat(4,1fr); }
+  .why-grid { grid-template-columns:1fr; gap:24px; }
 }
-@media (max-width: 760px) {
-  header { padding-top:58px; }
-  .sheet { grid-template-columns:repeat(3,1fr); gap:10px; padding:18px 14px; }
-  .get-grid { grid-template-columns:1fr; gap:24px; }
-  .stage { grid-template-columns: 1fr; }
-  .side + .side { border-left:0; border-top:1px solid var(--line); }
-  .side { min-height:auto; }
+@media (max-width: 700px) {
+  header { padding-top:60px; }
+  .get-grid { grid-template-columns:1fr; gap:34px; }
+  .card { width:150px; }
+  .prompt { font-size:16.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  .track { animation:none; transform:none; }
+  .reel { overflow-x:auto; }
+  .card { opacity:1; transform:none; }
 }
 </style>
 </head>
@@ -263,504 +260,451 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   <h1>Every feature wants an illustration.<br><em>Drawing twenty isn't your job.</em></h1>
   <p class="lede">Spotkit is an illustration system that runs inside Claude Code.
   Describe a feature in a sentence and get a clean, distinct SVG that belongs with
-  everything else you've made — light and dark from one file, yours to edit, free.</p>
+  everything else you've made.</p>
   <div class="cta-row">
     <a class="cta" href="https://github.com/Devesh-Shirsath/spotkit">Get it on GitHub →</a>
     <span class="meta">MIT · runs on the Claude you already have</span>
   </div>
 </header>
+</div>
 
-<section class="demo">
-  <div class="stage">
-    <div class="side">
-      <p class="tag">You write</p>
-      <p class="typed" id="typed"><span id="tt"></span><span class="caret"></span><span class="sub" id="ts"></span></p>
-      <div class="chips" id="chips"><button class="chip on" data-i="0" type="button">Out for delivery</button><button class="chip" data-i="1" type="button">Putaway to bins</button><button class="chip" data-i="2" type="button">Invoices</button><button class="chip" data-i="3" type="button">Payouts</button><button class="chip" data-i="4" type="button">Ticket routing</button><button class="chip" data-i="5" type="button">Product variants</button></div>
-    </div>
-    <div class="side">
-      <p class="tag">Spotkit draws</p>
-      <div class="frame"><div class="illo" data-i="0"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Out for delivery" class="il">
+<section class="reel" aria-label="Example illustrations">
+  <div class="track" id="track"><div class="card" data-i="0"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Out for delivery" class="il">
   <defs>
-    <linearGradient id="fadeG-delivery" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-delivery-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-delivery"><rect width="160" height="160" fill="url(#fadeG-delivery)"/></mask>
-    <linearGradient id="panelG-delivery" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-delivery-m0"><rect width="160" height="160" fill="url(#fadeG-delivery-m0)"/></mask>
+    <linearGradient id="panelG-delivery-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-delivery" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-delivery-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-delivery" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-delivery-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-delivery)">
-<rect x="36" y="16" width="104" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M28 18a10 10 0 0 1 10 -10h84a10 10 0 0 1 10 10V160H28z" fill="url(#panelG-delivery)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="44" y="56" width="0.5" height="64" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="44.0" cy="56.0" r="3.6" fill="var(--il-accent, #3E9077)"/><circle cx="44.0" cy="78.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><circle cx="44.0" cy="100.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="49.0" width="26.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="56.6" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="71.0" width="20.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="78.6" width="44.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="93.0" width="23.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="100.6" width="47.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="102.0" y="22.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="20.9" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="24.5" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="28.1" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
+  <g mask="url(#fade-delivery-m0)">
+<rect x="36" y="16" width="104" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M28 18a10 10 0 0 1 10 -10h84a10 10 0 0 1 10 10V160H28z" fill="url(#panelG-delivery-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="44" y="56" width="0.5" height="64" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="44.0" cy="56.0" r="3.6" fill="var(--il-accent, #3E9077)"/><circle cx="44.0" cy="78.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><circle cx="44.0" cy="100.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="49.0" width="26.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="56.6" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="71.0" width="20.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="78.6" width="44.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="93.0" width="23.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="100.6" width="47.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="102.0" y="22.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="20.9" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="24.5" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="28.1" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
   </g>
-<g filter="url(#lift-delivery)"><rect x="18.0" y="14.0" width="74.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(27.00 19.00) scale(0.05078)" fill="var(--il-stroke, #35322D)"><path d="M255.42,117l-14-35A15.93,15.93,0,0,0,226.58,72H192V64a8,8,0,0,0-8-8H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,255.42,117ZM192,88h34.58l9.6,24H192ZM32,72H176v64H32ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm81-24H111a32,32,0,0,0-62,0H32V152H176v12.31A32.11,32.11,0,0,0,161,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,192,208Zm48-24H223a32.06,32.06,0,0,0-31-24V128h48Z"/></g><rect x="46.0" y="22.4" width="32.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
+<g filter="url(#lift-delivery-m0)"><rect x="18.0" y="14.0" width="74.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(27.00 19.00) scale(0.05078)" fill="var(--il-stroke, #35322D)"><path d="M255.42,117l-14-35A15.93,15.93,0,0,0,226.58,72H192V64a8,8,0,0,0-8-8H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,255.42,117ZM192,88h34.58l9.6,24H192ZM32,72H176v64H32ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm81-24H111a32,32,0,0,0-62,0H32V152H176v12.31A32.11,32.11,0,0,0,161,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,192,208Zm48-24H223a32.06,32.06,0,0,0-31-24V128h48Z"/></g><rect x="46.0" y="22.4" width="32.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
 </svg>
-</div><div class="illo" data-i="1" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Putaway to bins" class="il">
+</div><div class="card" data-i="1"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Putaway to bins" class="il">
   <defs>
-    <linearGradient id="fadeG-putaway" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-putaway-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-putaway"><rect width="160" height="160" fill="url(#fadeG-putaway)"/></mask>
-    <linearGradient id="panelG-putaway" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-putaway-m0"><rect width="160" height="160" fill="url(#fadeG-putaway-m0)"/></mask>
+    <linearGradient id="panelG-putaway-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-putaway" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-putaway-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-putaway" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-putaway-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-putaway)">
-<path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-putaway)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="84" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="100" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="116" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="132" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g transform="translate(86.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"/></g><g transform="translate(102.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><g transform="translate(118.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></g><rect x="30" y="66" width="102" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(31.00 69.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="73.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="76.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(31.00 82.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="86.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="89.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="124.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 95.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="99.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="102.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="108.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 108.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="112.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="115.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+  <g mask="url(#fade-putaway-m0)">
+<path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-putaway-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="84" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="100" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="116" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="132" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g transform="translate(86.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"/></g><g transform="translate(102.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><g transform="translate(118.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></g><rect x="30" y="66" width="102" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(31.00 69.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="73.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="76.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(31.00 82.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="86.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="89.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="124.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 95.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="99.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="102.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="108.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 108.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="112.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="115.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
   </g>
-<g filter="url(#lift-putaway)"><rect x="13.0" y="16.0" width="62.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(22.00 21.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></g><rect x="39.0" y="24.4" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
+<g filter="url(#lift-putaway-m0)"><rect x="13.0" y="16.0" width="62.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(22.00 21.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></g><rect x="39.0" y="24.4" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
 </svg>
-</div><div class="illo" data-i="2" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Invoices and status" class="il">
+</div><div class="card" data-i="2"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Invoices and status" class="il">
   <defs>
-    <linearGradient id="fadeG-invoices" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-invoices-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-invoices"><rect width="160" height="160" fill="url(#fadeG-invoices)"/></mask>
-    <linearGradient id="panelG-invoices" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-invoices-m0"><rect width="160" height="160" fill="url(#fadeG-invoices-m0)"/></mask>
+    <linearGradient id="panelG-invoices-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-invoices" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-invoices-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-invoices" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-invoices-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-invoices)">
-<rect x="3" y="18" width="154" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-invoices)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="28.5" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="34.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g filter="url(#lift-invoices)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 37.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="40.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="43.0" r="3" fill="var(--il-accent, #3E9077)"/><rect x="124.0" y="40.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="39.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="43.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="46.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 59.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="62.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="65.0" r="3" fill="var(--il-fill, #DCD6CE)"/><rect x="124.0" y="62.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="61.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="65.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="68.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 81.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="84.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="87.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="124.0" y="84.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="83.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="87.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="90.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
+  <g mask="url(#fade-invoices-m0)">
+<rect x="3" y="18" width="154" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-invoices-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="28.5" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="34.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g filter="url(#lift-invoices-m0)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 37.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="40.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="43.0" r="3" fill="var(--il-accent, #3E9077)"/><rect x="124.0" y="40.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="39.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="43.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="46.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 59.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="62.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="65.0" r="3" fill="var(--il-fill, #DCD6CE)"/><rect x="124.0" y="62.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="61.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="65.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="68.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 81.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="84.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="87.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="124.0" y="84.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="83.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="87.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="90.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
   </g>
 
 </svg>
-</div><div class="illo" data-i="3" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Payouts received" class="il">
+</div><div class="card" data-i="3"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Payouts received" class="il">
   <defs>
-    <linearGradient id="fadeG-payouts" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-payouts-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-payouts"><rect width="160" height="160" fill="url(#fadeG-payouts)"/></mask>
-    <linearGradient id="panelG-payouts" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-payouts-m0"><rect width="160" height="160" fill="url(#fadeG-payouts-m0)"/></mask>
+    <linearGradient id="panelG-payouts-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-payouts" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-payouts-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-payouts" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-payouts-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-payouts)">
-<rect x="34" y="38" width="108" height="100" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="26" y="30" width="108" height="100" rx="10" fill="url(#panelG-payouts)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="38.0" y="80.0" width="92.0" height="32.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="53" cy="96" r="9.5" fill="#2F9468" opacity="0.75"/><g transform="translate(47.00 90.00) scale(0.04688)" fill="var(--il-surface, #FFFFFF)"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></g><rect x="69.0" y="89.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="69.0" y="98.5" width="46.0" height="5.4" rx="2.70" fill="var(--il-fill, #DCD6CE)"/>
+  <g mask="url(#fade-payouts-m0)">
+<rect x="34" y="38" width="108" height="100" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="26" y="30" width="108" height="100" rx="10" fill="url(#panelG-payouts-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="38.0" y="80.0" width="92.0" height="32.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="53" cy="96" r="9.5" fill="#2F9468" opacity="0.75"/><g transform="translate(47.00 90.00) scale(0.04688)" fill="var(--il-surface, #FFFFFF)"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></g><rect x="69.0" y="89.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="69.0" y="98.5" width="46.0" height="5.4" rx="2.70" fill="var(--il-fill, #DCD6CE)"/>
   </g>
-<g filter="url(#liftL-payouts)"><rect x="16.0" y="44.0" width="112.0" height="34.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="33" cy="61" r="10" fill="#5C82CE" opacity="0.75"/><g transform="translate(26.50 54.50) scale(0.05078)" fill="var(--il-surface, #FFFFFF)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z"/></g><rect x="50.0" y="52.0" width="36.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="62.0" width="58.0" height="5.6" rx="2.80" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="71.5" width="22.0" height="4.4" rx="2.20" fill="var(--il-accent, #3E9077)"/>
+<g filter="url(#liftL-payouts-m0)"><rect x="16.0" y="44.0" width="112.0" height="34.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="33" cy="61" r="10" fill="#5C82CE" opacity="0.75"/><g transform="translate(26.50 54.50) scale(0.05078)" fill="var(--il-surface, #FFFFFF)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z"/></g><rect x="50.0" y="52.0" width="36.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="62.0" width="58.0" height="5.6" rx="2.80" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="71.5" width="22.0" height="4.4" rx="2.20" fill="var(--il-accent, #3E9077)"/>
 </svg>
-</div><div class="illo" data-i="4" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ticket routing" class="il">
+</div><div class="card" data-i="4"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ticket routing" class="il">
   <defs>
-    <linearGradient id="fadeG-routing" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-routing-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-routing"><rect width="160" height="160" fill="url(#fadeG-routing)"/></mask>
-    <linearGradient id="panelG-routing" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-routing-m0"><rect width="160" height="160" fill="url(#fadeG-routing-m0)"/></mask>
+    <linearGradient id="panelG-routing-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-routing" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-routing-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-routing" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-routing-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-routing)">
-<rect x="14" y="12" width="132" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-routing)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M44 42C53.5 42 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M44 90C53.5 90 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 42C104.5 42 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 90C104.5 90 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="104.0" width="56.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="62.0" y="114.0" width="36.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  <g mask="url(#fade-routing-m0)">
+<rect x="14" y="12" width="132" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-routing-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M44 42C53.5 42 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M44 90C53.5 90 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 42C104.5 42 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 90C104.5 90 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="104.0" width="56.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="62.0" y="114.0" width="36.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
   </g>
-<g filter="url(#lift-routing)"><rect x="63.0" y="46.0" width="34.0" height="34.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(71.00 54.00) scale(0.07031)" fill="var(--il-stroke, #35322D)"><path d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z"/></g>
+<g filter="url(#lift-routing-m0)"><rect x="63.0" y="46.0" width="34.0" height="34.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(71.00 54.00) scale(0.07031)" fill="var(--il-stroke, #35322D)"><path d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z"/></g>
 </svg>
-</div><div class="illo" data-i="5" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Product variants" class="il">
+</div><div class="card" data-i="5"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Product variants" class="il">
   <defs>
-    <linearGradient id="fadeG-variants" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeG-variants-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
-    <mask id="fade-variants"><rect width="160" height="160" fill="url(#fadeG-variants)"/></mask>
-    <linearGradient id="panelG-variants" x1="0" y1="0" x2="0" y2="1">
+    <mask id="fade-variants-m0"><rect width="160" height="160" fill="url(#fadeG-variants-m0)"/></mask>
+    <linearGradient id="panelG-variants-m0" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
       <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
     </linearGradient>
-    <filter id="lift-variants" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="lift-variants-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="2" stdDeviation="2.6"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
-    <filter id="liftL-variants" x="-60%" y="-60%" width="220%" height="220%">
+    <filter id="liftL-variants-m0" x="-60%" y="-60%" width="220%" height="220%">
       <feDropShadow dx="0" dy="4" stdDeviation="5"
         flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
-  <g mask="url(#fade-variants)">
-<rect x="16" y="44" width="128" height="92" rx="10" fill="url(#panelG-variants)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="22.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="45" cy="70" r="9.5" fill="#C25E3E" opacity="0.35"/><rect x="33.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="30.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g><rect x="92.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="115" cy="70" r="9.5" fill="#5C82CE" opacity="0.35"/><rect x="103.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="100.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="48.0" y="112.0" width="64.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="121.0" width="44.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  <g mask="url(#fade-variants-m0)">
+<rect x="16" y="44" width="128" height="92" rx="10" fill="url(#panelG-variants-m0)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="22.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="45" cy="70" r="9.5" fill="#C25E3E" opacity="0.35"/><rect x="33.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="30.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g><rect x="92.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="115" cy="70" r="9.5" fill="#5C82CE" opacity="0.35"/><rect x="103.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="100.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="48.0" y="112.0" width="64.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="121.0" width="44.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
   </g>
-<g filter="url(#liftL-variants)"><rect x="55.0" y="32.0" width="50.0" height="60.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="80" cy="52" r="12" fill="var(--il-accent, #3E9077)" opacity="0.2"/><g transform="translate(72.50 44.50) scale(0.05859)" fill="var(--il-accent, #3E9077)"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></g><rect x="65.0" y="70.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="61.0" y="78.5" width="38.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/>
+<g filter="url(#liftL-variants-m0)"><rect x="55.0" y="32.0" width="50.0" height="60.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="80" cy="52" r="12" fill="var(--il-accent, #3E9077)" opacity="0.2"/><g transform="translate(72.50 44.50) scale(0.05859)" fill="var(--il-accent, #3E9077)"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></g><rect x="65.0" y="70.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="61.0" y="78.5" width="38.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div><div class="card" data-i="0" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Out for delivery" class="il">
+  <defs>
+    <linearGradient id="fadeG-delivery-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-delivery-m1"><rect width="160" height="160" fill="url(#fadeG-delivery-m1)"/></mask>
+    <linearGradient id="panelG-delivery-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-delivery-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-delivery-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-delivery-m1)">
+<rect x="36" y="16" width="104" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M28 18a10 10 0 0 1 10 -10h84a10 10 0 0 1 10 10V160H28z" fill="url(#panelG-delivery-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="44" y="56" width="0.5" height="64" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="44.0" cy="56.0" r="3.6" fill="var(--il-accent, #3E9077)"/><circle cx="44.0" cy="78.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><circle cx="44.0" cy="100.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="49.0" width="26.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="56.6" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="71.0" width="20.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="78.6" width="44.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="93.0" width="23.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="100.6" width="47.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="102.0" y="22.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="20.9" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="24.5" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="28.1" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
+  </g>
+<g filter="url(#lift-delivery-m1)"><rect x="18.0" y="14.0" width="74.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(27.00 19.00) scale(0.05078)" fill="var(--il-stroke, #35322D)"><path d="M255.42,117l-14-35A15.93,15.93,0,0,0,226.58,72H192V64a8,8,0,0,0-8-8H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,255.42,117ZM192,88h34.58l9.6,24H192ZM32,72H176v64H32ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm81-24H111a32,32,0,0,0-62,0H32V152H176v12.31A32.11,32.11,0,0,0,161,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,192,208Zm48-24H223a32.06,32.06,0,0,0-31-24V128h48Z"/></g><rect x="46.0" y="22.4" width="32.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div><div class="card" data-i="1" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Putaway to bins" class="il">
+  <defs>
+    <linearGradient id="fadeG-putaway-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-putaway-m1"><rect width="160" height="160" fill="url(#fadeG-putaway-m1)"/></mask>
+    <linearGradient id="panelG-putaway-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-putaway-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-putaway-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-putaway-m1)">
+<path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-putaway-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="84" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="100" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="116" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="132" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g transform="translate(86.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"/></g><g transform="translate(102.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><g transform="translate(118.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></g><rect x="30" y="66" width="102" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(31.00 69.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="73.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="76.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(31.00 82.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="86.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="89.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="124.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 95.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="99.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="102.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="108.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 108.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></g><rect x="48.0" y="112.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="115.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+  </g>
+<g filter="url(#lift-putaway-m1)"><rect x="13.0" y="16.0" width="62.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(22.00 21.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></g><rect x="39.0" y="24.4" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div><div class="card" data-i="2" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Invoices and status" class="il">
+  <defs>
+    <linearGradient id="fadeG-invoices-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-invoices-m1"><rect width="160" height="160" fill="url(#fadeG-invoices-m1)"/></mask>
+    <linearGradient id="panelG-invoices-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-invoices-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-invoices-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-invoices-m1)">
+<rect x="3" y="18" width="154" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-invoices-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="28.5" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="34.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g filter="url(#lift-invoices-m1)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 37.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="40.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="43.0" r="3" fill="var(--il-accent, #3E9077)"/><rect x="124.0" y="40.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="39.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="43.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="46.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 59.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="62.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="65.0" r="3" fill="var(--il-fill, #DCD6CE)"/><rect x="124.0" y="62.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="61.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="65.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="68.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(26.00 81.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="44.0" y="84.6" width="20.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="71" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="78.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="109" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="117.0" cy="87.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="124.0" y="84.6" width="8.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="136.0" cy="83.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="87.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="136.0" cy="90.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
+  </g>
+
+</svg>
+</div><div class="card" data-i="3" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Payouts received" class="il">
+  <defs>
+    <linearGradient id="fadeG-payouts-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-payouts-m1"><rect width="160" height="160" fill="url(#fadeG-payouts-m1)"/></mask>
+    <linearGradient id="panelG-payouts-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-payouts-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-payouts-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-payouts-m1)">
+<rect x="34" y="38" width="108" height="100" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="26" y="30" width="108" height="100" rx="10" fill="url(#panelG-payouts-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="38.0" y="80.0" width="92.0" height="32.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="53" cy="96" r="9.5" fill="#2F9468" opacity="0.75"/><g transform="translate(47.00 90.00) scale(0.04688)" fill="var(--il-surface, #FFFFFF)"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></g><rect x="69.0" y="89.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="69.0" y="98.5" width="46.0" height="5.4" rx="2.70" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#liftL-payouts-m1)"><rect x="16.0" y="44.0" width="112.0" height="34.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="33" cy="61" r="10" fill="#5C82CE" opacity="0.75"/><g transform="translate(26.50 54.50) scale(0.05078)" fill="var(--il-surface, #FFFFFF)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z"/></g><rect x="50.0" y="52.0" width="36.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="62.0" width="58.0" height="5.6" rx="2.80" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="71.5" width="22.0" height="4.4" rx="2.20" fill="var(--il-accent, #3E9077)"/>
+</svg>
+</div><div class="card" data-i="4" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ticket routing" class="il">
+  <defs>
+    <linearGradient id="fadeG-routing-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-routing-m1"><rect width="160" height="160" fill="url(#fadeG-routing-m1)"/></mask>
+    <linearGradient id="panelG-routing-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-routing-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-routing-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-routing-m1)">
+<rect x="14" y="12" width="132" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-routing-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M44 42C53.5 42 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M44 90C53.5 90 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 42C104.5 42 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 90C104.5 90 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="104.0" width="56.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="62.0" y="114.0" width="36.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#lift-routing-m1)"><rect x="63.0" y="46.0" width="34.0" height="34.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(71.00 54.00) scale(0.07031)" fill="var(--il-stroke, #35322D)"><path d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z"/></g>
+</svg>
+</div><div class="card" data-i="5" aria-hidden=true><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Product variants" class="il">
+  <defs>
+    <linearGradient id="fadeG-variants-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-variants-m1"><rect width="160" height="160" fill="url(#fadeG-variants-m1)"/></mask>
+    <linearGradient id="panelG-variants-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-variants-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-variants-m1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-variants-m1)">
+<rect x="16" y="44" width="128" height="92" rx="10" fill="url(#panelG-variants-m1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="22.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="45" cy="70" r="9.5" fill="#C25E3E" opacity="0.35"/><rect x="33.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="30.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g><rect x="92.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="115" cy="70" r="9.5" fill="#5C82CE" opacity="0.35"/><rect x="103.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="100.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="48.0" y="112.0" width="64.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="121.0" width="44.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#liftL-variants-m1)"><rect x="55.0" y="32.0" width="50.0" height="60.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="80" cy="52" r="12" fill="var(--il-accent, #3E9077)" opacity="0.2"/><g transform="translate(72.50 44.50) scale(0.05859)" fill="var(--il-accent, #3E9077)"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></g><rect x="65.0" y="70.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="61.0" y="78.5" width="38.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/>
 </svg>
 </div></div>
-    </div>
-  </div>
+  <p class="prompt" id="prompt"><span id="ptxt"></span></p>
 </section>
+
+<div class="wrap">
 
 <section class="why">
   <p class="eyebrow">The hard part</p>
   <div class="why-grid">
     <h2>Drawing one is easy.<br>Drawing twenty that match is the job.</h2>
     <div class="why-copy">
-      <p>You draw the first three and they look good. By the tenth the corner
-      radius has drifted, the stroke weight is slightly off, and the set reads as
-      assembled rather than designed. That is the part that quietly fails, and it
-      is why most products end up with three good illustrations and stock art
-      everywhere else.</p>
-      <p>Spotkit is a system rather than a generator. Twelve layouts chosen by
-      what a feature <em>means</em>, one stroke width and one colour across every
-      file, and guards that refuse the geometry mistakes you only notice once
-      someone sees a single illustration at full size.</p>
+      <p>By the tenth, the corner radius has drifted and the set reads as
+      assembled rather than designed.</p>
+      <p>Spotkit is a system, not a generator — twelve layouts chosen by what a
+      feature <em>means</em>, one stroke width and one colour throughout.</p>
     </div>
   </div>
-  <div class="sheet"><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Teams" class="il">
-  <defs>
-    <linearGradient id="fadeG-teams-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-teams-s"><rect width="160" height="160" fill="url(#fadeG-teams-s)"/></mask>
-    <linearGradient id="panelG-teams-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-teams-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-teams-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-teams-s)">
-<rect x="33" y="16" width="110" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M25 18a10 10 0 0 1 10 -10h90a10 10 0 0 1 10 10V160H25z" fill="url(#panelG-teams-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g opacity="0.7"><g><rect x="35.0" y="84.0" width="90.0" height="16.0" rx="6.5" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(42.00 87.00) scale(0.03906)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="56.0" y="89.9" width="52.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(110.00 87.80) scale(0.03320)" fill="var(--il-stroke-soft, #9B948A)"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"/></g></g><g opacity="0.4"><g><rect x="45.0" y="106.0" width="70.0" height="13.0" rx="6.5" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(52.00 107.50) scale(0.03906)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="66.0" y="110.4" width="32.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(100.00 108.30) scale(0.03320)" fill="var(--il-stroke-soft, #9B948A)"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"/></g></g>
-  </g>
-<g><circle cx="80" cy="33" r="14" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(72.50 25.50) scale(0.05859)" fill="var(--il-stroke, #35322D)"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></g><g filter="url(#liftL-teams-s)"><rect x="13.0" y="56.0" width="134.0" height="21.0" rx="7.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(24.00 61.50) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="41.0" y="64.7" width="62.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(129.00 61.50) scale(0.03906)" fill="var(--il-stroke-soft, #9B948A)"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"/></g>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
-  <defs>
-    <linearGradient id="fadeG-categories-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-categories-s"><rect width="160" height="160" fill="url(#fadeG-categories-s)"/></mask>
-    <linearGradient id="panelG-categories-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-categories-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-categories-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-categories-s)">
-<rect x="17" y="12" width="126" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M24 18a10 10 0 0 1 10 -10h92a10 10 0 0 1 10 10V160H24z" fill="url(#panelG-categories-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(34.00 62.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="61.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="68.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 84.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="83.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="90.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 106.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="105.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="112.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#liftL-categories-s)"><rect x="11.0" y="24.0" width="138.0" height="24.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(21.00 29.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></g><rect x="40.0" y="30.5" width="22.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="45.0" y="34.6" width="12.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="66.0" y="30.5" width="26.0" height="11" rx="5.5" fill="var(--il-fill-soft, #E9E4DC)"/><rect x="71.0" y="34.6" width="16.0" height="2.8" rx="1.40" fill="var(--il-stroke-soft, #9B948A)"/><rect x="96.0" y="30.5" width="20.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="101.0" y="34.6" width="10.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="120.0" y="30.5" width="18.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="125.0" y="34.6" width="8.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Workspace access" class="il">
-  <defs>
-    <linearGradient id="fadeG-workspace-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-workspace-s"><rect width="160" height="160" fill="url(#fadeG-workspace-s)"/></mask>
-    <linearGradient id="panelG-workspace-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-workspace-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-workspace-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-workspace-s)">
-<path d="M22 18a10 10 0 0 1 10 -10h96a10 10 0 0 1 10 10V160H22z" fill="url(#panelG-workspace-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="41.0" cy="66" r="6.2" fill="#C25E3E" opacity="0.7"/><circle cx="55.8" cy="66" r="6.2" fill="#2F9468" opacity="0.7"/><circle cx="70.6" cy="66" r="6.2" fill="#5C82CE" opacity="0.7"/><circle cx="85.4" cy="66" r="6.2" fill="#B08A3E" opacity="0.7"/><circle cx="100.2" cy="66" r="6.2" fill="var(--il-fill-soft, #E9E4DC)"/><rect x="97.0" y="64.6" width="6.4" height="2.8" rx="1.40" fill="var(--il-stroke-soft, #9B948A)"/><rect x="22" y="82" width="116" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(32.00 84.50) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="87.8" width="54.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(119.00 85.50) scale(0.03516)" fill="var(--il-accent, #3E9077)"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(32.00 100.50) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="103.8" width="54.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(119.00 101.50) scale(0.03516)" fill="var(--il-fill, #DCD6CE)"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(32.00 116.50) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="119.8" width="54.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(119.00 117.50) scale(0.03516)" fill="var(--il-fill, #DCD6CE)"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g>
-  </g>
-<g filter="url(#liftL-workspace-s)"><rect x="11.0" y="24.0" width="138.0" height="26.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="31.5" width="12" height="12" rx="4" fill="#C25E3E"/><rect x="49" y="31.5" width="12" height="12" rx="4" fill="#2F9468"/><rect x="72" y="31.5" width="12" height="12" rx="4" fill="#5C82CE"/><rect x="95" y="31.5" width="12" height="12" rx="4" fill="#B08A3E"/><rect x="119" y="31" width="0.5" height="12" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(128.00 32.00) scale(0.03906)" fill="var(--il-stroke-soft, #9B948A)"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></g>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Documentation" class="il">
-  <defs>
-    <linearGradient id="fadeG-docs-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-docs-s"><rect width="160" height="160" fill="url(#fadeG-docs-s)"/></mask>
-    <linearGradient id="panelG-docs-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-docs-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-docs-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-docs-s)">
-<rect x="36" y="16" width="104" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M28 18a10 10 0 0 1 10 -10h84a10 10 0 0 1 10 10V160H28z" fill="url(#panelG-docs-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="96.0" y="20.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="18.9" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="22.5" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="26.1" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><rect x="28" y="34" width="104" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.5"/><g transform="translate(38.00 46.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="56.0" y="45.5" width="24.0" height="4.0" rx="2.00" fill="var(--il-fill, #DCD6CE)"/><rect x="56.0" y="52.7" width="52.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(38.00 65.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="56.0" y="64.5" width="24.0" height="4.0" rx="2.00" fill="var(--il-fill, #DCD6CE)"/><rect x="56.0" y="71.7" width="52.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(38.00 84.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="56.0" y="83.5" width="24.0" height="4.0" rx="2.00" fill="var(--il-fill, #DCD6CE)"/><rect x="56.0" y="90.7" width="52.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(38.00 103.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="56.0" y="102.5" width="24.0" height="4.0" rx="2.00" fill="var(--il-fill, #DCD6CE)"/><rect x="56.0" y="109.7" width="52.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#lift-docs-s)"><rect x="13.0" y="12.0" width="58.0" height="21.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(22.00 17.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="39.0" y="20.4" width="24.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><g filter="url(#lift-docs-s)"><rect x="91.0" y="94.0" width="58.0" height="21.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(100.00 99.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></g><rect x="117.0" y="102.4" width="24.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Connectors" class="il">
-  <defs>
-    <linearGradient id="fadeG-connectors-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-connectors-s"><rect width="160" height="160" fill="url(#fadeG-connectors-s)"/></mask>
-    <linearGradient id="panelG-connectors-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-connectors-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-connectors-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-connectors-s)">
-<rect x="3" y="18" width="154" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-connectors-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="28.5" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="34.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g filter="url(#lift-connectors-s)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="37" width="12" height="12" rx="4" fill="#C25E3E"/><rect x="44.0" y="40.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="40.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="39.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="43.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="46.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="59" width="12" height="12" rx="4" fill="#2F9468"/><rect x="44.0" y="62.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="62.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="61.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="65.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="68.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="81" width="12" height="12" rx="4" fill="#5C82CE"/><rect x="44.0" y="84.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="84.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="83.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="87.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="90.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
-  </g>
-
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contributors" class="il">
-  <defs>
-    <linearGradient id="fadeG-contributors-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-contributors-s"><rect width="160" height="160" fill="url(#fadeG-contributors-s)"/></mask>
-    <linearGradient id="panelG-contributors-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-contributors-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-contributors-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-contributors-s)">
-<rect x="16" y="44" width="128" height="92" rx="10" fill="url(#panelG-contributors-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="22.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="45" cy="70" r="9.5" fill="#2F9468" opacity="0.3"/><g transform="translate(39.00 64.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="33.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="30.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g><rect x="92.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="115" cy="70" r="9.5" fill="#5C82CE" opacity="0.3"/><g transform="translate(109.00 64.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="103.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="100.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="48.0" y="112.0" width="64.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="121.0" width="44.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#liftL-contributors-s)"><rect x="55.0" y="32.0" width="50.0" height="60.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="80" cy="52" r="12" fill="var(--il-accent, #3E9077)" opacity="0.14"/><g transform="translate(72.50 44.50) scale(0.05859)" fill="var(--il-accent, #3E9077)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="65.0" y="70.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="61.0" y="78.5" width="38.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Notifications" class="il">
-  <defs>
-    <linearGradient id="fadeG-notifications-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-notifications-s"><rect width="160" height="160" fill="url(#fadeG-notifications-s)"/></mask>
-    <linearGradient id="panelG-notifications-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-notifications-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-notifications-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-notifications-s)">
-<rect x="34" y="38" width="108" height="100" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="26" y="30" width="108" height="100" rx="10" fill="url(#panelG-notifications-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="38.0" y="80.0" width="92.0" height="32.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="53" cy="96" r="9.5" fill="#2F9468" opacity="0.8"/><rect x="69.0" y="89.0" width="34.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="69.0" y="98.5" width="50.0" height="5.4" rx="2.70" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#liftL-notifications-s)"><rect x="16.0" y="44.0" width="112.0" height="34.0" rx="10.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="33" cy="61" r="10" fill="#C25E3E" opacity="0.8"/><rect x="50.0" y="53.0" width="40.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="50.0" y="63.0" width="62.0" height="5.6" rx="2.80" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="API gateway" class="il">
-  <defs>
-    <linearGradient id="fadeG-gateway-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-gateway-s"><rect width="160" height="160" fill="url(#fadeG-gateway-s)"/></mask>
-    <linearGradient id="panelG-gateway-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-gateway-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-gateway-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-gateway-s)">
-<rect x="14" y="12" width="132" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-gateway-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M44 42C53.5 42 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M44 90C53.5 90 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 42C104.5 42 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 90C104.5 90 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="104.0" width="56.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="62.0" y="114.0" width="36.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#lift-gateway-s)"><rect x="63.0" y="46.0" width="34.0" height="34.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(71.00 54.00) scale(0.07031)" fill="var(--il-stroke, #35322D)"><path d="M160,112h48a16,16,0,0,0,16-16V48a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16V64H128a24,24,0,0,0-24,24v32H72v-8A16,16,0,0,0,56,96H24A16,16,0,0,0,8,112v32a16,16,0,0,0,16,16H56a16,16,0,0,0,16-16v-8h32v32a24,24,0,0,0,24,24h16v16a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V160a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16v16H128a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8h16V96A16,16,0,0,0,160,112ZM56,144H24V112H56v32Zm104,16h48v48H160Zm0-112h48V96H160Z"/></g>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Roles &amp; access" class="il">
-  <defs>
-    <linearGradient id="fadeG-roles-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-roles-s"><rect width="160" height="160" fill="url(#fadeG-roles-s)"/></mask>
-    <linearGradient id="panelG-roles-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-roles-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-roles-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-roles-s)">
-<path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-roles-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="84" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="100" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="116" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><rect x="132" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g transform="translate(86.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><g transform="translate(102.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M43.18,128a29.78,29.78,0,0,1,8,10.26c4.8,9.9,4.8,22,4.8,33.74,0,24.31,1,36,24,36a8,8,0,0,1,0,16c-17.48,0-29.32-6.14-35.2-18.26-4.8-9.9-4.8-22-4.8-33.74,0-24.31-1-36-24-36a8,8,0,0,1,0-16c23,0,24-11.69,24-36,0-11.72,0-23.84,4.8-33.74C50.68,38.14,62.52,32,80,32a8,8,0,0,1,0,16C57,48,56,59.69,56,84c0,11.72,0,23.84-4.8,33.74A29.78,29.78,0,0,1,43.18,128ZM240,120c-23,0-24-11.69-24-36,0-11.72,0-23.84-4.8-33.74C205.32,38.14,193.48,32,176,32a8,8,0,0,0,0,16c23,0,24,11.69,24,36,0,11.72,0,23.84,4.8,33.74a29.78,29.78,0,0,0,8,10.26,29.78,29.78,0,0,0-8,10.26c-4.8,9.9-4.8,22-4.8,33.74,0,24.31-1,36-24,36a8,8,0,0,0,0,16c17.48,0,29.32-6.14,35.2-18.26,4.8-9.9,4.8-22,4.8-33.74,0-24.31,1-36,24-36a8,8,0,0,0,0-16Z"/></g><g transform="translate(118.50 50.00) scale(0.04297)" fill="var(--il-stroke-soft, #9B948A)"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></g><rect x="30" y="66" width="102" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/><g transform="translate(31.00 69.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="73.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="76.0" r="3" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(31.00 82.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="86.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="89.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="89.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(31.00 95.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="99.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="102.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="108.0" cy="102.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="124.0" cy="102.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(31.00 108.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="48.0" y="112.5" width="26.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><circle cx="92.0" cy="115.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="108.0" cy="115.0" r="3" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="115.0" r="3" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
-  </g>
-<g filter="url(#lift-roles-s)"><rect x="13.0" y="16.0" width="62.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(22.00 21.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></g><rect x="39.0" y="24.4" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audit log" class="il">
-  <defs>
-    <linearGradient id="fadeG-audit-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-audit-s"><rect width="160" height="160" fill="url(#fadeG-audit-s)"/></mask>
-    <linearGradient id="panelG-audit-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-audit-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-audit-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-audit-s)">
-<rect x="36" y="16" width="104" height="152" rx="10" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M28 18a10 10 0 0 1 10 -10h84a10 10 0 0 1 10 10V160H28z" fill="url(#panelG-audit-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="44" y="56" width="0.5" height="70" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><circle cx="44.0" cy="56.0" r="3.6" fill="var(--il-accent, #3E9077)"/><circle cx="44.0" cy="80.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><circle cx="44.0" cy="104.0" r="3.6" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="49.0" width="22.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="56.4" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="73.0" width="22.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="80.4" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="97.0" width="22.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="104.4" width="50.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><rect x="102.0" y="22.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="124.0" cy="20.9" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="24.5" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="124.0" cy="28.1" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
-  </g>
-<g filter="url(#lift-audit-s)"><rect x="18.0" y="14.0" width="74.0" height="22.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(27.00 19.00) scale(0.04688)" fill="var(--il-stroke, #35322D)"><path d="M136,80v43.47l36.12,21.67a8,8,0,0,1-8.24,13.72l-40-24A8,8,0,0,1,120,128V80a8,8,0,0,1,16,0Zm-8-48A95.44,95.44,0,0,0,60.08,60.15C52.81,67.51,46.35,74.59,40,82V64a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16H49c7.15-8.42,14.27-16.35,22.39-24.57a80,80,0,1,1,1.66,114.75,8,8,0,1,0-11,11.64A96,96,0,1,0,128,32Z"/></g><rect x="44.0" y="22.4" width="34.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="App approval" class="il">
-  <defs>
-    <linearGradient id="fadeG-approval-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-approval-s"><rect width="160" height="160" fill="url(#fadeG-approval-s)"/></mask>
-    <linearGradient id="panelG-approval-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-approval-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-approval-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-approval-s)">
-<rect x="15" y="34" width="130" height="106" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="22" y="30" width="116" height="100" rx="10" fill="url(#panelG-approval-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="28.0" y="62.0" width="44.0" height="44.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="36.0" y="71.0" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><rect x="36.0" y="80.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><circle cx="38.5" cy="93.5" r="3.2" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="88.0" y="62.0" width="44.0" height="44.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="96.0" y="71.0" width="26.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><rect x="96.0" y="80.0" width="18.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(95.00 89.00) scale(0.03516)" fill="var(--il-accent, #3E9077)"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></g><g transform="translate(74.00 78.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></g><rect x="56.0" y="116.0" width="48.0" height="4.6" rx="2.30" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g><circle cx="80" cy="37" r="17" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(72.50 29.50) scale(0.05859)" fill="var(--il-stroke, #35322D)"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></g>
-</svg>
-</div><div class="cell"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Invoices" class="il">
-  <defs>
-    <linearGradient id="fadeG-billing-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
-    </linearGradient>
-    <mask id="fade-billing-s"><rect width="160" height="160" fill="url(#fadeG-billing-s)"/></mask>
-    <linearGradient id="panelG-billing-s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
-      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
-    </linearGradient>
-    <filter id="lift-billing-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-    <filter id="liftL-billing-s" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5"
-        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
-    </filter>
-  </defs>
-  <g mask="url(#fade-billing-s)">
-<rect x="11" y="18" width="138" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="16" y="13" width="128" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-billing-s)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(33.00 60.00) scale(0.05859)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="57.0" y="60.5" width="28.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="57.0" y="67.9" width="52.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(33.00 81.00) scale(0.05859)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="57.0" y="81.5" width="28.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="57.0" y="88.9" width="52.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(33.00 102.00) scale(0.05859)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="57.0" y="102.5" width="28.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="57.0" y="109.9" width="52.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/>
-  </g>
-<g filter="url(#liftL-billing-s)"><rect x="11.0" y="24.0" width="138.0" height="27.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(27.00 29.50) scale(0.06250)" fill="var(--il-stroke, #35322D)"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></g><rect x="52.0" y="28.0" width="29.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="36.4" width="58.0" height="6.0" rx="3.00" fill="var(--il-fill, #DCD6CE)"/>
-</svg>
-</div></div>
-  <p class="sheet-note">Twelve features, twelve different layouts, one set of rules.
-  Same twelve files in both themes.</p>
+  <div class="sheets">
+    <img src="sheet-light.svg" alt="Twelve Spotkit illustrations in light mode" loading="lazy" width="1116" height="376">
+    <img src="sheet-dark.svg" alt="The same twelve illustrations in dark mode" loading="lazy" width="1116" height="376">
+  </div>
+  <p class="sheet-note">Twelve features, twelve layouts, one set of rules — and the
+  same twelve files in both themes.</p>
 </section>
 
 <section class="gets">
   <p class="eyebrow">What you get</p>
-  <div class="get-grid">
-    <div class="get">
-      <h3>Real SVG</h3>
-      <p>Edit it, paste it into Figma, review it in a pull request. Not a PNG you
-      have to ask someone to change.</p>
-    </div>
-    <div class="get">
-      <h3>Light and dark</h3>
-      <p>Twelve CSS variables. One file serves both themes, and retheming the
-      whole set is a three-value edit.</p>
-    </div>
-    <div class="get">
-      <h3>Distinct, not filler</h3>
-      <p>Twelve layouts picked by meaning, with a budget on reuse, so a set never
-      reads as one drawing repeated.</p>
-    </div>
-    <div class="get">
-      <h3>Free</h3>
-      <p>MIT licensed. No signup, no API key, no per-image cost. It runs on the
-      Claude you already pay for.</p>
-    </div>
-  </div>
+  <div class="get-grid"><div class="get"><h3>Real SVG</h3><p>Edit it, paste it into Figma, review it in a pull request. Not a PNG you have to ask someone to change.</p><div class="get-illo"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Connectors" class="il">
+  <defs>
+    <linearGradient id="fadeG-g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-g1"><rect width="160" height="160" fill="url(#fadeG-g1)"/></mask>
+    <linearGradient id="panelG-g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-g1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-g1" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-g1)">
+<rect x="3" y="18" width="154" height="152" rx="15" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="8" y="13" width="144" height="152" rx="12" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M13 18a10 10 0 0 1 10 -10h114a10 10 0 0 1 10 10V160H13z" fill="url(#panelG-g1)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="23.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="28.5" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><circle cx="34.0" cy="17.0" r="1.7" fill="var(--il-line, #B9B1A4)"/><rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/><g filter="url(#lift-g1)"><rect x="21.0" y="34.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="37" width="12" height="12" rx="4" fill="#C25E3E"/><rect x="44.0" y="40.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="40.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="38" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="40.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="39.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="43.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="46.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="56.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="59" width="12" height="12" rx="4" fill="#2F9468"/><rect x="44.0" y="62.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="62.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="60" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="62.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="61.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="65.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="68.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><g><rect x="21.0" y="78.0" width="118.0" height="18.0" rx="6.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><rect x="26" y="81" width="12" height="12" rx="4" fill="#5C82CE"/><rect x="44.0" y="84.6" width="22.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="73" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="80.0" y="84.6" width="24.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><rect x="110" y="82" width="0.5" height="10" fill="var(--il-line, #B9B1A4)" opacity="0.7"/><rect x="117.0" y="84.6" width="12.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/><circle cx="134.0" cy="83.4" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="87.0" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/><circle cx="134.0" cy="90.6" r="1.15" fill="var(--il-stroke-soft, #9B948A)"/>
+  </g>
+
+</svg>
+</div></div><div class="get"><h3>Light and dark</h3><p>Twelve CSS variables. One file serves both themes, and retheming the whole set is a three-value edit.</p><div class="get-illo"><div class="duo"><div data-theme="light"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
+  <defs>
+    <linearGradient id="fadeG-g2a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-g2a"><rect width="160" height="160" fill="url(#fadeG-g2a)"/></mask>
+    <linearGradient id="panelG-g2a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-g2a" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-g2a" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-g2a)">
+<rect x="17" y="12" width="126" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M24 18a10 10 0 0 1 10 -10h92a10 10 0 0 1 10 10V160H24z" fill="url(#panelG-g2a)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(34.00 62.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="61.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="68.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 84.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="83.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="90.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 106.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="105.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="112.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#liftL-g2a)"><rect x="11.0" y="24.0" width="138.0" height="24.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(21.00 29.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></g><rect x="40.0" y="30.5" width="22.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="45.0" y="34.6" width="12.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="66.0" y="30.5" width="26.0" height="11" rx="5.5" fill="var(--il-fill-soft, #E9E4DC)"/><rect x="71.0" y="34.6" width="16.0" height="2.8" rx="1.40" fill="var(--il-stroke-soft, #9B948A)"/><rect x="96.0" y="30.5" width="20.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="101.0" y="34.6" width="10.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="120.0" y="30.5" width="18.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="125.0" y="34.6" width="8.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div><div data-theme="dark"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
+  <defs>
+    <linearGradient id="fadeG-g2b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-g2b"><rect width="160" height="160" fill="url(#fadeG-g2b)"/></mask>
+    <linearGradient id="panelG-g2b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-g2b" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-g2b" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-g2b)">
+<rect x="17" y="12" width="126" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M24 18a10 10 0 0 1 10 -10h92a10 10 0 0 1 10 10V160H24z" fill="url(#panelG-g2b)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g transform="translate(34.00 62.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="61.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="68.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 84.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="83.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="90.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/><g transform="translate(34.00 106.00) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></g><rect x="54.0" y="105.5" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="54.0" y="112.9" width="54.0" height="5.2" rx="2.60" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#liftL-g2b)"><rect x="11.0" y="24.0" width="138.0" height="24.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(21.00 29.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></g><rect x="40.0" y="30.5" width="22.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="45.0" y="34.6" width="12.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="66.0" y="30.5" width="26.0" height="11" rx="5.5" fill="var(--il-fill-soft, #E9E4DC)"/><rect x="71.0" y="34.6" width="16.0" height="2.8" rx="1.40" fill="var(--il-stroke-soft, #9B948A)"/><rect x="96.0" y="30.5" width="20.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="101.0" y="34.6" width="10.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="120.0" y="30.5" width="18.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="125.0" y="34.6" width="8.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div></div></div></div><div class="get"><h3>Distinct, not filler</h3><p>Twelve layouts picked by meaning, with a budget on reuse, so a set never reads as one drawing repeated.</p><div class="get-illo"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contributors" class="il">
+  <defs>
+    <linearGradient id="fadeG-g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-g3"><rect width="160" height="160" fill="url(#fadeG-g3)"/></mask>
+    <linearGradient id="panelG-g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-g3" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-g3" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-g3)">
+<rect x="16" y="44" width="128" height="92" rx="10" fill="url(#panelG-g3)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><g><rect x="22.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="45" cy="70" r="9.5" fill="#2F9468" opacity="0.3"/><g transform="translate(39.00 64.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="33.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="30.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><g><rect x="92.0" y="54.0" width="46.0" height="50.0" rx="9.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="115" cy="70" r="9.5" fill="#5C82CE" opacity="0.3"/><g transform="translate(109.00 64.00) scale(0.04688)" fill="var(--il-stroke-soft, #9B948A)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="103.0" y="86.0" width="24.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="100.0" y="93.0" width="30.0" height="4.2" rx="2.10" fill="var(--il-fill, #DCD6CE)"/><rect x="48.0" y="112.0" width="64.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="58.0" y="121.0" width="44.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#liftL-g3)"><rect x="55.0" y="32.0" width="50.0" height="60.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><circle cx="80" cy="52" r="12" fill="var(--il-accent, #3E9077)" opacity="0.14"/><g transform="translate(72.50 44.50) scale(0.05859)" fill="var(--il-accent, #3E9077)"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></g><rect x="65.0" y="70.0" width="30.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/><rect x="61.0" y="78.5" width="38.0" height="4.8" rx="2.40" fill="var(--il-fill, #DCD6CE)"/>
+</svg>
+</div></div><div class="get"><h3>Free</h3><p>MIT licensed. No signup, no API key, no per-image cost. It runs on the Claude you already pay for.</p><div class="get-illo"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="API gateway" class="il">
+  <defs>
+    <linearGradient id="fadeG-g4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fade-g4"><rect width="160" height="160" fill="url(#fadeG-g4)"/></mask>
+    <linearGradient id="panelG-g4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
+    <filter id="lift-g4" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-g4" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+  </defs>
+  <g mask="url(#fade-g4)">
+<rect x="14" y="12" width="132" height="158" rx="16" fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M21 18a10 10 0 0 1 10 -10h98a10 10 0 0 1 10 10V160H21z" fill="url(#panelG-g4)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><path d="M44 42C53.5 42 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M44 90C53.5 90 53.5 63 63 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="28" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="36.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 42C104.5 42 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="34" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="42.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><path d="M112 90C104.5 90 104.5 63 97 63" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5" stroke-dasharray="2.4 3" stroke-linecap="round"/><rect x="112" y="82" width="16" height="16" rx="5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><circle cx="120.0" cy="90.0" r="2.4" fill="var(--il-fill, #DCD6CE)"/><rect x="52.0" y="104.0" width="56.0" height="5.0" rx="2.50" fill="var(--il-fill, #DCD6CE)"/><rect x="62.0" y="114.0" width="36.0" height="4.4" rx="2.20" fill="var(--il-fill, #DCD6CE)"/>
+  </g>
+<g filter="url(#lift-g4)"><rect x="63.0" y="46.0" width="34.0" height="34.0" rx="11.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(71.00 54.00) scale(0.07031)" fill="var(--il-stroke, #35322D)"><path d="M160,112h48a16,16,0,0,0,16-16V48a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16V64H128a24,24,0,0,0-24,24v32H72v-8A16,16,0,0,0,56,96H24A16,16,0,0,0,8,112v32a16,16,0,0,0,16,16H56a16,16,0,0,0,16-16v-8h32v32a24,24,0,0,0,24,24h16v16a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V160a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16v16H128a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8h16V96A16,16,0,0,0,160,112ZM56,144H24V112H56v32Zm104,16h48v48H160Zm0-112h48V96H160Z"/></g>
+</svg>
+</div></div></div>
 </section>
 
 <section class="install">
@@ -777,12 +721,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   <p class="eyebrow">Who made this</p>
   <p>Spotkit was built by <a href="https://deveshshirsath.com">Devesh Shirsath</a>, a product designer
   working on developer tools and API documentation.</p>
-  <div class="links">
-    <a href="https://deveshshirsath.com">Portfolio</a>
-    <a href="https://www.linkedin.com/in/devesh-shirsath-644625172/">LinkedIn</a>
-    <a href="https://github.com/Devesh-Shirsath">GitHub</a>
-    <a href="https://www.instagram.com/devesh.vs/">Instagram</a>
-  </div>
+  <div class="links"><a href="https://deveshshirsath.com"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06250)" fill="currentColor"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></g></svg><span>Portfolio</span></a><a href="https://www.linkedin.com/in/devesh-shirsath-644625172/"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06250)" fill="currentColor"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></g></svg><span>LinkedIn</span></a><a href="https://github.com/Devesh-Shirsath"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06250)" fill="currentColor"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></g></svg><span>GitHub</span></a><a href="https://www.instagram.com/devesh.vs/"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06250)" fill="currentColor"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></g></svg><span>Instagram</span></a></div>
   <p class="fine">MIT licensed. Icons by Phosphor.</p>
 </footer>
 
@@ -797,35 +736,31 @@ h1 em { font-style: normal; color: var(--ink-soft); }
       {t:"Ticket routing", s:"send each issue to the right team"},
       {t:"Product variants", s:"sizes and colours of a single product"}
   ];
-  var tt = document.getElementById('tt'), ts = document.getElementById('ts');
-  var illos = [].slice.call(document.querySelectorAll('.illo'));
-  var chips = [].slice.call(document.querySelectorAll('.chip'));
-  var i = -1, timer = null, typer = null, auto = true;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function show(n) {
-    clearTimeout(timer); clearInterval(typer);
-    i = n;
-    illos.forEach(function (el, k) {
-      el.classList.toggle('on', k === n);
-      el.setAttribute('aria-hidden', k === n ? 'false' : 'true');
-    });
-    chips.forEach(function (c, k) { c.classList.toggle('on', k === n); });
-    ts.textContent = '';
-    var full = P[n].t, j = 0;
-    if (reduce) { tt.textContent = full; ts.textContent = P[n].s; queue(); return; }
-    tt.textContent = '';
-    typer = setInterval(function () {
-      tt.textContent = full.slice(0, ++j);
-      if (j >= full.length) { clearInterval(typer); ts.textContent = P[n].s; queue(); }
-    }, 42);
+  // The caption follows whichever card is nearest the middle of the screen,
+  // rather than a timer — so it can never drift out of step with the marquee.
+  var track  = document.getElementById('track');
+  var ptxt   = document.getElementById('ptxt');
+  var cards  = [].slice.call(track.querySelectorAll('.card'));
+  var last   = -1, queued = false;
+
+  function sync() {
+    queued = false;
+    var mid = innerWidth / 2, best = null, bestD = Infinity;
+    for (var i = 0; i < cards.length; i++) {
+      var r = cards[i].getBoundingClientRect();
+      if (r.right < -200 || r.left > innerWidth + 200) continue;
+      var d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestD) { bestD = d; best = cards[i]; }
+    }
+    if (!best) return;
+    cards.forEach(function (c) { c.classList.toggle('active', c === best); });
+    var n = +best.dataset.i;
+    if (n !== last) { last = n; ptxt.textContent = P[n].t + ' — ' + P[n].s; }
   }
-  function queue() { if (auto) timer = setTimeout(function () { show((i + 1) % P.length); }, 3200); }
-
-  chips.forEach(function (c) {
-    c.addEventListener('click', function () { auto = false; show(+c.dataset.i); });
-  });
-  show(0);
+  function loop() { if (!queued) { queued = true; requestAnimationFrame(sync); } requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  addEventListener('resize', sync);
 
   // theme
   var btn = document.getElementById('theme');
