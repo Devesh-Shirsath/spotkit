@@ -304,16 +304,16 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   margin: clamp(120px, 20vh, 220px) 0 0; background: var(--il-panel); overflow: hidden;
 }}
 .foot-inner {{
-  max-width: var(--max); margin: 0 auto; padding: 56px 28px 0;
-  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;
+  max-width: var(--max); margin: 0 auto; padding: 0 28px;
+  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;
 }}
 .foot h2 {{ font-size: 22px; margin: 0 0 12px; }}
 .foot p {{ color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 380px; }}
 .foot a {{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }}
 .foot .fine {{ margin-top: 18px; font-size: 12.5px; opacity: .75; }}
-.foot-left {{ padding-bottom: 56px; }}
+.foot-left {{ padding: 0; }}
 .foot-portrait {{
-  width: 340px; height: 284px; align-self: end;
+  width: 340px; height: 284px; align-self: end; margin-top: 56px;
   background: url('devesh.png') center top / 340px auto no-repeat;
 }}
 .foot .links {{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:flex-start; }}
