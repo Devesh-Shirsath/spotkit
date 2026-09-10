@@ -152,7 +152,17 @@ html = f'''<!doctype html>
   --serif:    "Libre Baskerville", Georgia, "Times New Roman", serif;
   --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }}
-html {{ scroll-behavior: smooth; }}
+html {{
+  scroll-behavior: smooth;
+  /* proximity, not mandatory: several sections are taller than the viewport and
+     mandatory snapping makes their middles unreachable */
+  scroll-snap-type: y proximity;
+}}
+.fold, .why, .gets, .install, .foot {{
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;     /* a fast flick can still pass straight through */
+  scroll-margin-top: 12px;
+}}
 h1, h2, h3 {{ font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }}
 body {{
   margin: 0; background: var(--page); color: var(--ink);
@@ -165,7 +175,7 @@ body {{
 /* ---------- nav ---------- */
 nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; flex:0 0 auto; }}
 .brand {{ display:flex; align-items:center; line-height:0; color: var(--ink); }}
-.brand .logo {{ height:26px; width:auto; display:block; }}
+.brand .logo {{ height:36px; width:auto; display:block; }}
 .navr {{ display:flex; align-items:center; gap:8px; }}
 .ico {{
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
@@ -330,6 +340,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   .prompt {{ font-size:16.5px; }}
 }}
 @media (prefers-reduced-motion: reduce) {{
+  html {{ scroll-behavior:auto; scroll-snap-type:none; }}
   *, *::before, *::after {{ animation-duration:.001ms !important; transition-duration:.001ms !important; }}
   .track {{ animation:none; transform:none; }}
   .reel {{ overflow-x:auto; }}
