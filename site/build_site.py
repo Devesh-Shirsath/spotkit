@@ -179,9 +179,12 @@ nav {{ display:flex; align-items:center; justify-content:space-between; padding:
   width:auto; padding:0 14px; gap:7px; grid-auto-flow:column; align-items:center;
   font:inherit; font-size:13px; font-variant-numeric:tabular-nums;
 }}
-.only-dark {{ display:none; }}
-[data-theme="dark"] .only-dark {{ display:block; }}
+.ico span {{ line-height:0; }}
+.ico svg {{ display:block; }}
+.only-light {{ display:block; }}
+.only-dark  {{ display:none; }}
 [data-theme="dark"] .only-light {{ display:none; }}
+[data-theme="dark"] .only-dark  {{ display:block; }}
 
 /* ---------- hero: one full fold ---------- */
 .fold {{ min-height: 100svh; display:flex; flex-direction:column; }}
@@ -300,7 +303,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .foot .fine {{ margin-top: 18px; font-size: 12.5px; opacity: .75; }}
 .foot-left {{ padding-bottom: 56px; }}
 .foot-portrait {{
-  width: 340px; height: 252px; align-self: end;
+  width: 340px; height: 284px; align-self: end;
   background: url('devesh.png') center top / 340px auto no-repeat;
 }}
 .foot .links {{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:flex-start; }}
