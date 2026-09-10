@@ -18,6 +18,7 @@ GITHUB = 'https://github.com/Devesh-Shirsath'
 INSTAGRAM = 'https://www.instagram.com/devesh.vs/'
 
 items = [(title, sub, fn()) for title, sub, fn in illos.PROMPTS]
+LOGO = open(os.path.join(os.path.dirname(__file__), '.logo_inline.html')).read().strip()
 tokens = open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'illustration.css')).read()
 tokens = tokens[tokens.index(':root,'):]
 
@@ -134,7 +135,7 @@ html = f'''<!doctype html>
 <meta property="og:image" content="{SITE}/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@deveshvs">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23EDEAE6%22/><rect x=%2224%22 y=%2230%22 width=%2252%22 height=%2240%22 rx=%228%22 fill=%22none%22 stroke=%22%2335322D%22 stroke-width=%225%22/></svg>">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23EDEAE6%22/><rect x=%2224%22 y=%2230%22 width=%2252%22 height=%2240%22 rx=%228%22 fill=%22none%22 stroke=%22%2335322D%22 stroke-width=%225%22/></svg>">
 <script type="application/ld+json">{JSONLD}</script>
 <style>
 {tokens}
@@ -163,10 +164,8 @@ body {{
 
 /* ---------- nav ---------- */
 nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; flex:0 0 auto; }}
-.brand {{ display:flex; align-items:center; line-height:0; }}
-.brand img {{ height:30px; width:auto; display:block; }}
-/* the wordmark is black artwork, so it needs lifting on a dark ground */
-[data-theme="dark"] .brand img {{ filter: invert(1) hue-rotate(180deg); }}
+.brand {{ display:flex; align-items:center; line-height:0; color: var(--ink); }}
+.brand .logo {{ height:26px; width:auto; display:block; }}
 .navr {{ display:flex; align-items:center; gap:8px; }}
 .ico {{
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
@@ -342,7 +341,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 <div class="fold">
 <div class="wrap">
 <nav>
-  <a class="brand" href="#" aria-label="Spotkit"><img src="logo.png" alt="Spotkit" width="393" height="91"></a>
+  <a class="brand" href="#" aria-label="Spotkit">{LOGO}</a>
   <div class="navr">
     <button class="ico" id="theme" type="button" aria-label="Switch theme">{moon}{sun}</button>
     <a class="ico wide" href="{REPO}" aria-label="Spotkit on GitHub">{ghmark}<span id="stars">{STARS}</span></a>
