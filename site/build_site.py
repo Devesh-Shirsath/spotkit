@@ -48,8 +48,8 @@ GETS = [
      _mini('connectors', 'g1')),
     ('Light and dark',
      'Twelve CSS variables. One file serves both themes, and retheming the whole set is a three-value edit.',
-     '<div class="split"><span data-theme="light">' + _mini('categories', 'g2a') +
-     '</span><span class="half" data-theme="dark">' + _mini('categories', 'g2b') + '</span></div>'),
+     '<div class="pair"><span data-theme="light">' + _mini('categories', 'g2a') +
+     '</span><span data-theme="dark">' + _mini('categories', 'g2b') + '</span></div>'),
     ('Distinct, not filler',
      'Twelve layouts picked by meaning, with a budget on reuse, so a set never reads as one drawing repeated.',
      _mini('contributors', 'g3')),
@@ -190,17 +190,17 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 }}
 .rail {{ overflow:hidden; }}
 .track {{
-  display:flex; align-items:center; gap: 40px; width: max-content;
+  display:flex; align-items:center; gap: 8px; width: max-content;
   will-change: transform;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1);
 }}
 .card {{
-  width: 350px; flex: none;
-  transform: scale(.46); opacity: .28;
+  width: 300px; flex: none;
+  transform: scale(.5); opacity: .26;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }}
-.card.n1 {{ transform: scale(.7); opacity: .5; }}
-.card.n0 {{ transform: scale(1); opacity: 1; }}
+.card.n1 {{ transform: scale(.8); opacity: .5; }}
+.card.n0 {{ transform: scale(1.32); opacity: 1; }}
 .card svg {{ width:100%; height:auto; display:block; }}
 .prompt {{
   text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
@@ -227,15 +227,20 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
 /* ---------- payoff ---------- */
 .gets {{ margin: clamp(62px, 9vh, 104px) 0 0; }}
-.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; }}
+.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; margin-top: clamp(40px, 6vh, 64px); }}
 .get {{ text-align:center; }}
 .orb {{
   width: 250px; height: 250px; margin: 0 auto 14px; display:grid; place-items:center;
 }}
 .orb svg {{ width:100%; height:auto; display:block; }}
-.split {{ position:relative; width:100%; }}
-.split span {{ display:block; background:var(--il-canvas); border-radius:12px; overflow:hidden; }}
-.split .half {{ position:absolute; inset:0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }}
+.pair {{ display:flex; align-items:center; justify-content:center; width:100%; }}
+.pair span {{
+  display:block; width:62%; flex:none; border-radius:14px; overflow:hidden;
+  background:var(--il-canvas); border:1px solid var(--il-line);
+}}
+.pair span:last-child {{
+  margin-left:-20%; box-shadow:0 8px 26px rgba(0,0,0,.16);
+}}
 .get h3 {{ font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:-.04em; margin:0 0 12px; }}
 .get p {{ margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }}
 
@@ -244,12 +249,13 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .install h2, .foot h2 {{ font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }}
 .install p {{ color:var(--ink-soft); margin:0 0 22px; font-size:15px; }}
 .code {{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  display:flex; align-items:center; gap:14px;
   border:1px solid var(--line); border-radius:12px; background:var(--card);
-  padding:16px 18px; max-width:640px; margin:0 auto; text-align:left; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
-  overflow-x:auto;
+  padding:16px 18px; max-width:780px; margin:0 auto; text-align:left;
+  font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
+  overflow:hidden;
 }}
-.code span {{ white-space:nowrap; }}
+.code span#cmd {{ white-space:nowrap; overflow-x:auto; flex:1 1 auto; min-width:0; }}
 .copy {{
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
   border-radius:7px; padding:5px 11px; font:inherit; font-size:12px; cursor:pointer; flex:none;
@@ -353,6 +359,14 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 </section>
 
 <section class="gets">
+  <div class="why-grid">
+    <h2>What you actually get.</h2>
+    <div class="why-copy">
+      <p>An editable file rather than a picture, both themes out of one source,
+      twelve layouts that keep a set from repeating itself — and nothing to pay
+      for.</p>
+    </div>
+  </div>
   <div class="get-grid">{gets}</div>
 </section>
 
@@ -373,7 +387,6 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
       <h2>Who made this</h2>
       <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product
       designer working on developer tools and API documentation.</p>
-      <p class="fine">MIT licensed. Icons by Phosphor.</p>
     </div>
     <div class="foot-mid" role="img" aria-label="{AUTHOR}"></div>
     <div class="foot-right">{links}</div>
@@ -399,7 +412,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
   function place(animate) {{
     track.style.transition = animate ? '' : 'none';
-    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 40);
+    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 8);
     var x = track.parentNode.clientWidth / 2 - cards[0].offsetWidth / 2 - at * slot;
     track.style.transform = 'translateX(' + x + 'px)';
     for (var i = 0; i < cards.length; i++) {{

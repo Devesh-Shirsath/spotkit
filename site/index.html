@@ -159,17 +159,17 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 }
 .rail { overflow:hidden; }
 .track {
-  display:flex; align-items:center; gap: 40px; width: max-content;
+  display:flex; align-items:center; gap: 8px; width: max-content;
   will-change: transform;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1);
 }
 .card {
-  width: 350px; flex: none;
-  transform: scale(.46); opacity: .28;
+  width: 300px; flex: none;
+  transform: scale(.5); opacity: .26;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }
-.card.n1 { transform: scale(.7); opacity: .5; }
-.card.n0 { transform: scale(1); opacity: 1; }
+.card.n1 { transform: scale(.8); opacity: .5; }
+.card.n0 { transform: scale(1.32); opacity: 1; }
 .card svg { width:100%; height:auto; display:block; }
 .prompt {
   text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
@@ -196,15 +196,20 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 
 /* ---------- payoff ---------- */
 .gets { margin: clamp(62px, 9vh, 104px) 0 0; }
-.get-grid { display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; }
+.get-grid { display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; margin-top: clamp(40px, 6vh, 64px); }
 .get { text-align:center; }
 .orb {
   width: 250px; height: 250px; margin: 0 auto 14px; display:grid; place-items:center;
 }
 .orb svg { width:100%; height:auto; display:block; }
-.split { position:relative; width:100%; }
-.split span { display:block; background:var(--il-canvas); border-radius:12px; overflow:hidden; }
-.split .half { position:absolute; inset:0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.pair { display:flex; align-items:center; justify-content:center; width:100%; }
+.pair span {
+  display:block; width:62%; flex:none; border-radius:14px; overflow:hidden;
+  background:var(--il-canvas); border:1px solid var(--il-line);
+}
+.pair span:last-child {
+  margin-left:-20%; box-shadow:0 8px 26px rgba(0,0,0,.16);
+}
 .get h3 { font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:-.04em; margin:0 0 12px; }
 .get p { margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }
 
@@ -213,12 +218,13 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .install h2, .foot h2 { font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }
 .install p { color:var(--ink-soft); margin:0 0 22px; font-size:15px; }
 .code {
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  display:flex; align-items:center; gap:14px;
   border:1px solid var(--line); border-radius:12px; background:var(--card);
-  padding:16px 18px; max-width:640px; margin:0 auto; text-align:left; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
-  overflow-x:auto;
+  padding:16px 18px; max-width:780px; margin:0 auto; text-align:left;
+  font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
+  overflow:hidden;
 }
-.code span { white-space:nowrap; }
+.code span#cmd { white-space:nowrap; overflow-x:auto; flex:1 1 auto; min-width:0; }
 .copy {
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
   border-radius:7px; padding:5px 11px; font:inherit; font-size:12px; cursor:pointer; flex:none;
@@ -1042,6 +1048,14 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 </section>
 
 <section class="gets">
+  <div class="why-grid">
+    <h2>What you actually get.</h2>
+    <div class="why-copy">
+      <p>An editable file rather than a picture, both themes out of one source,
+      twelve layouts that keep a set from repeating itself — and nothing to pay
+      for.</p>
+    </div>
+  </div>
   <div class="get-grid"><div class="get"><div class="orb"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Connectors" class="il">
   <defs>
     <linearGradient id="fadeG-g1" x1="0" y1="0" x2="0" y2="1">
@@ -1066,7 +1080,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   </g>
 
 </svg>
-</div><h3>Real SVG</h3><p>Edit it, paste it into Figma, review it in a pull request. Not a PNG you have to ask someone to change.</p></div><div class="get"><div class="orb"><div class="split"><span data-theme="light"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
+</div><h3>Real SVG</h3><p>Edit it, paste it into Figma, review it in a pull request. Not a PNG you have to ask someone to change.</p></div><div class="get"><div class="orb"><div class="pair"><span data-theme="light"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
   <defs>
     <linearGradient id="fadeG-g2a" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
@@ -1090,7 +1104,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   </g>
 <g filter="url(#liftL-g2a)"><rect x="11.0" y="24.0" width="138.0" height="24.0" rx="8.0" fill="var(--il-surface, #FFFFFF)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/></g><g transform="translate(21.00 29.50) scale(0.05078)" fill="var(--il-stroke-soft, #9B948A)"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></g><rect x="40.0" y="30.5" width="22.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="45.0" y="34.6" width="12.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="66.0" y="30.5" width="26.0" height="11" rx="5.5" fill="var(--il-fill-soft, #E9E4DC)"/><rect x="71.0" y="34.6" width="16.0" height="2.8" rx="1.40" fill="var(--il-stroke-soft, #9B948A)"/><rect x="96.0" y="30.5" width="20.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="101.0" y="34.6" width="10.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/><rect x="120.0" y="30.5" width="18.0" height="11" rx="5.5" fill="none" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/><rect x="125.0" y="34.6" width="8.0" height="2.8" rx="1.40" fill="var(--il-fill, #DCD6CE)"/>
 </svg>
-</span><span class="half" data-theme="dark"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
+</span><span data-theme="dark"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Categories" class="il">
   <defs>
     <linearGradient id="fadeG-g2b" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
@@ -1182,7 +1196,6 @@ h1 em { font-style: normal; color: var(--ink-soft); }
       <h2>Who made this</h2>
       <p>Spotkit was built by <a href="https://deveshshirsath.com">Devesh Shirsath</a>, a product
       designer working on developer tools and API documentation.</p>
-      <p class="fine">MIT licensed. Icons by Phosphor.</p>
     </div>
     <div class="foot-mid" role="img" aria-label="Devesh Shirsath"></div>
     <div class="foot-right"><a class="dot" href="https://deveshshirsath.com" title="Portfolio" aria-label="Portfolio"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></g></svg></a><a class="dot" href="https://www.linkedin.com/in/devesh-shirsath-644625172/" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></g></svg></a><a class="dot" href="https://github.com/Devesh-Shirsath" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></g></svg></a><a class="dot" href="https://www.instagram.com/devesh.vs/" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></g></svg></a></div>
@@ -1213,7 +1226,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 
   function place(animate) {
     track.style.transition = animate ? '' : 'none';
-    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 40);
+    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 8);
     var x = track.parentNode.clientWidth / 2 - cards[0].offsetWidth / 2 - at * slot;
     track.style.transform = 'translateX(' + x + 'px)';
     for (var i = 0; i < cards.length; i++) {
