@@ -163,8 +163,10 @@ body {{
 
 /* ---------- nav ---------- */
 nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; flex:0 0 auto; }}
-.brand {{ display:flex; align-items:center; gap:9px; font-weight:600; letter-spacing:-.02em; font-size:16.5px; }}
-.brand i {{ width:15px; height:12px; border:1.4px solid var(--ink); border-radius:3.5px; display:block; }}
+.brand {{ display:flex; align-items:center; line-height:0; }}
+.brand img {{ height:30px; width:auto; display:block; }}
+/* the wordmark is black artwork, so it needs lifting on a dark ground */
+[data-theme="dark"] .brand img {{ filter: invert(1) hue-rotate(180deg); }}
 .navr {{ display:flex; align-items:center; gap:8px; }}
 .ico {{
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
@@ -208,7 +210,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .reel {{
   flex: 0 0 auto; padding: 0; min-height: 0;
 }}
-.rail {{ overflow:hidden; padding: 46px 0 30px; }}   /* room for the scaled-up centre card */
+.rail {{ overflow:hidden; padding: 74px 0 14px; }}   /* room for the scaled-up centre card */
 .track {{
   display:flex; align-items:center; gap: 8px; width: max-content;
   will-change: transform;
@@ -223,7 +225,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .card.n0 {{ transform: scale(1.24); opacity: 1; }}
 .card svg {{ width:100%; height:auto; display:block; }}
 .prompt {{
-  text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
+  text-align:center; margin: 0; font-size: 18px;
   letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
 }}
 .prompt span::before {{ content:'“'; color:var(--ink-soft); }}
@@ -289,16 +291,17 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   margin: clamp(62px, 9vh, 104px) 0 0; background: var(--il-panel); overflow: hidden;
 }}
 .foot-inner {{
-  max-width: var(--max); margin: 0 auto; padding: 56px 28px;
-  display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center;
+  max-width: var(--max); margin: 0 auto; padding: 56px 28px 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;
 }}
 .foot h2 {{ font-size: 22px; margin: 0 0 12px; }}
 .foot p {{ color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 380px; }}
 .foot a {{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }}
 .foot .fine {{ margin-top: 18px; font-size: 12.5px; opacity: .75; }}
+.foot-left {{ padding-bottom: 56px; }}
 .foot-portrait {{
-  width: 244px; height: 217px;
-  background: url('devesh.png') center / contain no-repeat;
+  width: 340px; height: 252px; align-self: end;
+  background: url('devesh.png') center top / 340px auto no-repeat;
 }}
 .foot .links {{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:flex-start; }}
 .foot .dot {{
@@ -315,7 +318,8 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   .foot-inner {{ grid-template-columns:1fr; gap:28px; text-align:center; justify-items:center; }}
   .foot p {{ margin:0 auto; }}
   .foot .links {{ justify-content:center; }}
-  .foot-portrait {{ order:-1; width:196px; height:174px; }}
+  .foot-portrait {{ order:-1; width:230px; height:180px; background-size:230px auto; }}
+  .foot-left {{ padding-bottom:0; }}
 }}
 @media (max-width: 700px) {{
   header {{ padding-top:60px; }}
@@ -335,7 +339,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 <div class="fold">
 <div class="wrap">
 <nav>
-  <div class="brand"><i></i> spotkit</div>
+  <a class="brand" href="#" aria-label="Spotkit"><img src="logo.png" alt="Spotkit" width="393" height="91"></a>
   <div class="navr">
     <button class="ico" id="theme" type="button" aria-label="Switch theme">{moon}{sun}</button>
     <a class="ico wide" href="{REPO}" aria-label="Spotkit on GitHub">{ghmark}<span id="stars">{STARS}</span></a>
@@ -400,7 +404,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 <footer class="foot">
   <div class="foot-inner">
     <div class="foot-left">
-      <h2>Who made this</h2>
+      <h2>Meet the creator</h2>
       <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product
       designer working on developer tools and API documentation.</p>
       <div class="links">{links}</div>

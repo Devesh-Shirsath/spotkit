@@ -123,8 +123,10 @@ body {
 
 /* ---------- nav ---------- */
 nav { display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; flex:0 0 auto; }
-.brand { display:flex; align-items:center; gap:9px; font-weight:600; letter-spacing:-.02em; font-size:16.5px; }
-.brand i { width:15px; height:12px; border:1.4px solid var(--ink); border-radius:3.5px; display:block; }
+.brand { display:flex; align-items:center; line-height:0; }
+.brand img { height:30px; width:auto; display:block; }
+/* the wordmark is black artwork, so it needs lifting on a dark ground */
+[data-theme="dark"] .brand img { filter: invert(1) hue-rotate(180deg); }
 .navr { display:flex; align-items:center; gap:8px; }
 .ico {
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
@@ -168,7 +170,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .reel {
   flex: 0 0 auto; padding: 0; min-height: 0;
 }
-.rail { overflow:hidden; padding: 46px 0 30px; }   /* room for the scaled-up centre card */
+.rail { overflow:hidden; padding: 74px 0 14px; }   /* room for the scaled-up centre card */
 .track {
   display:flex; align-items:center; gap: 8px; width: max-content;
   will-change: transform;
@@ -183,7 +185,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .card.n0 { transform: scale(1.24); opacity: 1; }
 .card svg { width:100%; height:auto; display:block; }
 .prompt {
-  text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
+  text-align:center; margin: 0; font-size: 18px;
   letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
 }
 .prompt span::before { content:'“'; color:var(--ink-soft); }
@@ -249,16 +251,17 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   margin: clamp(62px, 9vh, 104px) 0 0; background: var(--il-panel); overflow: hidden;
 }
 .foot-inner {
-  max-width: var(--max); margin: 0 auto; padding: 56px 28px;
-  display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center;
+  max-width: var(--max); margin: 0 auto; padding: 56px 28px 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;
 }
 .foot h2 { font-size: 22px; margin: 0 0 12px; }
 .foot p { color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 380px; }
 .foot a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
 .foot .fine { margin-top: 18px; font-size: 12.5px; opacity: .75; }
+.foot-left { padding-bottom: 56px; }
 .foot-portrait {
-  width: 244px; height: 217px;
-  background: url('devesh.png') center / contain no-repeat;
+  width: 340px; height: 252px; align-self: end;
+  background: url('devesh.png') center top / 340px auto no-repeat;
 }
 .foot .links { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:flex-start; }
 .foot .dot {
@@ -275,7 +278,8 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   .foot-inner { grid-template-columns:1fr; gap:28px; text-align:center; justify-items:center; }
   .foot p { margin:0 auto; }
   .foot .links { justify-content:center; }
-  .foot-portrait { order:-1; width:196px; height:174px; }
+  .foot-portrait { order:-1; width:230px; height:180px; background-size:230px auto; }
+  .foot-left { padding-bottom:0; }
 }
 @media (max-width: 700px) {
   header { padding-top:60px; }
@@ -295,7 +299,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 <div class="fold">
 <div class="wrap">
 <nav>
-  <div class="brand"><i></i> spotkit</div>
+  <a class="brand" href="#" aria-label="Spotkit"><img src="logo.png" alt="Spotkit" width="393" height="91"></a>
   <div class="navr">
     <button class="ico" id="theme" type="button" aria-label="Switch theme"><span class="only-light"><svg viewBox="0 0 17 17" width="17" height="17" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06641)" fill="currentColor"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></g></svg></span><span class="only-dark"><svg viewBox="0 0 17 17" width="17" height="17" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06641)" fill="currentColor"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></g></svg></span></button>
     <a class="ico wide" href="https://github.com/Devesh-Shirsath/spotkit" aria-label="Spotkit on GitHub"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.06250)" fill="currentColor"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></g></svg><span id="stars">53</span></a>
@@ -1200,7 +1204,7 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 <footer class="foot">
   <div class="foot-inner">
     <div class="foot-left">
-      <h2>Who made this</h2>
+      <h2>Meet the creator</h2>
       <p>Spotkit was built by <a href="https://deveshshirsath.com">Devesh Shirsath</a>, a product
       designer working on developer tools and API documentation.</p>
       <div class="links"><a class="dot" href="https://deveshshirsath.com" title="Portfolio" aria-label="Portfolio"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></g></svg></a><a class="dot" href="https://www.linkedin.com/in/devesh-shirsath-644625172/" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></g></svg></a><a class="dot" href="https://github.com/Devesh-Shirsath" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></g></svg></a><a class="dot" href="https://www.instagram.com/devesh.vs/" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><g transform="translate(0.00 0.00) scale(0.07031)" fill="currentColor"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></g></svg></a></div>
