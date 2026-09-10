@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://spot-kit.vercel.app/sitemap.xml
+Sitemap: https://getspotkit.vercel.app/sitemap.xml

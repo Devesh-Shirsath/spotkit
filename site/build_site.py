@@ -10,7 +10,7 @@ import illos
 import build as core
 
 REPO = 'https://github.com/Devesh-Shirsath/spotkit'
-SITE = 'https://spot-kit.vercel.app'
+SITE = 'https://getspotkit.vercel.app'
 AUTHOR = 'Devesh Shirsath'
 AUTHOR_URL = 'https://deveshshirsath.com'
 LINKEDIN = 'https://www.linkedin.com/in/devesh-shirsath-644625172/'
