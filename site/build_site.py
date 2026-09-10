@@ -241,8 +241,15 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   text-align:center; margin: 0; font-size: 18px;
   letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
 }}
-.prompt span::before {{ content:'“'; color:var(--ink-soft); }}
-.prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
+.prompt .q {{ color: var(--ink-soft); opacity: 0; transition: opacity .25s ease; }}
+.prompt.started .q {{ opacity: 1; }}   /* no empty “” frame between cycles */
+.prompt .caret {{
+  display:inline-block; width:1.5px; height:.95em; background:var(--ink-soft);
+  vertical-align:-1px; margin:0 1px 0 2px;
+}}
+.prompt.typing .caret {{ opacity:1; }}                 /* solid while it types */
+.prompt.done .caret {{ animation: blink 1.05s steps(1) infinite; }}
+@keyframes blink {{ 50% {{ opacity:0; }} }}
 
 /* ---------- argument ---------- */
 .why {{ margin: clamp(120px, 20vh, 220px) 0 0; }}
@@ -377,7 +384,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
 <section class="reel" aria-label="Example illustrations">
   <div class="rail"><div class="track" id="track">{cards}</div></div>
-  <p class="prompt" id="prompt"><span id="ptxt"></span></p>
+  <p class="prompt" id="prompt"><span class="q">“</span><span id="ptxt"></span><span class="caret" aria-hidden="true"></span><span class="q">”</span></p>
 </section>
 </div>
 </div>
@@ -444,6 +451,24 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   var SETS  = cards.length / N;
   var at    = N;                       // start one set in, so there is room either side
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var prompt = document.getElementById('prompt');
+  var typer  = null;
+
+  function type(n) {{
+    clearInterval(typer);
+    var full = P[n].t + ' — ' + P[n].s, i = 0;
+    if (reduce) {{ ptxt.textContent = full; prompt.className = 'prompt done started'; return; }}
+    ptxt.textContent = '';
+    prompt.className = 'prompt typing';
+    typer = setInterval(function () {{
+      ptxt.textContent = full.slice(0, ++i);
+      if (i === 1) prompt.classList.add('started');
+      if (i >= full.length) {{
+        clearInterval(typer);
+        prompt.className = 'prompt done started';
+      }}
+    }}, 26);
+  }}
 
   function place(animate) {{
     track.style.transition = animate ? '' : 'none';
@@ -454,8 +479,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
       var d = Math.abs(i - at);
       cards[i].className = 'card' + (d === 0 ? ' n0' : d === 1 ? ' n1' : '');
     }}
-    var n = at % N;
-    ptxt.textContent = P[n].t + ' — ' + P[n].s;
+    type(at % N);
     if (!animate) track.offsetHeight;   // flush before re-enabling
   }}
 
