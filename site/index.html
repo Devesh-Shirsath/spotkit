@@ -111,17 +111,18 @@
   --serif:    "Libre Baskerville", Georgia, "Times New Roman", serif;
   --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-html {
-  scroll-behavior: smooth;
-  /* proximity, not mandatory: several sections are taller than the viewport and
-     mandatory snapping makes their middles unreachable */
-  scroll-snap-type: y proximity;
+html { scroll-behavior: smooth; }
+
+/* Content settles in as it comes into view. The hero is deliberately excluded —
+   the first thing anyone sees should already be there. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
 }
-.fold, .why, .gets, .install, .foot {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;     /* a fast flick can still pass straight through */
-  scroll-margin-top: 12px;
-}
+.reveal.in { opacity: 1; transform: none; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }
 body {
   margin: 0; background: var(--page); color: var(--ink);
@@ -299,7 +300,8 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   .prompt { font-size:16.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior:auto; scroll-snap-type:none; }
+  html { scroll-behavior:auto; }
+  .reveal { opacity:1 !important; transform:none !important; }
   *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; }
   .track { animation:none; transform:none; }
   .reel { overflow-x:auto; }
@@ -1294,6 +1296,44 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   function paint() { root.setAttribute('data-theme', dark ? 'dark' : 'light'); }
   btn.addEventListener('click', function () { dark = !dark; paint(); });
   paint();
+
+  // Reveal on scroll. Groups stagger by index so a row of four arrives as a
+  // wave rather than all at once.
+  var groups = [
+    ['.band', 0], ['.sheets img', 110], ['.get', 90],
+    ['.install h2, .install p, .code', 70], ['.foot-left, .foot-portrait', 90]
+  ];
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+
+    var watched = [];
+    groups.forEach(function (g) {
+      [].slice.call(document.querySelectorAll(g[0])).forEach(function (el, i) {
+        el.classList.add('reveal');
+        el.style.setProperty('--d', (i * g[1]) + 'ms');
+        io.observe(el);
+        watched.push(el);
+      });
+    });
+
+    // Safety net: anything already on screen shows immediately, and after three
+    // seconds everything gives up and shows regardless. Content must never be
+    // left invisible because an observer did not fire.
+    function showIfVisible() {
+      watched.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+      });
+    }
+    requestAnimationFrame(showIfVisible);
+    setTimeout(function () {
+      watched.forEach(function (el) { el.classList.add('in'); });
+    }, 3000);
+  }
 
   // live star count, falling back to whatever was baked in at build time
   fetch('https://api.github.com/repos/Devesh-Shirsath/spotkit')
