@@ -44,9 +44,13 @@ the stroke to 0.75 for that size only — and say so, because it is a deliberate
 break from the one-stroke rule — or drop the hairlines entirely and let fills
 carry the whole composition. The second is usually better.
 
-Stroke weights, corner radii and bar heights **scale proportionally** with the
-canvas. An illustration at 320 uses 2.8px strokes where the 160 used 1.4. Do not
-keep hairlines hairline as you scale up; the family will fracture.
+**The easy way: keep the 160 viewBox and let CSS scale it.** A 160 file shown
+at 320px has 1px strokes automatically, and nothing else changes.
+
+If you author on a larger viewBox instead, stroke weights, corner radii and bar
+heights **scale proportionally** with it — multiply every number by
+`size / 160`. A 320 viewBox uses 1.0 strokes where the 160 uses 0.5. Do not keep
+hairlines at 0.5 on a bigger viewBox; the family will fracture.
 
 The one exception: the **shadow does not scale linearly**. Increase blur by
 roughly the square root of the scale factor. A 4× canvas gets a 2× blur, not 4×.
@@ -56,7 +60,7 @@ roughly the square root of the scale factor. A 4× canvas gets a 2× blur, not 4
 At 480×320 and wider, the panel turns from portrait to landscape and the bottom
 fade weakens — a wide panel that dissolves looks broken rather than quiet.
 
-- Reduce the fade to the bottom **12%** instead of 40%, or replace it with a
+- Reduce the fade to the bottom **12%** instead of the bottom 30%, or replace it with a
   bottom edge that simply runs off the canvas.
 - The floating element still overhangs horizontally, but proportionally less:
   **1.08×** the panel width rather than 1.17×.

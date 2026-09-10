@@ -9,13 +9,16 @@ as fixed:
 
 ```
 canvas       160 x 160
-panel        x 21 w 118, top y 8, radius 10, hairline 1
-float        138 wide (1.17x panel), y 24, h 27, radius 8, shadow dy 3 blur 3.4
-medallion    cx 80 cy 33 r 14, flat unless it is the only element
-icon         15 in card / 14 in medallion / 10-12 inline, stroke 1.4, round caps
+stroke       0.5, var(--il-line), on everything stroked -- one width, one colour
+panel        x 21 w 118 (104-134 by content), top y 8, radius 10
+float        138 wide (1.17x panel), y 24, h 27, radius 8
+shadow       one element; dy 2 blur 2.6, or dy 4 blur 5 above ~2600 sq units; 0.16
+medallion    cx 80 cy 33 r 14, flat by default
+icon         16 in card / 15 in medallion / 12 in chip / 10-13 inline,
+             Phosphor regular, filled, never stroked
 bars         6 / 5 / 4.4, always short-over-long, never equal widths
 row pitch    20-24
-fade         69% -> 80% of canvas height
+fade         70% -> 82% of canvas height
 palette      <token values>
 accent       <color or none>, meaning: <one meaning>
 ```

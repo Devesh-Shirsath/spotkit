@@ -40,6 +40,8 @@ A good one makes someone think *"I understand what this feature does."* Never
 
 ## Install
 
+**Claude Code**
+
 ```bash
 git clone https://github.com/Devesh-Shirsath/spotkit.git \
   ~/.claude/skills/spotkit
@@ -49,7 +51,30 @@ Restart Claude Code and just ask. The skill picks itself up whenever you mention
 feature illustrations, spot illustrations, empty states, or an illustration set
 for a product.
 
-**No dependencies.** Python 3 only, and only if you want to regenerate.
+**Codex**
+
+```bash
+git clone https://github.com/Devesh-Shirsath/spotkit.git \
+  ~/.agents/skills/spotkit
+```
+
+Restart Codex, then ask — or call it by name: `$spotkit an illustration for audit logs`.
+
+**Any other agent** — clone the repo into your project and ask it to follow
+`SKILL.md`. `AGENTS.md` tells it what to read and what to skip.
+
+**No install at all** (ChatGPT, or any chat that can open links) — paste this:
+
+> Make a Spotkit illustration for **[your feature]**. Follow the spec at
+> https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SPEC.md
+> and take icon paths from
+> https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/icons.md
+
+Link the raw files, not the GitHub page — they load in one fetch, and `SPEC.md`
+alone holds every rule and number. Sharing the repo URL instead makes the model
+crawl the whole repository first.
+
+**No dependencies.** Python 3 only — to regenerate, or to run `check.py`.
 
 ## Try it without installing
 
@@ -62,7 +87,7 @@ This style is pure geometry: hairline strokes, exact radii, repeated placeholder
 bars, one icon family. Diffusion models are weak at all of it, and weakest at the
 thing that matters most — **twenty illustrations that look like one family.**
 
-Claude writes the SVG directly instead. The output is exact, themeable, editable,
+The model writes the SVG directly instead. The output is exact, themeable, editable,
 diffable, and identical in treatment across a whole set. A prompt-based fallback
 is included if you want it anyway.
 
@@ -144,11 +169,22 @@ as black shapes.
 Figma discards SVG filters on import, so the drop shadow won't come across —
 re-apply it as a Figma effect on the one floating layer.
 
+## Check an illustration
+
+```bash
+python3 check.py my-feature.svg
+```
+
+Catches the defects that fail silently: a second stroke width or colour, more
+than one shadow, a background rect, text, unsuffixed ids, a moved fade line.
+Works on output from any model.
+
 ## Regenerate
 
 ```bash
-python3 build.py       # rewrites examples/ and the gallery
-python3 flatten.py     # rewrites the flat exports and contact sheets
+python3 build.py         # rewrites examples/, the gallery and references/icons.md
+python3 flatten.py       # rewrites the flat exports and contact sheets
+python3 check.py --docs  # fails if any doc disagrees with build.py
 ```
 
 Every constant lives in the `GEO` dict at the top of `build.py`. Change one and
@@ -159,7 +195,10 @@ that's most error-prone by hand.
 
 ```
 SKILL.md                  entry point and workflow
+SPEC.md                   every number, the template, one full example — start here
+AGENTS.md                 what an AI agent should read, and skip
 references/
+  icons.md                paste-ready Phosphor paths (generated)
   metaphor.md             feature → concept, ~24 worked SaaS examples
   archetypes.md           the twelve layouts and the choices behind them
   primitives.md           verified geometry + copy-paste SVG library
@@ -172,6 +211,7 @@ references/
 assets/illustration.css   drop-in token definitions
 examples/                 twelve illustrations, flat exports, contact sheet
 build.py · flatten.py     generators — every constant in one place
+check.py                  linter for illustrations and for the docs
 icons.py                  embedded Phosphor geometry
 ```
 

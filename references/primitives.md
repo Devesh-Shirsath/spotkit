@@ -26,14 +26,22 @@ Three zones:
 ## The constants
 
 ```
-PANEL     x 21   w 118   y 8    radius 10   hairline 1
+STROKE    0.5, var(--il-line), on every stroked element -- no second width
+PANEL     x 21   w 118   y 8    radius 10   (width varies 104-134 with content)
 CARD      x 11   w 138   y 24   h 27        radius 8
 MEDALLION cx 80  cy 33   r 14
-FADE      starts 69% of canvas height, complete at 80%
-ICON      15 in a card · 14 in a medallion · 10–12 inline · stroke 1.4
+PAD       10 content inset from the panel edge
+CPAD      8 inside a card -- top and bottom equal
+FADE      starts 70% of canvas height (y 112), complete at 82% (y 131)
+SHADOW    dy 2 blur 2.6, or dy 4 blur 5 above ~2600 sq units; opacity 0.16
+ICON      16 header card · 15 medallion · 12 chip · 10-13 inline -- filled, never stroked
 BARS      h 6 primary · 5 secondary · 4.4 tertiary
-ROW PITCH 20–24
+ROW PITCH 20-24
 ```
+
+These mirror `GEO` in `build.py`, which generated every example. If this file
+and `build.py` ever disagree, `build.py` is right — and `python3 check.py --docs`
+fails until the doc is fixed.
 
 The **ratios** are the portable part — they survive a change of canvas size:
 
@@ -56,13 +64,20 @@ effect collapses.
 <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FEATURE">
   <defs>
     <linearGradient id="fadeG-ID" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.69" stop-color="#fff"/>
-      <stop offset="0.80" stop-color="#000"/>
+      <stop offset="0.7" stop-color="#fff"/><stop offset="0.82" stop-color="#000"/>
     </linearGradient>
     <mask id="fade-ID"><rect width="160" height="160" fill="url(#fadeG-ID)"/></mask>
+    <linearGradient id="panelG-ID" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--il-panel-top, #FCFBF9)"/>
+      <stop offset="1" stop-color="var(--il-panel, #F7F5F2)"/>
+    </linearGradient>
     <filter id="lift-ID" x="-60%" y="-60%" width="220%" height="220%">
-      <feDropShadow dx="0" dy="3" stdDeviation="3.4"
-        flood-color="var(--il-shadow-c, #3C322C)" flood-opacity="var(--il-shadow-o, 0.13)"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2.6"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
+    </filter>
+    <filter id="liftL-ID" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5"
+        flood-color="var(--il-shadow-c, #4A3F33)" flood-opacity="var(--il-shadow-o, 0.16)"/>
     </filter>
   </defs>
 
@@ -74,7 +89,10 @@ effect collapses.
 </svg>
 ```
 
-Four things about this scaffold:
+Five things about this scaffold:
+
+- **Keep every `def`**, even one you think you are not using. The panel fill is
+  `url(#panelG-ID)`; delete that gradient and the panel renders with no fill.
 
 - **No background rect.** The illustration sits on the host page, and the fade
   dissolves into it. An opaque canvas rect turns every illustration into a tile.
@@ -111,10 +129,10 @@ more — fade it. Using `fade` for everything is another kind of monotony.
 ```svg
 <!-- fade -->
 <path d="M21 18a10 10 0 0 1 10-10h98a10 10 0 0 1 10 10V160H21z"
-      fill="url(#panelG-ID)" stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
+      fill="url(#panelG-ID)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
 <!-- contained -->
 <rect x="22" y="30" width="116" height="100" rx="10"
-      fill="url(#panelG-ID)" stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
+      fill="url(#panelG-ID)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
 ```
 
 **Content must fit.** If rows spill past the panel on both sides it reads as a
@@ -132,6 +150,22 @@ plate behind every illustration is the fastest way to make a set look mechanical
 | `plate` | a larger rounded rect, inset −7 / +4 | the panel needs a floor |
 | `offset` | a second sheet down and to the right | you want "there are more of these" |
 | `twin` | two sheets stepping down and out | a stack seen edge-on |
+
+For a panel at `x 21 w 118 y 8` (all inside the fade mask, drawn before the panel):
+
+```svg
+<!-- plate: x-7, y+4, w+14, radius 16 -->
+<rect x="14" y="12" width="132" height="158" rx="16"
+      fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+<!-- offset: x+8, y+8, same width, radius 10 -->
+<rect x="29" y="16" width="118" height="152" rx="10"
+      fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+<!-- twin: two sheets, 10 then 5 down and out, radius 15 then 12 -->
+<rect x="11" y="18" width="138" height="152" rx="15"
+      fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+<rect x="16" y="13" width="128" height="152" rx="12"
+      fill="var(--il-ghost, #EAE7E2)" stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+```
 
 **No two sheets may share a top edge, and the panel is always the highest.** A
 backdrop level with the panel does not read as depth — it reads as a mistake.
@@ -165,16 +199,17 @@ this style, but only when it is doing something.
 ### Floating header card
 
 ```svg
-<g filter="url(#lift-ID)">
+<!-- 138 x 27 = 3726 sq units, so it takes the deeper shadow, liftL -->
+<g filter="url(#liftL-ID)">
   <rect x="11" y="24" width="138" height="27" rx="8"
-        fill="var(--il-surface, #FFFCFA)"
-        stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
+        fill="var(--il-surface, #FFFFFF)"
+        stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
 </g>
-<!-- 15px icon -->
-<g transform="translate(27 30)">...</g>
-<!-- short bar over long bar -->
-<rect x="52" y="30.5" width="29" height="4.8" rx="2.4" fill="var(--il-fill, #D9D9D9)"/>
-<rect x="52" y="38.9" width="58" height="6"   rx="3"   fill="var(--il-fill, #D9D9D9)"/>
+<!-- 16px icon, centred: 5.5 above and below -->
+<g transform="translate(27 29.5) scale(0.0625)" fill="var(--il-stroke, #35322D)"><path d="…"/></g>
+<!-- short bar over long bar, centred: 6.3 above and below -->
+<rect x="52" y="30.3" width="29" height="4.8" rx="2.4" fill="var(--il-fill, #DCD6CE)"/>
+<rect x="52" y="38.7" width="58" height="6"   rx="3"   fill="var(--il-fill, #DCD6CE)"/>
 ```
 
 The short-over-long bar pair is the workhorse of the system. It reads as "title
@@ -188,9 +223,9 @@ Alternative to the header card, for features about a *thing* rather than a
 
 ```svg
 <circle cx="80" cy="33" r="14"
-        fill="var(--il-surface, #FFFCFA)"
-        stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
-<g transform="translate(73 26)">...14px icon...</g>
+        fill="var(--il-surface, #FFFFFF)"
+        stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>
+<g transform="translate(72.5 25.5) scale(0.05859)" fill="var(--il-stroke, #35322D)"><path d="…15px icon…"/></g>
 ```
 
 A medallion and a header card are mutually exclusive.
@@ -203,13 +238,8 @@ surprisingly visible mistake.
 
 ### Ghost plate
 
-A faint bordered plate behind the panel, drawn first and inside the fade mask.
-
-```svg
-<rect x="14.5" y="13" width="131" height="143" rx="17"
-      fill="var(--il-ghost, #EAE7E2)"
-      stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
-```
+A faint bordered plate behind the panel, drawn first and inside the fade mask —
+the `plate` backdrop above.
 
 Borrowed from bento layouts. It gives the composition a floor to sit on, which is
 most of why those designs read as deep rather than flat. It needs **both** a fill
@@ -304,9 +334,14 @@ same shadow reads as a sticker sheet rather than a stack.
 <filter id="liftL-ID">  <feDropShadow dx="0" dy="4" stdDeviation="5"   …/></filter>
 ```
 
-Objects over roughly 2600 square units take the deeper one. Still only **one
-element per illustration** casts any shadow — the two levels exist so that
-element is lit correctly for its size, not so you can light several.
+Objects over roughly 2600 square units take the deeper one — the 138 × 27 header
+card is 3726, so it is `liftL`; a 62 × 22 chip is 1364, so it is `lift`. Still
+only **one element per illustration** casts any shadow (the corner-chip pair in
+L5 counts as one) — the two levels exist so that element is lit correctly for
+its size, not so you can light several.
+
+The shadow is soft on purpose: 16% opacity, warm, a few units of blur. If you can
+see a dark edge under the card at display size, it is too strong.
 
 ## One stroke
 
@@ -369,22 +404,24 @@ deliberately wider here than a real product UI would use. Three rules:
 The only way text is ever represented.
 
 ```svg
-<rect x="X" y="Y" width="W" height="5" rx="2.5" fill="var(--il-fill, #D9D9D9)"/>
+<rect x="X" y="Y" width="W" height="5" rx="2.5" fill="var(--il-fill, #DCD6CE)"/>
 ```
+
+Radius is always half the height — bars are fully rounded.
 
 ### List row
 
 Leader glyph, then a bar pair. Row pitch 20–21, leader 15×15.
 
 ```svg
-<rect x="33" y="59" width="15" height="15" rx="5" fill="#D8603C"/>   <!-- logo tile -->
-<rect x="57" y="59.5" width="28" height="4.4" rx="2.2" fill="var(--il-fill, #D9D9D9)"/>
-<rect x="57" y="67.1" width="52" height="5.4" rx="2.7" fill="var(--il-fill, #D9D9D9)"/>
+<rect x="33" y="60" width="15" height="15" rx="5" fill="#C25E3E"/>   <!-- logo tile -->
+<rect x="57" y="60.5" width="28" height="4.2" rx="2.1" fill="var(--il-fill, #DCD6CE)"/>
+<rect x="57" y="67.9" width="52" height="5.2" rx="2.6" fill="var(--il-fill, #DCD6CE)"/>
 ```
 
 Leader variants: a **logo tile** (rounded square, the one place real brand color
-is allowed) for external services; an **avatar** (outlined circle, inner circle,
-shoulder arc) for people; a **line icon** for records.
+is allowed) for external services; an **avatar** — the Phosphor `user-circle`
+icon at 15, in `--il-stroke-soft` — for people; a **line icon** for records.
 
 ### Receding stack
 
@@ -409,15 +446,16 @@ Permissions, capability grids, plan comparisons. Column headers are 10px icons;
 cells are dots — **filled means yes, hollow means no**.
 
 ```svg
-<!-- column rules are filled hairlines, not strokes -->
-<rect x="84" y="56" width="1" height="64" fill="var(--il-line, #D9D3CA)" opacity="0.75"/>
-<rect x="30" y="73" width="102" height="1" fill="var(--il-line, #D9D3CA)" opacity="0.8"/>
-<circle cx="92" cy="79" r="3" fill="var(--il-fill, #D9D9D9)"/>              <!-- yes -->
-<circle cx="108" cy="79" r="3" fill="none"
-        stroke="var(--il-fill, #D9D9D9)" stroke-width="1"/>                 <!-- no -->
+<!-- column rules and the header rule are filled hairlines, not strokes -->
+<rect x="84" y="48" width="0.5" height="76" fill="var(--il-line, #B9B1A4)" opacity="0.55"/>
+<rect x="30" y="66" width="102" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.8"/>
+<circle cx="92" cy="76" r="3" fill="var(--il-fill, #DCD6CE)"/>              <!-- yes -->
+<circle cx="108" cy="76" r="3" fill="none"
+        stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>              <!-- no -->
 ```
 
-Columns at x 92 / 108 / 124, rows from y=79 at pitch 13. **Max 4 × 4** — beyond
+Column rules at x 84 / 100 / 116 / 132, cells at x 92 / 108 / 124, column-head
+icons at 11 in `--il-stroke-soft`, rows from y=76 at pitch 13. **Max 4 × 4** — beyond
 that it stops being a metaphor and becomes a spreadsheet.
 
 Make the fill pattern look *deliberate*. A viewer should sense a rule: give one
@@ -427,34 +465,42 @@ Random-looking cells read as noise.
 ### Connector
 
 Relationships between nodes. Dashed for configurable, solid for established.
+A connector is structure, so it uses **the** stroke — same width, same colour —
+like everything else.
 
 ```svg
-<path d="M47 67C69 67 74 86 96 86" fill="none"
-      stroke="var(--il-stroke-soft, #9A9A9A)" stroke-width="1.1"
-      stroke-dasharray="2.6 3" stroke-linecap="round"/>
+<path d="M44 42C53.5 42 53.5 63 63 63" fill="none"
+      stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"
+      stroke-dasharray="2.4 3" stroke-linecap="round"/>
 ```
 
-A single gentle cubic reads better than orthogonal elbows at this scale. Never
-cross them. More than three and the metaphor is too literal.
+A single gentle cubic reads better than orthogonal elbows at this scale. Start
+and end it at the edges of the two things it joins — it never runs under a card
+or across a row. Never cross two connectors. More than four and the metaphor is
+too literal.
 
 ### Pill / tab
 
 ```svg
-<rect x="66" y="30.5" width="26" height="11" rx="5.5"
-      fill="var(--il-fill-soft, #E9E4DC)" stroke="var(--il-line, #D9D3CA)" stroke-width="1"/>
+<rect x="40" y="30.5" width="22" height="11" rx="5.5"
+      fill="var(--il-fill-soft, #E9E4DC)"/>                                  <!-- selected -->
+<rect x="66" y="30.5" width="26" height="11" rx="5.5" fill="none"
+      stroke="var(--il-line, #B9B1A4)" stroke-width="0.5"/>                  <!-- the rest -->
 ```
 
 The selected pill is a **fill with no stroke**; unselected ones are an outline at
 the single stroke spec. Exactly one selected per strip — that is the whole point
-of a tab bar.
+of a tab bar. Inside each, a 2.8-tall bar: `--il-stroke-soft` in the selected
+one, `--il-fill` in the others.
 
 ### Avatar cluster
 
-Overlapping circles with a `+N` chip. Reads as "a group" faster than any icon.
+A row of circles with a `+N` chip. Reads as "a group" faster than any icon.
 
 ```svg
 <circle cx="41" cy="66" r="6.2" fill="#C25E3E" opacity="0.7"/>
-<!-- spaced at 2r + 2.4, then a neutral chip with a short bar for the count -->
+<!-- next at cx + 14.8 (2r + 2.4), then a --il-fill-soft circle holding a
+     6.4 x 2.8 --il-stroke-soft bar for the count -->
 ```
 
 Spaced, not overlapped — see **One stroke** above for why. Keep the fills at
@@ -467,9 +513,9 @@ container into a recognizable surface — which in turn licenses content that
 overflows past its right edge.
 
 ```svg
-<circle cx="31" cy="17" r="1.7" fill="var(--il-line, #D9D3CA)"/>
-<!-- x + 5.5, x + 11 -->
-<rect x="21" y="24" width="118" height="1" fill="var(--il-line, #D9D3CA)" opacity="0.8"/>
+<!-- panel at x 13 w 134 y 8: dots at panel x + 10, then + 5.5 and + 11 -->
+<circle cx="23" cy="17" r="1.7" fill="var(--il-line, #B9B1A4)"/>
+<rect x="13" y="24" width="134" height="0.5" fill="var(--il-line, #B9B1A4)" opacity="0.55"/>
 ```
 
 ### Kebab menu
@@ -485,13 +531,19 @@ actions" without drawing any.
 
 At most **one** per illustration.
 
+Cues are **filled shapes**, never strokes — a stroked plus or tick is a second
+stroke width and immediately looks hand-drawn next to the Phosphor glyphs.
+
 ```svg
-<path d="M0 6h12M6 0v12" stroke="var(--il-stroke, #4A4A4A)"
-      stroke-width="1.5" stroke-linecap="round"/>                       <!-- plus -->
-<path d="M0 2.2l2.2 2.2 4.3-4.7" fill="none" stroke="var(--il-accent, #4A9C7E)"
-      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/> <!-- check -->
-<path d="M0 0l4.4 11 1.7-4.4 4.4-1.7z" fill="var(--il-stroke, #4A4A4A)"/> <!-- cursor -->
+<!-- check: the Phosphor `check` icon at 9, in the accent -->
+<g transform="translate(X Y) scale(0.03516)" fill="var(--il-accent, #3E9077)"><path d="…check…"/></g>
+<!-- plus: the Phosphor `plus` icon, same treatment, in --il-stroke -->
+<g transform="translate(X Y) scale(0.03516)" fill="var(--il-stroke, #35322D)"><path d="…plus…"/></g>
+<!-- cursor: a filled arrow -->
+<path d="M0 0l4.6 11.4 1.8-4.6 4.6-1.8z" fill="var(--il-accent, #3E9077)"/>
 ```
+
+A cue in the accent counts against the accent budget (two elements, at most).
 
 ---
 
@@ -502,22 +554,23 @@ using them here differ from normal web usage:
 
 - **They are filled paths on a 256 grid, not strokes.** Set `fill`, never
   `stroke`. Scale by `size / 256`.
-- **Use the `regular` weight** (16/256). Bold reads heavy against 1-unit
+- **Use the `regular` weight** (16/256). Bold reads heavy against 0.5-unit
   structural strokes — the icons end up shouting over the panels and cards they
   sit on. Regular sits at roughly the same optical weight as the rest of the
   line work, which is the point.
 
 ```svg
-<g transform="translate(27 29.5) scale(0.06250)" fill="var(--il-stroke, #35322D)">
+<g transform="translate(27 29.5) scale(0.0625)" fill="var(--il-stroke, #35322D)">
   <path d="…phosphor regular path…"/>
 </g>
 ```
 
-Sizes: **16** in a header card · **15** in a medallion · **11–13** inline in rows
-and matrix headers.
+Sizes: **16** in a header card · **15** in a medallion · **12** in a chip ·
+**10–13** inline in rows and matrix headers.
 
-`icons.py` in this skill embeds the geometry for the twenty most useful ones.
-Fetch any other from the CDN:
+**`references/icons.md` has paste-ready paths for 54 icons** (generated from
+`icons.py`). Copy the path; never redraw a glyph. For anything missing, take
+the regular-weight SVG from phosphoricons.com, or:
 
 ```
 https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/assets/regular/<name>.svg
@@ -545,6 +598,16 @@ https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/assets/regular/<name>.sv
 | Versions / history | `clock-counter-clockwise` |
 | Approved | `check-circle` |
 | Add | `plus` |
+| Inventory / shipment | `package` · `truck` · `barcode` |
+| Store / marketplace | `storefront` |
+| Payments / money | `currency-circle-dollar` · `bank` |
+| Data / storage | `database` |
+| Settings | `gear` |
+| Filter / segment | `funnel` |
+| Workflow / pipeline | `path` · `arrows-clockwise` |
+| Web / region | `globe` |
+| Messages / comments | `chat-circle` |
+| Tickets / support | `ticket` |
 
 Using one icon family across the whole set is most of what makes a family cohere.
 Don't mix Phosphor with hand-drawn glyphs.

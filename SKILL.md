@@ -28,6 +28,10 @@ an external image model.
 
 ## Workflow
 
+**Read `SPEC.md` first.** It holds every number, the SVG template, the building
+blocks and a complete example — enough to draw from. The references below are
+for the decisions; open one only when a step needs it.
+
 1. **Interpret the feature.** One sentence: what does it actually do?
    → `references/metaphor.md`
 2. **Choose the metaphor.** What *relationship* is this feature about — grouping,
@@ -41,9 +45,11 @@ an external image model.
    treatments and is capped at two per twelve — it is the easiest choice and it
    will take over a set if you let it. Ask what the *subject* is: a hub gets
    raised, a column gets a chip at its head, a surface gets no float at all.
-5. **Compose the SVG.** → `references/primitives.md`, tokens from
-   `references/theme.md`.
-6. **Run the checklist.** → `references/checklist.md`. Simplify what it flags.
+5. **Compose the SVG** from `SPEC.md`, with icon paths from
+   `references/icons.md`. If you can run Python here, build it with the
+   primitives in `build.py` (`from build import *`) — they carry every constant.
+6. **Check it.** Run `python3 check.py your.svg` if you can, then the list in
+   `SPEC.md` §9. Simplify what they flag.
 
 If the concept is genuinely ambiguous, offer 2–3 **conceptual** directions before
 drawing — different metaphors, never different styling.
@@ -80,8 +86,9 @@ nothing in the method changes when one is added.
   narrow frame, a table of rows a wide one. Its edge either fades (open bottom:
   *there is more*) or is contained (closed: *this is all of it*). Choose by
   meaning.
-- **Exactly one thing carries the shadow.** Usually a floating element breaking
-  past the panel's edges; sometimes a raised row or the middle card of a fan.
+- **One thing carries the shadow.** Usually a floating element breaking past
+  the panel's edges; sometimes a raised row or the middle card of a fan. (The
+  corner-chip layout's diagonal pair counts as one.)
 - **The elevation goes on the record being acted on**, not on a decorative circle
   above it. When a medallion sits over a prominent first row, the row floats and
   the medallion stays flat.
@@ -112,7 +119,8 @@ nothing in the method changes when one is added.
 ## Two things that will bite you
 
 - **Icons are Phosphor `regular`, filled, on a 256 grid.** Set `fill`, never
-  `stroke`. Bold reads heavy against 1-unit structural strokes.
+  `stroke`. Bold reads heavy against 0.5-unit structural strokes. Paste the
+  paths from `references/icons.md`; never draw a glyph yourself.
 - **CSS custom properties do not cross into `<img>` or `<object>`.** An SVG
   loaded that way shows fallback colors forever and will not follow dark mode.
   Inline the markup to theme it — and suffix every `id` when you do, or masks
@@ -124,9 +132,11 @@ Read the one you need; don't load them all.
 
 | File | Read it when |
 |---|---|
+| `SPEC.md` | **Always, first.** Every number, the template, one full example. |
+| `references/icons.md` | You need an icon — paste-ready Phosphor paths. |
 | `references/metaphor.md` | Translating a feature into a concept. Catalog of ~24 common SaaS features. |
 | `references/archetypes.md` | Choosing a layout. Twelve compositions and the four choices that generate them. |
-| `references/primitives.md` | Writing the SVG. Verified geometry + copy-paste library. |
+| `references/primitives.md` | You need the reasoning behind a building block. |
 | `references/theme.md` | Colors, tokens, light/dark, accent rules, deriving your own palette. |
 | `references/scaling.md` | Any canvas that is not a ~160px square. |
 | `references/screenshots.md` | The user supplied a screenshot of the real UI. |
@@ -152,6 +162,8 @@ Don't pad it with explanation the user didn't ask for.
   Open `examples/gallery.html` for the contact sheet in both themes.
 - `icons.py` — embedded Phosphor geometry (regular is what the system uses;
   bold is kept for anyone who wants a heavier variant).
+- `check.py` — lints an SVG against the rules that fail silently
+  (`python3 check.py file.svg`), and the docs against `build.py` (`--docs`).
 - `build.py` — the generator that produced them. Every constant in one place;
   change one and the whole family moves together. Worth copying for any set
   larger than about eight.

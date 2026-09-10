@@ -61,10 +61,10 @@ cell to land in.
 | **L6** | Window | none | 134 fade, chrome | twin | a real surface, more off-screen |
 | **L7** | Fanned | middle card, raised | 128 **contained** | none | a set with one chosen |
 | **L8** | Notifications | top card | 108 **contained** | offset | events arriving |
-| **L9** | Constellation | header card | 118 fade | plate | systems converging |
-| **L10** | Matrix | header card | 118 fade | none | who can do what |
-| **L11** | Timeline | header card | 104 fade | offset | sequence, newest first |
-| **L12** | Split | medallion | 116 **contained** | plate | moving through stages |
+| **L9** | Constellation | raised hub | 118 fade | plate | systems converging |
+| **L10** | Matrix | corner chip | 118 fade | none | who can do what |
+| **L11** | Timeline | column chip | 104 fade | offset | sequence, newest first |
+| **L12** | Split | medallion, flat | 116 **contained** | plate | moving through stages |
 
 Four panel widths, two edge treatments, four backdrops. That spread is doing as
 much work as the content arrangements.
@@ -135,7 +135,7 @@ However the composition varies, these never do:
 - stroke weights, bar heights, corner radii
 - the icon family and its sizes
 - the token palette
-- exactly one element carrying the shadow
+- at most one element carrying the shadow
 - the outer ~10px kept clear
 
 A set built this way looks like twelve views of one product rather than twelve

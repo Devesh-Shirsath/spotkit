@@ -11,7 +11,8 @@ between them; it does not impose a palette.
 
 ## Token slots
 
-Twelve slots. Every primitive references these and nothing else.
+Eleven colour slots, plus two for the shadow. Every primitive references these
+and nothing else.
 
 | Token | Role | Constraint |
 |---|---|---|
@@ -21,10 +22,10 @@ Twelve slots. Every primitive references these and nothing else.
 | `--il-panel-top` | Base panel fill (gradient top) | ~2% lighter than `--il-panel` |
 | `--il-line` | **Every stroke in the system** | One colour for all line work — panels, cards, tiles, connectors, chrome |
 | `--il-surface` | Floating cards | Highest contrast against `--il-panel`. This is what pops forward. |
-| `--il-stroke` | Icon lines | Only genuinely dark value. Use sparingly. |
-| `--il-stroke-soft` | Secondary icons, matrix glyphs | ~50% toward the panel from `--il-stroke` |
+| `--il-stroke` | Icon fill | Only genuinely dark value. Use sparingly. |
+| `--il-stroke-soft` | Secondary icons, avatars, kebabs | ~50% toward the panel from `--il-stroke` |
 | `--il-fill` | Placeholder bars | Neutral gray, deliberately *not* tinted like the surfaces |
-| `--il-fill-soft` | Recessed bars, hollow dots | ~40% lighter than `--il-fill` |
+| `--il-fill-soft` | Selected pills, the `+N` chip | ~40% lighter than `--il-fill` |
 | `--il-accent` | Optional single accent | See rules below |
 
 Plus two for the shadow, split so SVG `feDropShadow` can theme them:
@@ -61,7 +62,7 @@ derive your own without breaking the relationships above.
   --il-ghost:        #EAE7E2;
   --il-panel:        #F7F5F2;
   --il-panel-top:    #FCFBF9;
-  --il-line:         #D9D3CA;
+  --il-line:         #B9B1A4;
   --il-surface:      #FFFFFF;
   --il-stroke:       #35322D;
   --il-stroke-soft:  #9B948A;
@@ -78,7 +79,7 @@ derive your own without breaking the relationships above.
   --il-ghost:        #1F1E1C;
   --il-panel:        #262523;
   --il-panel-top:    #2E2C29;
-  --il-line:         #45413B;
+  --il-line:         #5C564D;
   --il-surface:      #322F2B;
   --il-stroke:       #DDD9D3;
   --il-stroke-soft:  #877F74;

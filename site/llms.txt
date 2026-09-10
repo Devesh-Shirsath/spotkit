@@ -1,8 +1,9 @@
 # Spotkit
 
-> A Claude Code skill that turns a feature description into a minimal, abstract
-> product illustration, written as deterministic SVG rather than generated as an
-> image. Built by Devesh Shirsath (https://deveshshirsath.com).
+> An AI skill (Claude Code, Codex, or any model that can read a file) that
+> turns a feature description into a minimal, abstract product illustration,
+> written as deterministic SVG rather than generated as an image. Built by
+> Devesh Shirsath (https://deveshshirsath.com).
 
 Spotkit exists because drawing one illustration is easy and drawing twenty that
 look like one system is not. It ships twelve composition layouts, a documented
@@ -13,19 +14,31 @@ Output is real SVG: editable, themeable, diffable, and pasteable into Figma.
 Image models are avoided deliberately — they fail at hairline strokes, exact
 radii and, above all, consistency across a set.
 
+## Using it
+
+To draw an illustration you need two files, fetched raw:
+
+- [SPEC.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SPEC.md): every number, the SVG template, the twelve layouts and a complete example. Start here.
+- [icons.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/icons.md): paste-ready Phosphor icon paths.
+
+Nothing else is required. Do not crawl the repository or read the landing page to use the skill.
+
 ## Install
 
-git clone https://github.com/Devesh-Shirsath/spotkit.git ~/.claude/skills/spotkit
+- Claude Code: git clone https://github.com/Devesh-Shirsath/spotkit.git ~/.claude/skills/spotkit
+- Codex: git clone https://github.com/Devesh-Shirsath/spotkit.git ~/.agents/skills/spotkit
+- Other agents: clone into the project and follow SKILL.md; AGENTS.md lists what to skip.
+- Validate output with: python3 check.py file.svg
 
 ## Docs
 
-- [README](https://github.com/Devesh-Shirsath/spotkit): what it is, how it works, install, limitations
-- [Skill definition](https://github.com/Devesh-Shirsath/spotkit/blob/main/SKILL.md): the workflow Claude follows
-- [Layouts](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/archetypes.md): the twelve compositions and the choices behind them
-- [Primitives](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/primitives.md): verified geometry and the copy-paste SVG library
-- [Metaphor](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/metaphor.md): turning a feature into a visual concept
-- [Theme](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/theme.md): tokens, light and dark, accent rules
-- [Checklist](https://github.com/Devesh-Shirsath/spotkit/blob/main/references/checklist.md): the quality gate
+- [SKILL.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SKILL.md): the workflow
+- [Metaphor](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/metaphor.md): turning a feature into a visual concept
+- [Layouts](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/archetypes.md): the twelve compositions and the choices behind them
+- [Primitives](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/primitives.md): the reasoning behind each building block
+- [Theme](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/theme.md): tokens, light and dark, accent rules
+- [Checklist](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/checklist.md): the quality gate
+- [README](https://github.com/Devesh-Shirsath/spotkit): what it is, limitations
 
 ## Author
 

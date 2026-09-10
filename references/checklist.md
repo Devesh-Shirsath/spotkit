@@ -17,19 +17,22 @@ almost always removal.
 - [ ] At most **one** interaction cue.
 - [ ] At most **two** accent-colored elements — ideally one, often zero.
 - [ ] Fewer than **six** content blocks.
-- [ ] At most **two** distinct icons, excluding third-party logos.
+- [ ] At most **two** prominent icons — the float's and one more. Small repeated
+      glyphs (row leaders, avatars, matrix column heads) and logos don't count.
 - [ ] Panel no more than ~60% covered.
 
 ## Visual language
 
-- [ ] **One stroke width (0.5) and one stroke colour in the whole file.** Verify:
-      `grep -oh 'stroke-width="[^"]*"' *.svg | sort -u` returns one line,
-      and the same for `stroke="…"`.
+- [ ] **One stroke width (0.5) and one stroke colour in the whole file.** Verify
+      with `python3 check.py file.svg`, or by hand: every `stroke-width` is
+      `"0.5"` and every `stroke` is `var(--il-line, #B9B1A4)`.
 - [ ] Separators are filled hairlines, not strokes.
 - [ ] Nothing is stroked merely to make it visible — that is a fill's job.
 - [ ] One corner-radius language.
-- [ ] Exactly **one** element casts a shadow, at the elevation matching its size.
-- [ ] The panel has **no bottom edge**; contents fade downward with it.
+- [ ] At most **one** element casts a shadow (L5's corner-chip pair counts as
+      one), at the elevation matching its size.
+- [ ] A `fade` panel has **no bottom edge** and its contents fade with it; a
+      `contained` panel closes on all four sides.
 - [ ] Only the designated float breaks the panel bounds — content does not spill.
 - [ ] Where the float breaks out, it does so decisively (8–15 units), not by two.
 - [ ] If the float covers one side of the panel's top edge, something answers it on the other side.
@@ -90,6 +93,7 @@ almost always removal.
 - [ ] If it must theme, it is **inlined** — `<img>` and `<object>` render fallbacks only and will never follow dark mode.
 - [ ] `role="img"` and a meaningful `aria-label`.
 - [ ] Checked at the **smallest** intended size, not just zoomed in.
+- [ ] `python3 check.py file.svg` passes, if you can run code.
 
 ## The two that matter most
 

@@ -195,9 +195,11 @@ def svg(uid, label, faded, floating=''):
 def header_card(uid, ic, x=11, w=138, y=None, h=None):
     y = G['CARD_Y'] if y is None else y
     h = G['CARD_H'] if h is None else h
+    pair = 8.4 + 6                        # gap + lower bar: the pair's real height
+    padded(y, h, y + (h - pair) / 2, y + (h + pair) / 2, 'header card')
     return (card(x, y, w, h, G['CARD_R'], uid)
             + icon(ic, x + 16, y + (h - 16) / 2, 16)
-            + barpair(x + 41, y + (h - 19) / 2, 29, 58, 4.8, 6, 8.4))
+            + barpair(x + 41, y + (h - pair) / 2, 29, 58, 4.8, 6, 8.4))
 
 
 def medallion(uid, ic, cx=80, cy=None, r=None, lift=False):
@@ -486,4 +488,36 @@ if __name__ == '__main__':
 <div class="pane light" data-theme="light"><h2>Light</h2><div class="g">{grid('l')}</div></div>
 <div class="pane dark" data-theme="dark"><h2>Dark</h2><div class="g">{grid('d')}</div></div>
 ''')
-    print('wrote', len(items), 'svgs + gallery')
+    # references/icons.md -- the Phosphor paths as paste-ready SVG, so a model
+    # reading this repo from a link never has to open a Python file for them.
+    names = sorted(PHOSPHOR['regular'])
+    rows = ('\n' + ' · '.join(f'`{n}`' for n in names) + '\n\n```svg\n'
+            + ''.join(f'<!-- {n} --><path d="{PHOSPHOR["regular"][n]}"/>\n' for n in names)
+            + '```\n')
+    open('references/icons.md', 'w').write(f'''# Icons
+
+Phosphor **regular**, MIT licensed (https://phosphoricons.com). Generated from
+`icons.py` by `build.py` -- do not edit by hand.
+
+These are **filled** paths on a 256 grid. Never stroke them. Place one with:
+
+```svg
+<g transform="translate(X Y) scale(S)" fill="var(--il-stroke, #35322D)">
+  <path d="..."/>
+</g>
+```
+
+`S = size / 256`. Sizes: **16** in a header card (S 0.0625) · **15** in a
+medallion (0.05859) · **12** in a chip (0.04688) · **10-13** inline. Use
+`var(--il-stroke-soft, #9B948A)` for secondary glyphs and avatars,
+`var(--il-accent, #3E9077)` only for the one accented element.
+
+A name you need is missing? Take the regular-weight SVG from phosphoricons.com
+and use its path the same way -- never draw your own glyph.
+{rows}''')
+
+    import check
+    bad = [uid for uid, _, _ in items if check.lint(f'examples/{uid}.svg')[0]]
+    if bad:
+        raise SystemExit(f'check.py rejects: {bad}')
+    print('wrote', len(items), 'svgs + gallery + references/icons.md; all pass check.py')

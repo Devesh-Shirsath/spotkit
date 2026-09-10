@@ -1,9 +1,10 @@
 """Phosphor icon geometry (256 grid, filled paths).
 
 Phosphor Icons - MIT License - https://phosphoricons.com
-Regular weight is ~16/256 stroke, bold ~24/256. At the sizes this system
-uses (11-17 units on a 160 canvas) bold reads correctly; regular
-disappears. Fill these, never stroke them.
+Regular weight is ~16/256 stroke, bold ~24/256. The system uses regular:
+next to 0.5-unit structural strokes, bold shouts over the panels it sits on.
+Bold is kept for anyone building a heavier preset. Fill these, never stroke
+them. Paste-ready copies live in references/icons.md (written by build.py).
 """
 
 PHOSPHOR = {

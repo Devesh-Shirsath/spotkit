@@ -10,6 +10,7 @@ import illos
 import build as core
 
 REPO = 'https://github.com/Devesh-Shirsath/spotkit'
+RAW = 'https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main'
 SITE = 'https://getspotkit.vercel.app'
 AUTHOR = 'Devesh Shirsath'
 AUTHOR_URL = 'https://deveshshirsath.com'
@@ -159,6 +160,10 @@ html = f'''<!doctype html>
   --pixel:    "Geist Pixel", ui-monospace, SFMono-Regular, Menlo, monospace;
   --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }}
+/* site-only: the caret colour in the hero caption */
+:root, [data-theme="light"] {{ --cursor: #D4713A; }}
+[data-theme="dark"] {{ --cursor: #E08A4E; }}
+@media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ --cursor: #E08A4E; }} }}
 html {{ scroll-behavior: smooth; }}
 
 /* Content settles in as it comes into view. The hero is deliberately excluded —
@@ -299,6 +304,9 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .install {{ margin: clamp(120px, 20vh, 220px) 0 0; text-align:center; }}
 .install h2, .foot h2 {{ font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }}
 .install p {{ color:var(--ink-soft); margin:0 0 22px; font-size:15px; }}
+.install p.alt {{ margin:18px 0 0; font-size:13.5px; }}
+.install p.alt code {{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; }}
+.install p.alt a {{ color:inherit; text-underline-offset:3px; }}
 .code {{
   display:flex; align-items:center; gap:14px;
   border:1px solid var(--line); border-radius:12px; background:var(--card);
@@ -424,6 +432,9 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
     <span id="cmd">git clone {REPO}.git ~/.claude/skills/spotkit</span>
     <button class="copy" id="copy" type="button">Copy</button>
   </div>
+  <p class="alt">Codex? Clone into <code>~/.agents/skills/spotkit</code> instead.
+  Another AI tool, or nothing to install into? Point it at
+  <a href="{RAW}/SPEC.md">SPEC.md</a> — one file, every rule.</p>
 </section>
 
 </div>
