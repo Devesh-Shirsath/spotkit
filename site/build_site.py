@@ -118,7 +118,7 @@ JSONLD = f'''{{
 }}'''
 
 html = f'''<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -207,6 +207,7 @@ nav {{ display:flex; align-items:center; justify-content:space-between; padding:
 .only-dark  {{ display:none; }}
 [data-theme="dark"] .only-light {{ display:none; }}
 [data-theme="dark"] .only-dark  {{ display:block; }}
+[data-theme="dark"] {{ color-scheme: dark; }}
 
 /* ---------- hero: one full fold ---------- */
 .fold {{ min-height: 100svh; display:flex; flex-direction:column; }}
@@ -538,7 +539,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   // theme
   var btn = document.getElementById('theme');
   var root = document.documentElement;
-  var dark = false;   // the illustrations were designed light-first
+  var dark = root.getAttribute('data-theme') !== 'light';   // dark by default, set on <html>
   function paint() {{ root.setAttribute('data-theme', dark ? 'dark' : 'light'); }}
   btn.addEventListener('click', function () {{ dark = !dark; paint(); }});
   paint();
