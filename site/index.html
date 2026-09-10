@@ -57,6 +57,7 @@
   --il-fill:         #DCD6CE;
   --il-fill-soft:    #E9E4DC;
   --il-accent:       #3E9077;
+  --cursor:          #D4713A;
   --il-shadow-c:     #4A3F33;
   --il-shadow-o:     0.16;
 }
@@ -73,6 +74,7 @@
   --il-fill:         #4A463E;
   --il-fill-soft:    #35322D;
   --il-accent:       #5FB694;
+  --cursor:          #E08A4E;
   --il-shadow-c:     #000000;
   --il-shadow-o:     0.55;
 }
@@ -91,6 +93,7 @@
     --il-fill:         #4A463E;
     --il-fill-soft:    #35322D;
     --il-accent:       #5FB694;
+    --cursor:          #E08A4E;
     --il-shadow-c:     #000000;
     --il-shadow-o:     0.55;
   }
@@ -99,6 +102,12 @@
 .il { display: block; width: 100%; height: auto; }
 
 
+@font-face {
+  font-family: "Geist Pixel";
+  src: url('fonts/geist-pixel.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
 *,*::before,*::after { box-sizing: border-box; }
 :root {
   --ink:      var(--il-stroke);
@@ -109,6 +118,7 @@
   --radius:   14px;
   --max:      1180px;
   --serif:    "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --pixel:    "Geist Pixel", ui-monospace, SFMono-Regular, Menlo, monospace;
   --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 html { scroll-behavior: smooth; }
@@ -182,29 +192,29 @@ h1 em { font-style: normal; color: var(--ink-soft); }
 .reel {
   flex: 0 0 auto; padding: 0; min-height: 0;
 }
-.rail { overflow:hidden; padding: 74px 0 14px; }   /* room for the scaled-up centre card */
-.track {
-  display:flex; align-items:center; gap: 8px; width: max-content;
-  will-change: transform;
-  transition: transform 900ms cubic-bezier(.22,.61,.36,1);
-}
+.rail { overflow:hidden; padding: 84px 0 14px; }   /* room for the scaled-up centre card */
+/* Cards are placed by JS, not by flex: each one is centred on the rail and then
+   pushed out by a measured offset, so the visual gap between neighbours is the
+   same at every tier. A flex row cannot do that — its pitch is the unscaled box
+   width, so a card at .44 leaves half a box of dead air on both sides. */
+.track { position: relative; height: 340px; }
 .card {
-  width: 340px; flex: none;
-  transform: scale(.5); opacity: .26;
+  position:absolute; bottom:0; left:50%; width: 340px;
+  transform-origin: 50% 100%;                  /* one baseline for the whole reel */
+  transform: translateX(-50%) scale(.44); opacity: .14;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }
-.card.n1 { transform: scale(.8); opacity: .5; }
-.card.n0 { transform: scale(1.24); opacity: 1; }
 .card svg { width:100%; height:auto; display:block; }
 .prompt {
-  text-align:center; margin: 0; font-size: 18px;
-  letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
+  text-align:center; margin: 0;
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0;
+  color: var(--ink-soft); min-height: 1.7em;
 }
 .prompt .q { color: var(--ink-soft); opacity: 0; transition: opacity .25s ease; }
 .prompt.started .q { opacity: 1; }   /* no empty “” frame between cycles */
 .prompt .caret {
-  display:inline-block; width:1.5px; height:.95em; background:var(--ink-soft);
-  vertical-align:-1px; margin:0 1px 0 2px;
+  display:inline-block; width:.5em; height:1.05em; background: var(--cursor);
+  vertical-align:-3px; margin:0 1px 0 3px; border-radius:1px;
 }
 .prompt.typing .caret { opacity:1; }                 /* solid while it types */
 .prompt.done .caret { animation: blink 1.05s steps(1) infinite; }
@@ -304,15 +314,13 @@ h1 em { font-style: normal; color: var(--ink-soft); }
   header { padding-top:60px; }
   .get-grid { grid-template-columns:1fr; gap:34px; }
   .card { width:150px; }
+  .rail { padding: 42px 0 10px; }
   .prompt { font-size:16.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }
   .reveal { opacity:1 !important; transform:none !important; }
   *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; }
-  .track { animation:none; transform:none; }
-  .reel { overflow-x:auto; }
-  .card { opacity:1; transform:none; }
 }
 </style>
 </head>
@@ -1287,24 +1295,47 @@ h1 em { font-style: normal; color: var(--ink-soft); }
     }, 26);
   }
 
+  // Scale and opacity by distance from the centre; anything further out is
+  // pinned to the last tier. The centre offsets are cumulative half-widths plus
+  // one constant gap, so every neighbour sits the same distance from the last —
+  // which a fixed flex pitch cannot give you once the cards are scaled.
+  var SCALE = [1.22, .80, .58, .44];
+  var OPAC  = [1, .52, .28, .14];
+  var CEN = null, W = 0;
+  function sc(d) { return SCALE[Math.min(d, SCALE.length - 1)]; }
+  function op(d) { return OPAC[Math.min(d, OPAC.length - 1)]; }
+
+  function measure() {
+    W = cards[0].offsetWidth;
+    track.style.height = W + 'px';          // svgs are square
+    var gap = W * 0.053;
+    CEN = [0];
+    for (var k = 1; k < cards.length; k++)
+      CEN[k] = CEN[k - 1] + W * sc(k - 1) / 2 + gap + W * sc(k) / 2;
+  }
+
   function place(animate) {
-    track.style.transition = animate ? '' : 'none';
-    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 8);
-    var x = track.parentNode.clientWidth / 2 - cards[0].offsetWidth / 2 - at * slot;
-    track.style.transform = 'translateX(' + x + 'px)';
+    if (!CEN || cards[0].offsetWidth !== W) measure();
     for (var i = 0; i < cards.length; i++) {
-      var d = Math.abs(i - at);
-      cards[i].className = 'card' + (d === 0 ? ' n0' : d === 1 ? ' n1' : '');
+      var d = i - at, ad = Math.abs(d), c = cards[i];
+      if (!animate) c.style.transition = 'none';
+      c.style.transform = 'translateX(calc(-50% + ' + (d < 0 ? -CEN[ad] : CEN[ad]) +
+                          'px)) scale(' + sc(ad) + ')';
+      c.style.opacity = op(ad);
     }
     type(at % N);
-    if (!animate) track.offsetHeight;   // flush before re-enabling
+    if (!animate) {
+      track.offsetHeight;                   // flush before re-enabling
+      for (var j = 0; j < cards.length; j++) cards[j].style.transition = '';
+    }
   }
+  addEventListener('resize', function () { measure(); place(false); });
 
   function step() {
     at++;
     place(true);
     if (at >= (SETS - 1) * N) {
-      setTimeout(function () { at -= N; place(false); track.style.transition = ''; }, 950);
+      setTimeout(function () { at -= N; place(false); }, 950);
     }
   }
 

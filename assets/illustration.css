@@ -25,6 +25,7 @@
   --il-fill:         #DCD6CE;
   --il-fill-soft:    #E9E4DC;
   --il-accent:       #3E9077;
+  --cursor:          #D4713A;
   --il-shadow-c:     #4A3F33;
   --il-shadow-o:     0.16;
 }
@@ -41,6 +42,7 @@
   --il-fill:         #4A463E;
   --il-fill-soft:    #35322D;
   --il-accent:       #5FB694;
+  --cursor:          #E08A4E;
   --il-shadow-c:     #000000;
   --il-shadow-o:     0.55;
 }
@@ -59,6 +61,7 @@
     --il-fill:         #4A463E;
     --il-fill-soft:    #35322D;
     --il-accent:       #5FB694;
+    --cursor:          #E08A4E;
     --il-shadow-c:     #000000;
     --il-shadow-o:     0.55;
   }
