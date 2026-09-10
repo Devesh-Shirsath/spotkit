@@ -63,9 +63,13 @@ gets = ''.join(
 
 LINKS = [('globe-simple', 'Portfolio', AUTHOR_URL), ('linkedin-logo', 'LinkedIn', LINKEDIN),
          ('github-logo', 'GitHub', GITHUB), ('instagram-logo', 'Instagram', INSTAGRAM)]
-links = ''.join(
-    f'<a href="{u}">{core.icon(ic, 0, 0, 16, "currentColor").replace("<g ", chr(60) + "svg viewBox=" + chr(34) + "0 0 16 16" + chr(34) + " width=" + chr(34) + "16" + chr(34) + " height=" + chr(34) + "16" + chr(34) + " aria-hidden=" + chr(34) + "true" + chr(34) + "><g ").replace("</g>", "</g></svg>")}<span>{n}</span></a>'
-    for ic, n, u in LINKS)
+def _btn(ic, n, u):
+    g = core.icon(ic, 0, 0, 18, 'currentColor')
+    svg = ('<svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">'
+           + g + '</svg>')
+    return f'<a class="dot" href="{u}" title="{n}" aria-label="{n}">{svg}</a>'
+
+links = ''.join(_btn(ic, n, u) for ic, n, u in LINKS)
 
 sheet = ''.join(
     '<div class="cell">' +
@@ -139,6 +143,7 @@ html = f'''<!doctype html>
   --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }}
 html {{ scroll-behavior: smooth; }}
+h1, h2, h3 {{ font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }}
 body {{
   margin: 0; background: var(--page); color: var(--ink);
   font: 400 16px/1.65 var(--sans);
@@ -161,14 +166,14 @@ nav {{ display:flex; align-items:center; justify-content:space-between; padding:
 
 /* ---------- hero: one full fold ---------- */
 .fold {{ min-height: 100svh; display:flex; flex-direction:column; }}
-header {{ padding: clamp(56px, 9vh, 104px) 0 0; max-width: 820px; margin: 0 auto; text-align: center; }}
+header {{ padding: clamp(40px, 6.5vh, 78px) 0 0; max-width: 820px; margin: 0 auto; text-align: center; }}
 h1 {{
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(30px, 3.9vw, 46px); line-height: 1.24; letter-spacing: -.04em;
   margin: 0 0 22px; text-wrap: balance;
 }}
 h1 em {{ font-style: normal; color: var(--ink-soft); }}
-.lede {{ font-size: 17px; color: var(--ink-soft); margin: 0 auto 30px; max-width: 620px; }}
+.lede {{ font-size: 17px; color: var(--ink-soft); margin: 0 auto 26px; max-width: 620px; }}
 .cta-row {{ display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }}
 .cta {{
   display:inline-flex; align-items:center; gap:9px; background: var(--ink); color: var(--page);
@@ -181,37 +186,37 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 /* ---------- reel: holds, then steps ---------- */
 .reel {{
   flex: 1 1 auto; display:flex; flex-direction:column; justify-content:center;
-  overflow:hidden; padding: 22px 0 clamp(28px, 6vh, 56px); min-height: 0;
+  overflow:hidden; padding: 0 0 clamp(18px, 3.5vh, 36px); min-height: 0;
 }}
 .rail {{ overflow:hidden; }}
 .track {{
-  display:flex; align-items:center; gap: 34px; width: max-content;
+  display:flex; align-items:center; gap: 40px; width: max-content;
   will-change: transform;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1);
 }}
 .card {{
-  width: 250px; flex: none;
-  transform: scale(.5); opacity: .3;
+  width: 350px; flex: none;
+  transform: scale(.46); opacity: .28;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }}
-.card.n1 {{ transform: scale(.74); opacity: .55; }}
-.card.n0 {{ transform: scale(1.06); opacity: 1; }}
+.card.n1 {{ transform: scale(.7); opacity: .5; }}
+.card.n0 {{ transform: scale(1); opacity: 1; }}
 .card svg {{ width:100%; height:auto; display:block; }}
 .prompt {{
-  text-align:center; margin: clamp(16px, 3vh, 34px) 0 0; font-size: 18px;
+  text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
   letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
 }}
 .prompt span::before {{ content:'“'; color:var(--ink-soft); }}
 .prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
 
 /* ---------- argument ---------- */
-.why {{ margin: clamp(90px, 14vh, 150px) 0 0; }}
+.why {{ margin: clamp(62px, 9vh, 104px) 0 0; }}
 .why-grid {{ display:grid; grid-template-columns: 1fr 1fr; gap:88px; align-items:start; }}
-.why-copy p {{ margin:0 0 16px; color:var(--ink-soft); font-size:16px; }}
+.why-copy p {{ margin:0 0 18px; color:var(--ink-soft); font-size:18px; line-height:1.6; }}
 .why-copy p:last-child {{ margin:0; }}
 .why-copy em {{ font-style:normal; color:var(--ink); }}
 .sheets {{
-  display:grid; gap:22px; margin: clamp(64px, 10vh, 104px) 0 0;
+  display:grid; gap:22px; margin: clamp(40px, 6vh, 64px) 0 0;
   width: min(1400px, calc(100vw - 56px)); margin-left:50%; transform:translateX(-50%);
 }}
 .sheets img {{
@@ -221,23 +226,21 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .sheet-note {{ margin:24px 0 0; font-size:14px; color:var(--ink-soft); text-align:center; }}
 
 /* ---------- payoff ---------- */
-.gets {{ margin: clamp(90px, 14vh, 150px) 0 0; }}
-.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 84px 90px; }}
+.gets {{ margin: clamp(62px, 9vh, 104px) 0 0; }}
+.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; }}
 .get {{ text-align:center; }}
 .orb {{
-  width: 262px; height: 262px; margin: 0 auto 30px; border-radius: 50%;
-  border: 1px solid var(--line); display:grid; place-items:center; padding: 34px;
-  overflow: hidden;
+  width: 250px; height: 250px; margin: 0 auto 14px; display:grid; place-items:center;
 }}
 .orb svg {{ width:100%; height:auto; display:block; }}
-.split {{ position:relative; width:84%; margin:0 auto; }}
+.split {{ position:relative; width:100%; }}
 .split span {{ display:block; background:var(--il-canvas); border-radius:12px; overflow:hidden; }}
 .split .half {{ position:absolute; inset:0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }}
 .get h3 {{ font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:-.04em; margin:0 0 12px; }}
 .get p {{ margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }}
 
 /* ---------- install ---------- */
-.install {{ margin: clamp(90px, 14vh, 150px) 0 0; text-align:center; }}
+.install {{ margin: clamp(62px, 9vh, 104px) 0 0; text-align:center; }}
 .install h2, .foot h2 {{ font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }}
 .install p {{ color:var(--ink-soft); margin:0 0 22px; font-size:15px; }}
 .code {{
@@ -254,18 +257,39 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .copy:hover {{ color:var(--ink); }}
 
 /* ---------- footer ---------- */
-.foot {{ margin: clamp(90px, 14vh, 150px) 0 0; padding: 0 0 90px; text-align:center; }}
-.foot p {{ color:var(--ink-soft); font-size:15px; margin:0 auto 18px; max-width:540px; }}
-.foot a {{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }}
-.foot a:hover {{ border-color:var(--ink-soft); }}
-.links {{ display:flex; gap:26px; flex-wrap:wrap; justify-content:center; font-size:14px; }}
-.links a {{ color:var(--ink-soft); border:0; display:inline-flex; align-items:center; gap:7px; }}
-.links a svg {{ flex:none; opacity:.85; }}
-.links a:hover {{ color:var(--ink); }}
-.fine {{ margin-top:26px; font-size:12.5px; color:var(--ink-soft); opacity:.75; }}
+.foot {{
+  margin: clamp(62px, 9vh, 104px) 0 0; background: var(--il-panel); overflow: hidden;
+}}
+.foot-inner {{
+  max-width: var(--max); margin: 0 auto; padding: 46px 28px 0;
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: end;
+}}
+.foot-left {{ padding-bottom: 46px; }}
+.foot h2 {{ font-size: 22px; margin: 0 0 12px; }}
+.foot p {{ color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 380px; }}
+.foot a {{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }}
+.foot .fine {{ margin-top: 18px; font-size: 12.5px; opacity: .75; }}
+.foot-mid {{
+  width: 260px; height: 232px; align-self: end;
+  background: url('devesh.png') center bottom / contain no-repeat;
+}}
+.foot-right {{ display:flex; gap:12px; justify-content:flex-end; padding-bottom: 46px; }}
+.foot .dot {{
+  width: 46px; height: 46px; border-radius: 50%; border: 0; border-bottom: 0;
+  background: var(--ink); color: var(--page);
+  display: grid; place-items: center; transition: opacity .18s ease, transform .18s ease;
+}}
+.foot .dot:hover {{ opacity: .85; transform: translateY(-1px); }}
 
 @media (max-width: 900px) {{
   .why-grid {{ grid-template-columns:1fr; gap:24px; }}
+}}
+@media (max-width: 820px) {{
+  .foot-inner {{ grid-template-columns:1fr; gap:22px; text-align:center; justify-items:center; }}
+  .foot-left {{ padding-bottom:0; }}
+  .foot p {{ margin:0 auto; }}
+  .foot-right {{ justify-content:center; padding-bottom:30px; }}
+  .foot-mid {{ order:-1; width:200px; height:180px; }}
 }}
 @media (max-width: 700px) {{
   header {{ padding-top:60px; }}
@@ -299,8 +323,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   Describe a feature in a sentence and get a clean, distinct SVG that belongs with
   everything else you've made.</p>
   <div class="cta-row">
-    <a class="cta" href="{REPO}">Get it on GitHub →</a>
-    <span class="meta">Runs on the Claude you already have</span>
+    <a class="cta" href="{REPO}">Get it on GitHub</a>
   </div>
 </header>
 </div>
@@ -327,8 +350,6 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
     <img src="sheet-light.svg" alt="Twelve Spotkit illustrations in light mode" loading="lazy" width="1116" height="376">
     <img src="sheet-dark.svg" alt="The same twelve illustrations in dark mode" loading="lazy" width="1116" height="376">
   </div>
-  <p class="sheet-note">Twelve features, twelve layouts, one set of rules — and the
-  same twelve files in both themes.</p>
 </section>
 
 <section class="gets">
@@ -344,15 +365,20 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   </div>
 </section>
 
-<footer class="foot">
-  <h2>Who made this</h2>
-  <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product designer
-  working on developer tools and API documentation.</p>
-  <div class="links">{links}</div>
-  <p class="fine">MIT licensed. Icons by Phosphor.</p>
-</footer>
-
 </div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-left">
+      <h2>Who made this</h2>
+      <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product
+      designer working on developer tools and API documentation.</p>
+      <p class="fine">MIT licensed. Icons by Phosphor.</p>
+    </div>
+    <div class="foot-mid" role="img" aria-label="{AUTHOR}"></div>
+    <div class="foot-right">{links}</div>
+  </div>
+</footer>
 <script>
 (function () {{
   var P = [
@@ -373,7 +399,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
   function place(animate) {{
     track.style.transition = animate ? '' : 'none';
-    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 34);
+    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 40);
     var x = track.parentNode.clientWidth / 2 - cards[0].offsetWidth / 2 - at * slot;
     track.style.transform = 'translateX(' + x + 'px)';
     for (var i = 0; i < cards.length; i++) {{
