@@ -135,7 +135,7 @@ html = f'''<!doctype html>
 <meta property="og:image" content="{SITE}/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@deveshvs">
-<link rel="icon" href="favicon.svg" type="image/svg+xml"><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23EDEAE6%22/><rect x=%2224%22 y=%2230%22 width=%2252%22 height=%2240%22 rx=%228%22 fill=%22none%22 stroke=%22%2335322D%22 stroke-width=%225%22/></svg>">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">{JSONLD}</script>
 <style>
 {tokens}
@@ -244,7 +244,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
 
 /* ---------- argument ---------- */
-.why {{ margin: clamp(34px, 4.5vh, 64px) 0 0; }}
+.why {{ margin: clamp(120px, 20vh, 220px) 0 0; }}
 .band {{ max-width: 730px; margin: 0 auto; text-align: center; }}
 .band h2 {{ font-size: 32px; line-height: 1.34; margin: 0 0 18px; }}
 .band p {{ color: var(--ink-soft); font-size: 17px; margin: 0 auto; max-width: 640px; }}
@@ -263,11 +263,11 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .sheet-note {{ margin:24px 0 0; font-size:14px; color:var(--ink-soft); text-align:center; }}
 
 /* ---------- payoff ---------- */
-.gets {{ margin: clamp(62px, 9vh, 104px) 0 0; }}
-.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 56px 64px; margin-top: clamp(40px, 6vh, 64px); }}
+.gets {{ margin: clamp(120px, 20vh, 220px) 0 0; }}
+.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 26px 40px; margin-top: clamp(34px, 5vh, 54px); max-width: 900px; margin-left:auto; margin-right:auto; }}
 .get {{ text-align:center; }}
 .orb {{
-  width: 250px; height: 250px; margin: 0 auto 14px; display:grid; place-items:center;
+  width: 230px; height: 230px; margin: 0 auto 8px; display:grid; place-items:center;
 }}
 .orb svg {{ width:100%; height:auto; display:block; }}
 .stack2 {{ position:relative; width:88%; margin:0 auto; }}
@@ -281,7 +281,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .get p {{ margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }}
 
 /* ---------- install ---------- */
-.install {{ margin: clamp(62px, 9vh, 104px) 0 0; text-align:center; }}
+.install {{ margin: clamp(120px, 20vh, 220px) 0 0; text-align:center; }}
 .install h2, .foot h2 {{ font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }}
 .install p {{ color:var(--ink-soft); margin:0 0 22px; font-size:15px; }}
 .code {{
@@ -300,7 +300,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
 /* ---------- footer ---------- */
 .foot {{
-  margin: clamp(62px, 9vh, 104px) 0 0; background: var(--il-panel); overflow: hidden;
+  margin: clamp(120px, 20vh, 220px) 0 0; background: var(--il-panel); overflow: hidden;
 }}
 .foot-inner {{
   max-width: var(--max); margin: 0 auto; padding: 56px 28px 0;
