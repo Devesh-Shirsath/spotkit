@@ -27,8 +27,9 @@ def _card(i, t, doc, dup):
             f'{" aria-hidden=true" if dup else ""}>'
             + doc.replace('-' + f'c{i}' + '"', '"') + '</div>')
 
+REPEATS = 5
 cards = ''
-for pass_ in (0, 1):
+for pass_ in range(REPEATS):
     for i, (t, sub, (uid, label, doc)) in enumerate(items):
         tag = f'{uid}-m{pass_}'
         d = doc.replace('-' + uid + '"', '-' + tag + '"').replace('-' + uid + ')', '-' + tag + ')')
@@ -47,17 +48,17 @@ GETS = [
      _mini('connectors', 'g1')),
     ('Light and dark',
      'Twelve CSS variables. One file serves both themes, and retheming the whole set is a three-value edit.',
-     '<div class="duo"><div data-theme="light">' + _mini('categories', 'g2a') +
-     '</div><div data-theme="dark">' + _mini('categories', 'g2b') + '</div></div>'),
+     '<div class="split"><span data-theme="light">' + _mini('categories', 'g2a') +
+     '</span><span class="half" data-theme="dark">' + _mini('categories', 'g2b') + '</span></div>'),
     ('Distinct, not filler',
      'Twelve layouts picked by meaning, with a budget on reuse, so a set never reads as one drawing repeated.',
      _mini('contributors', 'g3')),
     ('Free',
-     'MIT licensed. No signup, no API key, no per-image cost. It runs on the Claude you already pay for.',
+     'No signup, no API key, no per-image cost. It runs on the Claude you already pay for.',
      _mini('gateway', 'g4')),
 ]
 gets = ''.join(
-    f'<div class="get"><h3>{h}</h3><p>{p}</p><div class="get-illo">{ill}</div></div>'
+    f'<div class="get"><div class="orb">{ill}</div><h3>{h}</h3><p>{p}</p></div>'
     for h, p, ill in GETS)
 
 LINKS = [('globe-simple', 'Portfolio', AUTHOR_URL), ('linkedin-logo', 'LinkedIn', LINKEDIN),
@@ -110,6 +111,9 @@ html = f'''<!doctype html>
 <meta name="description" content="Spotkit is a Claude Code skill that turns a feature description into a minimal, abstract SVG product illustration — one that belongs to the same family as every other illustration in your product.">
 <meta name="author" content="{AUTHOR}">
 <link rel="canonical" href="{SITE}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Geist:wght@300..700&display=swap" rel="stylesheet">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Spotkit — product illustrations from a sentence">
 <meta property="og:description" content="Describe a feature. Get an SVG illustration that belongs to the same family as everything else you have made.">
@@ -130,12 +134,14 @@ html = f'''<!doctype html>
   --card:     var(--il-surface);
   --line:     var(--il-line);
   --radius:   14px;
-  --max:      1120px;
+  --max:      1180px;
+  --serif:    "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --sans:     "Geist", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }}
 html {{ scroll-behavior: smooth; }}
 body {{
   margin: 0; background: var(--page); color: var(--ink);
-  font: 400 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 400 16px/1.65 var(--sans);
   -webkit-font-smoothing: antialiased;
   transition: background .35s ease, color .35s ease;
 }}
@@ -143,7 +149,7 @@ body {{
 
 /* ---------- nav ---------- */
 nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; }}
-.brand {{ display:flex; align-items:center; gap:9px; font-weight:640; letter-spacing:-.01em; font-size:16px; }}
+.brand {{ display:flex; align-items:center; gap:9px; font-weight:600; letter-spacing:-.02em; font-size:16.5px; }}
 .brand i {{ width:15px; height:12px; border:1.4px solid var(--ink); border-radius:3.5px; display:block; }}
 .navr {{ display:flex; align-items:center; gap:8px; }}
 .ghost {{
@@ -153,87 +159,91 @@ nav {{ display:flex; align-items:center; justify-content:space-between; padding:
 }}
 .ghost:hover {{ color:var(--ink); border-color:var(--ink-soft); }}
 
-/* ---------- hero ---------- */
-header {{ padding: 96px 0 0; max-width: 780px; margin: 0 auto; text-align: center; }}
+/* ---------- hero: one full fold ---------- */
+.fold {{ min-height: 100svh; display:flex; flex-direction:column; }}
+header {{ padding: clamp(56px, 9vh, 104px) 0 0; max-width: 820px; margin: 0 auto; text-align: center; }}
 h1 {{
-  font-size: clamp(31px, 4.3vw, 45px); line-height: 1.14; letter-spacing: -.026em;
-  font-weight: 620; margin: 0 0 20px; text-wrap: balance;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(30px, 3.9vw, 46px); line-height: 1.24; letter-spacing: -.04em;
+  margin: 0 0 22px; text-wrap: balance;
 }}
 h1 em {{ font-style: normal; color: var(--ink-soft); }}
-.lede {{ font-size: 17px; color: var(--ink-soft); margin: 0 auto 28px; max-width: 560px; }}
-.cta-row {{ display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }}
+.lede {{ font-size: 17px; color: var(--ink-soft); margin: 0 auto 30px; max-width: 620px; }}
+.cta-row {{ display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }}
 .cta {{
   display:inline-flex; align-items:center; gap:9px; background: var(--ink); color: var(--page);
-  text-decoration:none; padding: 12px 20px; border-radius: 999px; font-size:14.5px; font-weight:560;
+  text-decoration:none; padding: 13px 22px; border-radius: 999px; font-size:14.5px; font-weight:500;
   transition: transform .18s ease, opacity .18s ease;
 }}
 .cta:hover {{ transform: translateY(-1px); opacity:.9; }}
 .meta {{ font-size:13.5px; color:var(--ink-soft); }}
 
-/* ---------- moving reel ---------- */
-.reel {{ margin: 54px 0 0; overflow: hidden; }}
+/* ---------- reel: holds, then steps ---------- */
+.reel {{
+  flex: 1 1 auto; display:flex; flex-direction:column; justify-content:center;
+  overflow:hidden; padding: 22px 0 clamp(28px, 6vh, 56px); min-height: 0;
+}}
+.rail {{ overflow:hidden; }}
 .track {{
-  display:flex; gap: 26px; width: max-content; padding: 8px 0;
-  animation: drift 64s linear infinite;
+  display:flex; align-items:center; gap: 34px; width: max-content;
+  will-change: transform;
+  transition: transform 900ms cubic-bezier(.22,.61,.36,1);
 }}
-.track:hover {{ animation-play-state: paused; }}
-@keyframes drift {{ from {{ transform: translateX(0); }} to {{ transform: translateX(-50%); }} }}
 .card {{
-  width: 186px; flex: none; border-radius: 13px; padding: 8px;
-  background: var(--il-panel); border: 1px solid var(--line);
-  opacity: .5; transform: scale(.92);
-  transition: opacity .5s ease, transform .5s ease;
+  width: 250px; flex: none;
+  transform: scale(.5); opacity: .3;
+  transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }}
-.card.active {{ opacity: 1; transform: scale(1.08); border-color: var(--ink-soft); }}
+.card.n1 {{ transform: scale(.74); opacity: .55; }}
+.card.n0 {{ transform: scale(1.06); opacity: 1; }}
 .card svg {{ width:100%; height:auto; display:block; }}
 .prompt {{
-  text-align:center; margin: 26px 0 0; font-size: 19px; letter-spacing:-.012em;
-  color: var(--ink); min-height: 1.6em;
+  text-align:center; margin: clamp(16px, 3vh, 34px) 0 0; font-size: 18px;
+  letter-spacing:-.01em; color: var(--ink); min-height: 1.6em;
 }}
 .prompt span::before {{ content:'“'; color:var(--ink-soft); }}
 .prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
 
 /* ---------- argument ---------- */
-.eyebrow {{
-  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
-  font-weight:640; margin:0 0 26px; padding-top:22px; border-top:1px solid var(--line);
-}}
-.why {{ margin: 96px 0 0; }}
-.why-grid {{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap:52px; align-items:start; }}
-.why-grid h2 {{
-  font-size: clamp(22px, 2.4vw, 28px); line-height:1.2; letter-spacing:-.02em;
-  font-weight:620; margin:0; text-wrap: balance;
-}}
-.why-copy p {{ margin:0 0 15px; color:var(--ink-soft); font-size:15.5px; }}
+.why {{ margin: clamp(90px, 14vh, 150px) 0 0; }}
+.why-grid {{ display:grid; grid-template-columns: 1fr 1fr; gap:88px; align-items:start; }}
+.why-copy p {{ margin:0 0 16px; color:var(--ink-soft); font-size:16px; }}
 .why-copy p:last-child {{ margin:0; }}
 .why-copy em {{ font-style:normal; color:var(--ink); }}
-.sheets {{ display:grid; gap:14px; }}
-.sheets img {{
-  width:100%; height:auto; display:block; border-radius:11px; border:1px solid var(--line);
+.sheets {{
+  display:grid; gap:22px; margin: clamp(64px, 10vh, 104px) 0 0;
+  width: min(1400px, calc(100vw - 56px)); margin-left:50%; transform:translateX(-50%);
 }}
-.sheet-note {{ margin:14px 0 0; font-size:13.5px; color:var(--ink-soft); }}
+.sheets img {{
+  width:100%; height:auto; display:block; border-radius:16px;
+  border:1px solid var(--line);
+}}
+.sheet-note {{ margin:24px 0 0; font-size:14px; color:var(--ink-soft); text-align:center; }}
 
 /* ---------- payoff ---------- */
-.gets {{ margin: 92px 0 0; }}
-.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap:40px 46px; }}
-.get-illo {{
-  margin-top:16px; padding:14px; border:1px solid var(--line); border-radius:12px;
-  background:var(--il-panel);
+.gets {{ margin: clamp(90px, 14vh, 150px) 0 0; }}
+.get-grid {{ display:grid; grid-template-columns:repeat(2,1fr); gap: 84px 90px; }}
+.get {{ text-align:center; }}
+.orb {{
+  width: 262px; height: 262px; margin: 0 auto 30px; border-radius: 50%;
+  border: 1px solid var(--line); display:grid; place-items:center; padding: 34px;
+  overflow: hidden;
 }}
-.get-illo svg {{ width:100%; height:auto; display:block; max-width:158px; margin:0 auto; }}
-.duo {{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }}
-.duo > div {{ border-radius:8px; padding:6px; background:var(--il-canvas); }}
-.get h3 {{ font-size:16px; font-weight:620; letter-spacing:-.012em; margin:0 0 8px; }}
-.get p {{ margin:0; color:var(--ink-soft); font-size:14.5px; }}
+.orb svg {{ width:100%; height:auto; display:block; }}
+.split {{ position:relative; width:84%; margin:0 auto; }}
+.split span {{ display:block; background:var(--il-canvas); border-radius:12px; overflow:hidden; }}
+.split .half {{ position:absolute; inset:0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }}
+.get h3 {{ font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:-.04em; margin:0 0 12px; }}
+.get p {{ margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }}
 
 /* ---------- install ---------- */
-.install {{ margin: 92px 0 0; }}
-.install h2, .foot h2 {{ font-size:19px; font-weight:620; letter-spacing:-.015em; margin:0 0 8px; }}
-.install p {{ color:var(--ink-soft); margin:0 0 18px; font-size:15px; }}
+.install {{ margin: clamp(90px, 14vh, 150px) 0 0; text-align:center; }}
+.install h2, .foot h2 {{ font-family:var(--serif); font-weight:400; font-size:21px; letter-spacing:-.04em; margin:0 0 10px; }}
+.install p {{ color:var(--ink-soft); margin:0 0 22px; font-size:15px; }}
 .code {{
   display:flex; align-items:center; justify-content:space-between; gap:16px;
-  border:1px solid var(--line); border-radius:11px; background:var(--card);
-  padding:15px 16px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
+  border:1px solid var(--line); border-radius:12px; background:var(--card);
+  padding:16px 18px; max-width:640px; margin:0 auto; text-align:left; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px;
   overflow-x:auto;
 }}
 .code span {{ white-space:nowrap; }}
@@ -244,15 +254,15 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .copy:hover {{ color:var(--ink); }}
 
 /* ---------- footer ---------- */
-.foot {{ margin: 92px 0 0; padding: 0 0 70px; }}
-.foot p {{ color:var(--ink-soft); font-size:14.5px; margin:0 0 12px; max-width:520px; }}
+.foot {{ margin: clamp(90px, 14vh, 150px) 0 0; padding: 0 0 90px; text-align:center; }}
+.foot p {{ color:var(--ink-soft); font-size:15px; margin:0 auto 18px; max-width:540px; }}
 .foot a {{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }}
 .foot a:hover {{ border-color:var(--ink-soft); }}
-.links {{ display:flex; gap:20px; flex-wrap:wrap; font-size:14px; }}
+.links {{ display:flex; gap:26px; flex-wrap:wrap; justify-content:center; font-size:14px; }}
 .links a {{ color:var(--ink-soft); border:0; display:inline-flex; align-items:center; gap:7px; }}
 .links a svg {{ flex:none; opacity:.85; }}
 .links a:hover {{ color:var(--ink); }}
-.fine {{ margin-top:22px; font-size:12.5px; color:var(--ink-soft); opacity:.8; }}
+.fine {{ margin-top:26px; font-size:12.5px; color:var(--ink-soft); opacity:.75; }}
 
 @media (max-width: 900px) {{
   .why-grid {{ grid-template-columns:1fr; gap:24px; }}
@@ -272,6 +282,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 </style>
 </head>
 <body>
+<div class="fold">
 <div class="wrap">
 
 <nav>
@@ -289,20 +300,20 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   everything else you've made.</p>
   <div class="cta-row">
     <a class="cta" href="{REPO}">Get it on GitHub →</a>
-    <span class="meta">MIT · runs on the Claude you already have</span>
+    <span class="meta">Runs on the Claude you already have</span>
   </div>
 </header>
 </div>
 
 <section class="reel" aria-label="Example illustrations">
-  <div class="track" id="track">{cards}</div>
+  <div class="rail"><div class="track" id="track">{cards}</div></div>
   <p class="prompt" id="prompt"><span id="ptxt"></span></p>
 </section>
+</div>
 
 <div class="wrap">
 
 <section class="why">
-  <p class="eyebrow">The hard part</p>
   <div class="why-grid">
     <h2>Drawing one is easy.<br>Drawing twenty that match is the job.</h2>
     <div class="why-copy">
@@ -321,12 +332,10 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 </section>
 
 <section class="gets">
-  <p class="eyebrow">What you get</p>
   <div class="get-grid">{gets}</div>
 </section>
 
 <section class="install">
-  <p class="eyebrow">Install</p>
   <h2>Two lines and it's yours</h2>
   <p>Drop it into your skills folder and ask. Python 3 only, and only if you want to regenerate.</p>
   <div class="code">
@@ -336,7 +345,7 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 </section>
 
 <footer class="foot">
-  <p class="eyebrow">Who made this</p>
+  <h2>Who made this</h2>
   <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product designer
   working on developer tools and API documentation.</p>
   <div class="links">{links}</div>
@@ -349,36 +358,50 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   var P = [
       {prompts_js}
   ];
+  var N = P.length;
 
-  // The caption follows whichever card is nearest the middle of the screen,
-  // rather than a timer — so it can never drift out of step with the marquee.
-  var track  = document.getElementById('track');
-  var ptxt   = document.getElementById('ptxt');
-  var cards  = [].slice.call(track.querySelectorAll('.card'));
-  var last   = -1, queued = false;
+  // Holds on one illustration, then steps to the next. The track is the set
+  // repeated, so advancing never runs out; when it gets far enough along it
+  // snaps back by one set with the transition off, which is invisible because
+  // the content is identical.
+  var track = document.getElementById('track');
+  var ptxt  = document.getElementById('ptxt');
+  var cards = [].slice.call(track.querySelectorAll('.card'));
+  var SETS  = cards.length / N;
+  var at    = N;                       // start one set in, so there is room either side
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function sync() {{
-    queued = false;
-    var mid = innerWidth / 2, best = null, bestD = Infinity;
+  function place(animate) {{
+    track.style.transition = animate ? '' : 'none';
+    var slot = cards[0].offsetWidth + parseFloat(getComputedStyle(track).gap || 34);
+    var x = track.parentNode.clientWidth / 2 - cards[0].offsetWidth / 2 - at * slot;
+    track.style.transform = 'translateX(' + x + 'px)';
     for (var i = 0; i < cards.length; i++) {{
-      var r = cards[i].getBoundingClientRect();
-      if (r.right < -200 || r.left > innerWidth + 200) continue;
-      var d = Math.abs(r.left + r.width / 2 - mid);
-      if (d < bestD) {{ bestD = d; best = cards[i]; }}
+      var d = Math.abs(i - at);
+      cards[i].className = 'card' + (d === 0 ? ' n0' : d === 1 ? ' n1' : '');
     }}
-    if (!best) return;
-    cards.forEach(function (c) {{ c.classList.toggle('active', c === best); }});
-    var n = +best.dataset.i;
-    if (n !== last) {{ last = n; ptxt.textContent = P[n].t + ' — ' + P[n].s; }}
+    var n = at % N;
+    ptxt.textContent = P[n].t + ' — ' + P[n].s;
+    if (!animate) track.offsetHeight;   // flush before re-enabling
   }}
-  function loop() {{ if (!queued) {{ queued = true; requestAnimationFrame(sync); }} requestAnimationFrame(loop); }}
-  requestAnimationFrame(loop);
-  addEventListener('resize', sync);
+
+  function step() {{
+    at++;
+    place(true);
+    if (at >= (SETS - 1) * N) {{
+      setTimeout(function () {{ at -= N; place(false); track.style.transition = ''; }}, 950);
+    }}
+  }}
+
+  place(false);
+  track.style.transition = '';
+  if (!reduce) setInterval(step, 3400);
+  addEventListener('resize', function () {{ place(false); track.style.transition = ''; }});
 
   // theme
   var btn = document.getElementById('theme');
   var root = document.documentElement;
-  var dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = false;   // the illustrations were designed light-first
   function paint() {{
     root.setAttribute('data-theme', dark ? 'dark' : 'light');
     btn.textContent = dark ? 'Light' : 'Dark';
