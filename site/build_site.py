@@ -48,8 +48,8 @@ GETS = [
      _mini('connectors', 'g1')),
     ('Light and dark',
      'Twelve CSS variables. One file serves both themes, and retheming the whole set is a three-value edit.',
-     '<div class="pair"><span data-theme="light">' + _mini('categories', 'g2a') +
-     '</span><span data-theme="dark">' + _mini('categories', 'g2b') + '</span></div>'),
+     '<div class="stack2"><span class="back" data-theme="dark">' + _mini('categories', 'g2b') +
+     '</span><span class="front" data-theme="light">' + _mini('categories', 'g2a') + '</span></div>'),
     ('Distinct, not filler',
      'Twelve layouts picked by meaning, with a budget on reuse, so a set never reads as one drawing repeated.',
      _mini('contributors', 'g3')),
@@ -256,14 +256,13 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   width: 250px; height: 250px; margin: 0 auto 14px; display:grid; place-items:center;
 }}
 .orb svg {{ width:100%; height:auto; display:block; }}
-.pair {{ display:flex; align-items:center; justify-content:center; width:100%; }}
-.pair span {{
-  display:block; width:62%; flex:none; border-radius:14px; overflow:hidden;
+.stack2 {{ position:relative; width:88%; margin:0 auto; }}
+.stack2 span {{
+  display:block; border-radius:15px; overflow:hidden;
   background:var(--il-canvas); border:1px solid var(--il-line);
 }}
-.pair span:last-child {{
-  margin-left:-20%; box-shadow:0 8px 26px rgba(0,0,0,.16);
-}}
+.stack2 .back {{ position:absolute; inset:0; transform: translate(11%, -9%); }}
+.stack2 .front {{ position:relative; }}
 .get h3 {{ font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:-.04em; margin:0 0 12px; }}
 .get p {{ margin:0 auto; color:var(--ink-soft); font-size:15px; max-width:340px; }}
 
@@ -290,19 +289,18 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   margin: clamp(62px, 9vh, 104px) 0 0; background: var(--il-panel); overflow: hidden;
 }}
 .foot-inner {{
-  max-width: var(--max); margin: 0 auto; padding: 46px 28px 0;
-  display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: end;
+  max-width: var(--max); margin: 0 auto; padding: 56px 28px;
+  display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center;
 }}
-.foot-left {{ padding-bottom: 46px; }}
 .foot h2 {{ font-size: 22px; margin: 0 0 12px; }}
 .foot p {{ color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 380px; }}
 .foot a {{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }}
 .foot .fine {{ margin-top: 18px; font-size: 12.5px; opacity: .75; }}
-.foot-mid {{
-  width: 260px; height: 232px; align-self: end;
-  background: url('devesh.png') center bottom / contain no-repeat;
+.foot-portrait {{
+  width: 244px; height: 217px;
+  background: url('devesh.png') center / contain no-repeat;
 }}
-.foot-right {{ display:flex; gap:12px; justify-content:flex-end; padding-bottom: 46px; }}
+.foot .links {{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; justify-content:flex-start; }}
 .foot .dot {{
   width: 46px; height: 46px; border-radius: 50%; border: 0; border-bottom: 0;
   background: var(--ink); color: var(--page);
@@ -314,11 +312,10 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   .why-grid {{ grid-template-columns:1fr; gap:24px; }}
 }}
 @media (max-width: 820px) {{
-  .foot-inner {{ grid-template-columns:1fr; gap:22px; text-align:center; justify-items:center; }}
-  .foot-left {{ padding-bottom:0; }}
+  .foot-inner {{ grid-template-columns:1fr; gap:28px; text-align:center; justify-items:center; }}
   .foot p {{ margin:0 auto; }}
-  .foot-right {{ justify-content:center; padding-bottom:30px; }}
-  .foot-mid {{ order:-1; width:200px; height:180px; }}
+  .foot .links {{ justify-content:center; }}
+  .foot-portrait {{ order:-1; width:196px; height:174px; }}
 }}
 @media (max-width: 700px) {{
   header {{ padding-top:60px; }}
@@ -371,10 +368,8 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 <section class="why">
   <div class="band">
     <h2>Drawing one is easy.<br>Drawing twenty that match is the job.</h2>
-    <p>By the tenth, the corner radius has drifted and the set reads as assembled
-    rather than designed. Spotkit is a system, not a generator — twelve layouts
-    chosen by what a feature <em>means</em>, one stroke width and one colour
-    throughout.</p>
+    <p>Spotkit is a system, not a generator — twelve layouts chosen by what a
+    feature <em>means</em>, one stroke width and one colour throughout.</p>
   </div>
   <div class="sheets">
     <img src="sheet-light.svg" alt="Twelve Spotkit illustrations in light mode" loading="lazy" width="1116" height="376">
@@ -408,9 +403,9 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
       <h2>Who made this</h2>
       <p>Spotkit was built by <a href="{AUTHOR_URL}">{AUTHOR}</a>, a product
       designer working on developer tools and API documentation.</p>
+      <div class="links">{links}</div>
     </div>
-    <div class="foot-mid" role="img" aria-label="{AUTHOR}"></div>
-    <div class="foot-right">{links}</div>
+    <div class="foot-portrait" role="img" aria-label="{AUTHOR}"></div>
   </div>
 </footer>
 <script>
