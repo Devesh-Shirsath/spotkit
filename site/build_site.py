@@ -61,6 +61,15 @@ gets = ''.join(
     f'<div class="get"><div class="orb">{ill}</div><h3>{h}</h3><p>{p}</p></div>'
     for h, p, ill in GETS)
 
+def _svg(name, size=17):
+    g = core.icon(name, 0, 0, size, 'currentColor')
+    return f'<svg viewBox="0 0 {size} {size}" width="{size}" height="{size}" aria-hidden="true">{g}</svg>'
+
+moon   = f'<span class="only-light">{_svg("moon")}</span>'
+sun    = f'<span class="only-dark">{_svg("sun")}</span>'
+ghmark = _svg('github-logo', 16)
+STARS  = 53
+
 LINKS = [('globe-simple', 'Portfolio', AUTHOR_URL), ('linkedin-logo', 'LinkedIn', LINKEDIN),
          ('github-logo', 'GitHub', GITHUB), ('instagram-logo', 'Instagram', INSTAGRAM)]
 def _btn(ic, n, u):
@@ -150,23 +159,35 @@ body {{
   -webkit-font-smoothing: antialiased;
   transition: background .35s ease, color .35s ease;
 }}
-.wrap {{ max-width: var(--max); margin: 0 auto; padding: 0 28px; }}
+.wrap {{ width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 28px; }}
 
 /* ---------- nav ---------- */
-nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; }}
+nav {{ display:flex; align-items:center; justify-content:space-between; padding:26px 0 0; flex:0 0 auto; }}
 .brand {{ display:flex; align-items:center; gap:9px; font-weight:600; letter-spacing:-.02em; font-size:16.5px; }}
 .brand i {{ width:15px; height:12px; border:1.4px solid var(--ink); border-radius:3.5px; display:block; }}
 .navr {{ display:flex; align-items:center; gap:8px; }}
-.ghost {{
+.ico {{
   appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
-  border-radius:999px; padding:7px 13px; font:inherit; font-size:13px; cursor:pointer;
+  width:38px; height:38px; border-radius:999px; padding:0; cursor:pointer;
+  display:inline-grid; place-items:center; text-decoration:none;
   transition:color .2s, border-color .2s;
 }}
-.ghost:hover {{ color:var(--ink); border-color:var(--ink-soft); }}
+.ico:hover {{ color:var(--ink); border-color:var(--ink-soft); }}
+.ico.wide {{
+  width:auto; padding:0 14px; gap:7px; grid-auto-flow:column; align-items:center;
+  font:inherit; font-size:13px; font-variant-numeric:tabular-nums;
+}}
+.only-dark {{ display:none; }}
+[data-theme="dark"] .only-dark {{ display:block; }}
+[data-theme="dark"] .only-light {{ display:none; }}
 
 /* ---------- hero: one full fold ---------- */
 .fold {{ min-height: 100svh; display:flex; flex-direction:column; }}
-header {{ padding: clamp(40px, 6.5vh, 78px) 0 0; max-width: 820px; margin: 0 auto; text-align: center; }}
+.hero-body {{
+  flex: 1 1 auto; display:flex; flex-direction:column; justify-content:center;
+  min-height: 0; padding: clamp(20px, 4vh, 44px) 0 0;
+}}
+header {{ padding: 0; max-width: 820px; margin: 0 auto; text-align: center; }}
 h1 {{
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(30px, 3.9vw, 46px); line-height: 1.24; letter-spacing: -.04em;
@@ -185,22 +206,21 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 
 /* ---------- reel: holds, then steps ---------- */
 .reel {{
-  flex: 1 1 auto; display:flex; flex-direction:column; justify-content:center;
-  overflow:hidden; padding: 0 0 clamp(18px, 3.5vh, 36px); min-height: 0;
+  flex: 0 0 auto; padding: 0; min-height: 0;
 }}
-.rail {{ overflow:hidden; }}
+.rail {{ overflow:hidden; padding: 46px 0 30px; }}   /* room for the scaled-up centre card */
 .track {{
   display:flex; align-items:center; gap: 8px; width: max-content;
   will-change: transform;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1);
 }}
 .card {{
-  width: 300px; flex: none;
+  width: 340px; flex: none;
   transform: scale(.5); opacity: .26;
   transition: transform 900ms cubic-bezier(.22,.61,.36,1), opacity 900ms ease;
 }}
 .card.n1 {{ transform: scale(.8); opacity: .5; }}
-.card.n0 {{ transform: scale(1.32); opacity: 1; }}
+.card.n0 {{ transform: scale(1.24); opacity: 1; }}
 .card svg {{ width:100%; height:auto; display:block; }}
 .prompt {{
   text-align:center; margin: clamp(10px, 2vh, 22px) 0 0; font-size: 18px;
@@ -210,8 +230,11 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 .prompt span::after  {{ content:'”'; color:var(--ink-soft); }}
 
 /* ---------- argument ---------- */
-.why {{ margin: clamp(62px, 9vh, 104px) 0 0; }}
-.why-grid {{ display:grid; grid-template-columns: 1fr 1fr; gap:88px; align-items:start; }}
+.why {{ margin: clamp(34px, 4.5vh, 64px) 0 0; }}
+.band {{ max-width: 730px; margin: 0 auto; text-align: center; }}
+.band h2 {{ font-size: 32px; line-height: 1.34; margin: 0 0 18px; }}
+.band p {{ color: var(--ink-soft); font-size: 17px; margin: 0 auto; max-width: 640px; }}
+.band em {{ font-style: normal; color: var(--ink); }}
 .why-copy p {{ margin:0 0 18px; color:var(--ink-soft); font-size:18px; line-height:1.6; }}
 .why-copy p:last-child {{ margin:0; }}
 .why-copy em {{ font-style:normal; color:var(--ink); }}
@@ -314,15 +337,17 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 <body>
 <div class="fold">
 <div class="wrap">
-
 <nav>
   <div class="brand"><i></i> spotkit</div>
   <div class="navr">
-    <button class="ghost" id="theme" type="button" aria-label="Switch theme">Dark</button>
-    <a class="ghost" href="{REPO}" style="text-decoration:none">GitHub</a>
+    <button class="ico" id="theme" type="button" aria-label="Switch theme">{moon}{sun}</button>
+    <a class="ico wide" href="{REPO}" aria-label="Spotkit on GitHub">{ghmark}<span id="stars">{STARS}</span></a>
   </div>
 </nav>
+</div>
 
+<div class="hero-body">
+<div class="wrap">
 <header>
   <h1>Every feature wants an illustration.<br><em>Drawing twenty isn't your job.</em></h1>
   <p class="lede">Spotkit is an illustration system that runs inside Claude Code.
@@ -339,18 +364,17 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   <p class="prompt" id="prompt"><span id="ptxt"></span></p>
 </section>
 </div>
+</div>
 
 <div class="wrap">
 
 <section class="why">
-  <div class="why-grid">
+  <div class="band">
     <h2>Drawing one is easy.<br>Drawing twenty that match is the job.</h2>
-    <div class="why-copy">
-      <p>By the tenth, the corner radius has drifted and the set reads as
-      assembled rather than designed.</p>
-      <p>Spotkit is a system, not a generator — twelve layouts chosen by what a
-      feature <em>means</em>, one stroke width and one colour throughout.</p>
-    </div>
+    <p>By the tenth, the corner radius has drifted and the set reads as assembled
+    rather than designed. Spotkit is a system, not a generator — twelve layouts
+    chosen by what a feature <em>means</em>, one stroke width and one colour
+    throughout.</p>
   </div>
   <div class="sheets">
     <img src="sheet-light.svg" alt="Twelve Spotkit illustrations in light mode" loading="lazy" width="1116" height="376">
@@ -359,13 +383,10 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 </section>
 
 <section class="gets">
-  <div class="why-grid">
+  <div class="band">
     <h2>What you actually get.</h2>
-    <div class="why-copy">
-      <p>An editable file rather than a picture, both themes out of one source,
-      twelve layouts that keep a set from repeating itself — and nothing to pay
-      for.</p>
-    </div>
+    <p>An editable file rather than a picture, both themes out of one source,
+    twelve layouts that keep a set from repeating itself — and nothing to pay for.</p>
   </div>
   <div class="get-grid">{gets}</div>
 </section>
@@ -441,12 +462,19 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   var btn = document.getElementById('theme');
   var root = document.documentElement;
   var dark = false;   // the illustrations were designed light-first
-  function paint() {{
-    root.setAttribute('data-theme', dark ? 'dark' : 'light');
-    btn.textContent = dark ? 'Light' : 'Dark';
-  }}
+  function paint() {{ root.setAttribute('data-theme', dark ? 'dark' : 'light'); }}
   btn.addEventListener('click', function () {{ dark = !dark; paint(); }});
   paint();
+
+  // live star count, falling back to whatever was baked in at build time
+  fetch('https://api.github.com/repos/Devesh-Shirsath/spotkit')
+    .then(function (r) {{ return r.ok ? r.json() : null; }})
+    .then(function (d) {{
+      if (d && typeof d.stargazers_count === 'number') {{
+        document.getElementById('stars').textContent = d.stargazers_count;
+      }}
+    }})
+    .catch(function () {{}});
 
   // copy
   var copy = document.getElementById('copy');
