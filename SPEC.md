@@ -10,13 +10,20 @@ this repo, and `python3 check.py --docs` fails if this file drifts from it.
 Don't improvise any of them: this style is sub-pixel geometry, and a stroke of 1
 where the system uses 0.5 is visibly wrong.
 
-## 0 · The fastest correct route
+## 0 · The standing rule: adapt, don't invent
 
-- **You can run Python in this repo:** `from build import *`, write one function
-  shaped like the `L1`–`L12` functions in `build.py`, write the SVG out, then run
-  `python3 check.py out.svg`. The primitives carry every constant for you.
-- **You can't run code:** copy the boilerplate in §4, build from the snippets in
-  §5, and go through the checks in §9 before you answer.
+**Pick the nearest of the twelve layouts in §7, start from its example file,
+keep its geometry and change only the content** — the icon, what sits inside
+the cards, how many rows within the layout's limit. Every tool that follows
+this produces the same family; every tool that composes from scratch drifts.
+Invent a new composition only when none of the twelve fits, and say so.
+
+- **You can run Python in this repo:** copy that layout's `L*` function in
+  `build.py`, edit its content, write the SVG out, run `python3 check.py out.svg`.
+- **You can't run code:** fetch the layout's example file from §7, edit its
+  content by hand, and go through §9 before you answer.
+- **Write SVG code.** Never hand this to an image-generation model — it cannot
+  hold a 0.5 stroke, and it will not match the family.
 
 ## 1 · Canvas
 
@@ -206,20 +213,26 @@ Pick by the feature's **relationship**, then by how many elements it needs
 (1–2: L7 L8 L12 · 3–4: L1 L2 L3 L5 L11 · 4–6: L4 L6 L9 L10). In a set, no
 layout more than twice in twelve, and at most two full-width header cards.
 
-| | Layout | Panel (x, w, edge, backdrop) | Float | Content |
-|---|---|---|---|---|
-| L1 | Header + rows | 21, 118, fade, twin | header card 11,24 138×27 | 3 rows at y 60/81/102: 15px avatar + bar pair |
-| L2 | Cascade | 25, 110, fade, offset | raised row 13,56 134×21 r7 + flat medallion | 2 receding rows, opacity .70 / .40 |
-| L3 | Tab bar | 24, 112, fade, plate | card 11,24 138×24: icon + 4 pills | 3 rows at y 62/84/106 |
-| L4 | Toolbar | 22, 116, fade, none | card 11,24 138×26: 4 brand tiles + search | avatar cluster, rule, 3 rows with checks |
-| L5 | Corner chips | 28, 104, fade, offset | chips 13,12 and 91,94, 58×21 | header bar + kebab, 4 rows |
-| L6 | Window | 13, 134, fade, chrome, twin | none — first row raised | 3 row cards 118×18 at y 34/56/78 |
-| L7 | Fanned | 16, 128, contained y44 h92, none | middle card 55,32 50×60 r11 | 2 flat side cards 46×50 |
-| L8 | Notifications | 26, 108, contained y30 h100, offset | card 16,44 112×34 r10 | 1 flat card behind, 92×32 |
-| L9 | Constellation | 21, 118, fade, plate | hub 63,46 34×34 r11, 18px icon | 4 tiles, dashed connectors to the hub |
-| L10 | Matrix | 21, 118, fade, none | corner chip 13,16 62×22 | 3 icon columns × 4 avatar rows of dots |
-| L11 | Timeline | 28, 104, fade, offset | column chip 18,14 74×22 | rail at x 44, nodes y 56/80/104 |
-| L12 | Split | 22, 116, contained y30 h100, plate | flat medallion 80,37 r17 | 2 state cards 44×44, arrow in the gap |
+**Then open the example file and edit it.** Each is a finished, checked
+illustration of its layout — all twelve are also in `references/examples.md`,
+one file — or fetch one raw: `https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/examples/<file>.svg`. Keep every coordinate of the
+panel, backdrop, float and cards; rename the ids (`-approval` → `-yourname`);
+swap the icon and the contents.
+
+| | Layout | Start from | Panel (x, w, edge, backdrop) | Float | Content |
+|---|---|---|---|---|---|
+| L1 | Header + rows | `billing.svg` | 21, 118, fade, twin | header card 11,24 138×27 | 3 rows at y 60/81/102: 15px avatar + bar pair |
+| L2 | Cascade | `teams.svg` | 25, 110, fade, offset | raised row 13,56 134×21 r7 + flat medallion | 2 receding rows, opacity .70 / .40 |
+| L3 | Tab bar | `categories.svg` | 24, 112, fade, plate | card 11,24 138×24: icon + 4 pills | 3 rows at y 62/84/106 |
+| L4 | Toolbar | `workspace.svg` | 22, 116, fade, none | card 11,24 138×26: 4 brand tiles + search | avatar cluster, rule, 3 rows with checks |
+| L5 | Corner chips | `docs.svg` | 28, 104, fade, offset | chips 13,12 and 91,94, 58×21 | header bar + kebab, 4 rows |
+| L6 | Window | `connectors.svg` | 13, 134, fade, chrome, twin | none — first row raised | 3 row cards 118×18 at y 34/56/78 |
+| L7 | Fanned | `contributors.svg` | 16, 128, contained y44 h92, none | middle card 55,32 50×60 r11 | 2 flat side cards 46×50 |
+| L8 | Notifications | `notifications.svg` | 26, 108, contained y30 h100, offset | card 16,44 112×34 r10 | 1 flat card behind, 92×32 |
+| L9 | Constellation | `gateway.svg` | 21, 118, fade, plate | hub 63,46 34×34 r11, 18px icon | 4 tiles, dashed connectors to the hub |
+| L10 | Matrix | `roles.svg` | 21, 118, fade, none | corner chip 13,16 62×22 | 3 icon columns × 4 avatar rows of dots |
+| L11 | Timeline | `audit.svg` | 28, 104, fade, offset | column chip 18,14 74×22 | rail at x 44, nodes y 56/80/104 |
+| L12 | Split | `approval.svg` | 22, 116, contained y30 h100, plate | flat medallion 80,37 r17 | 2 state cards 44×44, arrow in the gap |
 
 A float that covers only one side of the panel's top edge gets answered on the
 other side — a short bar and a kebab (L5, L11). Full detail: `references/archetypes.md`.
@@ -293,8 +306,10 @@ go through them yourself — each one is a failure people have actually shipped.
 8. Nothing crosses what it sits between: a glyph in a gap clears both sides by
    2+; a connector ends at the edges it joins; a rail starts at its first node.
 9. The float overhangs 8–15 units or not at all; only the float breaks the panel.
+   The composition is centred on x=80 and fills the square.
 10. At most two accent-coloured elements. It still reads in grayscale.
 11. Bars are short-over-long, never equal. Fewer than six content blocks.
+    Nothing that carries meaning is under 9 units.
 12. It reads as the feature with every label removed — and would never be
     mistaken for a screenshot.
 
@@ -312,7 +327,8 @@ go through them yourself — each one is a failure people have actually shipped.
 
 > **Feature interpretation** — one line on what it actually does.
 > **Metaphor** — one line: the relationship shown.
-> **Primitives** — the 2–5 used, and the layout.
+> **Layout** — which of the twelve it adapts (or why none fit).
+> **Primitives** — the 2–5 used.
 > **The SVG.**
 
 Don't pad it with explanation nobody asked for.

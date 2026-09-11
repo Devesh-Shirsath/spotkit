@@ -164,6 +164,14 @@ def lint(path, text=None, flat=False):
             if w and not inside(el, ('g',)) and (x < 10 * scale - .01 or x + w > 150 * scale + .01):
                 W(f'rect at x={x:g} w={w:g} reaches into the outer 10-unit bleed')
 
+    # -- legibility: a glyph under 9 units is under 9 pixels at display size ------
+    tiny = sorted({round(float(m) * 256, 1) for el in drawn
+                   for m in re.findall(r'scale\(([\d.]+)\)', el.get('transform', ''))
+                   if float(m) * 256 < 9 * scale - .05})
+    if tiny:
+        W(f'icons at {tiny} units -- under 9 they vanish at 160px. Fewer elements, '
+          f'not smaller ones')
+
     grads = [g for g in root.iter() if tag(g) in ('linearGradient', 'radialGradient')]
     masked = set()
     for m in root.iter(NS + 'mask'):

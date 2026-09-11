@@ -37,22 +37,42 @@ for the decisions; open one only when a step needs it.
 2. **Choose the metaphor.** What *relationship* is this feature about — grouping,
    connecting, gating, packaging, reviewing, sequencing?
 3. **Pick 2–5 primitives** that carry that relationship. Not more.
-4. **Pick a layout — from the prompt, not from habit.**
-   → `references/archetypes.md`. Choose by meaning, then by how many elements the
-   idea needs, then by what its neighbour already uses. Twelve are defined; the
-   composition choices generate many more.
-   **Then choose the float separately.** A full-width header card is one of eight
-   treatments and is capped at two per twelve — it is the easiest choice and it
-   will take over a set if you let it. Ask what the *subject* is: a hub gets
-   raised, a column gets a chip at its head, a surface gets no float at all.
-5. **Compose the SVG** from `SPEC.md`, with icon paths from
-   `references/icons.md`. If you can run Python here, build it with the
-   primitives in `build.py` (`from build import *`) — they carry every constant.
+4. **Pick one of the twelve layouts — then adapt it, don't invent.**
+   → `SPEC.md` §7. Choose by the relationship, then by how many elements the
+   idea needs, then by what its neighbour already uses.
+5. **Start from that layout's example file** (`SPEC.md` §7 names it) and keep
+   its geometry: panel, backdrop, float, card sizes and positions. Change only
+   the content — the icon, what sits inside the cards, how many rows within the
+   layout's limit. Icon paths come from `references/icons.md`. If you can run
+   Python here, copy the layout's function in `build.py` and edit its content.
 6. **Check it.** Run `python3 check.py your.svg` if you can, then the list in
    `SPEC.md` §9. Simplify what they flag.
 
 If the concept is genuinely ambiguous, offer 2–3 **conceptual** directions before
 drawing — different metaphors, never different styling.
+
+## The standing rule: adapt, don't invent
+
+Composition is where models drift. Given the same brief, one run that adapted
+the Split layout produced something that sat in the family at a glance; another
+that invented a new arrangement produced a busier, off-centre piece that didn't —
+and the same brief in a different tool drifted further still. The twelve
+layouts have been balanced against each other; a fresh composition has not.
+
+So, every time, in every tool:
+
+- **Adapt the nearest layout.** Its geometry is fixed; its content is yours.
+  Invent a new composition only when none of the twelve can carry the
+  relationship — and say so in the delivery note, naming the rule that forced it.
+- **Centred and square.** Weight on x=80, filling the 160 square. A landscape
+  strip with empty space above and below is not a spot illustration.
+- **Few, large elements.** Nothing that carries meaning is smaller than 9 units
+  — that is 9 pixels at display size. If an idea needs more detail than that, it
+  needs fewer elements, not smaller ones.
+- **Show change as states.** A flow reads fastest as before → after: two cards
+  and an arrow (L12), or one rail (L11). Not a rail *and* cards *and* a badge.
+- **Never improvise a value.** Every number, colour and snippet comes from
+  `SPEC.md`. If a value you need is not there, reuse the nearest one that is.
 
 ## What is fixed and what is yours
 
@@ -133,6 +153,7 @@ Read the one you need; don't load them all.
 | File | Read it when |
 |---|---|
 | `SPEC.md` | **Always, first.** Every number, the template, one full example. |
+| `references/examples.md` | You picked a layout — its finished SVG, to adapt. |
 | `references/icons.md` | You need an icon — paste-ready Phosphor paths. |
 | `references/metaphor.md` | Translating a feature into a concept. Catalog of ~24 common SaaS features. |
 | `references/archetypes.md` | Choosing a layout. Twelve compositions and the four choices that generate them. |

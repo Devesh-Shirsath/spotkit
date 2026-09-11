@@ -154,10 +154,16 @@ copies of one drawing.
 
 ## Inventing a thirteenth
 
-Allowed, and expected — the four choices above generate far more than twelve.
-Two rules:
+**A last resort, not a default.** Adapt the nearest of the twelve first — keep
+its geometry, change its content. A fresh composition has not been balanced
+against the rest of the family, and it shows: in practice an invented layout
+comes out busier and off-centre next to its siblings. Invent only when none of
+the twelve can carry the relationship, and say so in the delivery note.
+
+When you do, three rules:
 
 1. Change only choices 1–4. If you find yourself changing a radius, a stroke
    weight or a token to make it work, stop: you are leaving the family.
-2. Build it as a function alongside the others in `build.py`, so it inherits
+2. Keep it centred on x=80 and square, with nothing meaningful under 9 units.
+3. Build it as a function alongside the others in `build.py`, so it inherits
    every constant rather than restating them.

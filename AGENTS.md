@@ -7,11 +7,13 @@ minimal SVG product illustration that matches a fixed visual system.
 
 1. Read **`SPEC.md`**. It is self-contained — every number, the SVG template,
    the building blocks, the twelve layouts and a complete example.
-2. Take icon paths from **`references/icons.md`**. Never draw your own glyph.
-3. Follow the workflow in `SKILL.md` (feature → metaphor → layout → SVG → check).
-   Open another file in `references/` only when a step needs it.
-4. If you can run Python: build with the primitives in `build.py`
-   (`from build import *`) and run `python3 check.py your.svg` before answering.
+2. **Adapt, don't invent.** Pick the nearest of the twelve layouts (`SPEC.md`
+   §7), start from its example file in `examples/`, keep its geometry and change
+   only the content. Invent a composition only if none fits, and say so.
+3. Take icon paths from **`references/icons.md`**. Never draw your own glyph.
+4. If you can run Python: copy the layout's `L*` function from `build.py`, edit
+   its content, and run `python3 check.py your.svg` before answering.
+5. Write SVG code. Never use an image-generation model for this.
 
 ## Don't read these — large, and not needed to draw
 
@@ -25,8 +27,7 @@ Fetch the raw files, not the GitHub pages around them:
 
 - https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SPEC.md
 - https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/icons.md
-
-Those two are enough.
+- https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/examples.md (all twelve layouts, to adapt)
 
 ## Changing the skill itself
 

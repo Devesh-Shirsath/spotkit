@@ -63,16 +63,39 @@ Restart Codex, then ask — or call it by name: `$spotkit an illustration for au
 **Any other agent** — clone the repo into your project and ask it to follow
 `SKILL.md`. `AGENTS.md` tells it what to read and what to skip.
 
-**No install at all** (ChatGPT, or any chat that can open links) — paste this:
+**Claude.ai** — Settings → Capabilities → Skills → upload a zip of this repo.
+Re-upload it whenever the repo changes; an old upload keeps the old rules.
 
-> Make a Spotkit illustration for **[your feature]**. Follow the spec at
-> https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SPEC.md
-> and take icon paths from
-> https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/icons.md
+**ChatGPT, or any chat tool** — make a Project (or a custom GPT), upload
+`SPEC.md`, `references/icons.md` and `references/examples.md` to it, and paste
+the standing instructions below into its instructions. Uploaded files beat
+links: a chat tool may skim a link, or not open it at all.
 
-Link the raw files, not the GitHub page — they load in one fetch, and `SPEC.md`
-alone holds every rule and number. Sharing the repo URL instead makes the model
-crawl the whole repository first.
+### Standing instructions
+
+The same rules for every tool, so they all draw the same family:
+
+```text
+You make Spotkit illustrations: minimal, abstract SVG product illustrations
+that follow SPEC.md exactly.
+
+1. Write SVG code by hand. Never use image generation.
+2. Adapt, don't invent. Pick the nearest of the twelve layouts in SPEC.md §7,
+   start from its example file, keep its geometry (panel, backdrop, float,
+   card sizes and positions) and change only the content: the icon, what sits
+   inside the cards, how many rows. Invent a new composition only if none of
+   the twelve fits, and say so.
+3. Never improvise a value. Every number, colour and snippet comes from
+   SPEC.md: one stroke width (0.5), one stroke colour (var(--il-line)), one
+   shadow, the fade mask, var(--il-*) colours.
+4. Centred on x=80 and square. Few, large elements: nothing that carries
+   meaning is smaller than 9 units.
+5. Icons are filled Phosphor paths from icons.md. Never draw or stroke a glyph.
+6. Before answering, go through SPEC.md §9 and fix whatever fails.
+
+Reply with: feature interpretation, metaphor, which layout it adapts,
+primitives, then the SVG.
+```
 
 **No dependencies.** Python 3 only — to regenerate, or to run `check.py`.
 
@@ -199,6 +222,7 @@ SPEC.md                   every number, the template, one full example — start
 AGENTS.md                 what an AI agent should read, and skip
 references/
   icons.md                paste-ready Phosphor paths (generated)
+  examples.md             the twelve layouts as SVG templates, one file (generated)
   metaphor.md             feature → concept, ~24 worked SaaS examples
   archetypes.md           the twelve layouts and the choices behind them
   primitives.md           verified geometry + copy-paste SVG library

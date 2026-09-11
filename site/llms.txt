@@ -16,12 +16,13 @@ radii and, above all, consistency across a set.
 
 ## Using it
 
-To draw an illustration you need two files, fetched raw:
+To draw an illustration you need three files, fetched raw:
 
 - [SPEC.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/SPEC.md): every number, the SVG template, the twelve layouts and a complete example. Start here.
+- [examples.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/examples.md): the twelve layouts as finished SVG. Adapt the nearest one; keep its geometry and change only its content. Do not invent a new composition unless none fits.
 - [icons.md](https://raw.githubusercontent.com/Devesh-Shirsath/spotkit/main/references/icons.md): paste-ready Phosphor icon paths.
 
-Nothing else is required. Do not crawl the repository or read the landing page to use the skill.
+Write SVG code; never use image generation. Nothing else is required. Do not crawl the repository or read the landing page to use the skill.
 
 ## Install
 
