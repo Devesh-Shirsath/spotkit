@@ -82,6 +82,12 @@ def _btn(ic, n, u):
 
 links = ''.join(_btn(ic, n, u) for ic, n, u in LINKS)
 
+# IconKit sneak peek: two theme-aware images (drawn by IconKit's showcase/make_art.py), inlined so
+# they pick up the page's colour variables and follow the light/dark switch.
+_here = os.path.dirname(os.path.abspath(__file__))
+IK_ANATOMY = open(os.path.join(_here, 'iconkit-anatomy.svg')).read()
+IK_SET     = open(os.path.join(_here, 'iconkit-set.svg')).read()
+
 sheet = ''.join(
     '<div class="cell">' +
     doc.replace('-' + uid + '"', '-' + uid + '-s"').replace('-' + uid + ')', '-' + uid + '-s)') +
@@ -322,6 +328,72 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 }}
 .copy:hover {{ color:var(--ink); }}
 
+/* ---------- next: IconKit ---------- */
+.next {{ margin: clamp(120px, 20vh, 220px) 0 0; }}
+.next-card {{
+  display:grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  border:1px solid var(--line); border-radius:22px; background:var(--card); overflow:hidden;
+}}
+.next-art {{ position:relative; background:var(--il-panel); border-right:1px solid var(--line); padding:20px 20px 54px; }}
+.next-art input {{ position:absolute; opacity:0; pointer-events:none; }}
+.next-art svg {{ display:block; width:100%; height:auto; }}
+.next-art .art-b, #ik-b:checked ~ .art-a {{ display:none; }}
+#ik-b:checked ~ .art-b {{ display:block; }}
+.next-tabs {{ position:absolute; left:0; right:0; bottom:16px; display:flex; justify-content:center; gap:6px; }}
+.next-tabs label {{
+  font-family:var(--pixel); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); border:1px solid transparent; border-radius:999px; padding:5px 12px; cursor:pointer;
+}}
+#ik-a:checked ~ .next-tabs label[for="ik-a"], #ik-b:checked ~ .next-tabs label[for="ik-b"] {{
+  color:var(--ink); border-color:var(--line); background:var(--card);
+}}
+.next-art input:focus-visible ~ .next-tabs {{ outline:2px solid var(--il-accent); outline-offset:4px; border-radius:999px; }}
+.next-text {{ padding: clamp(28px, 4.4vw, 60px); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }}
+.next-eyebrow {{ font-family:var(--pixel); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--il-accent); margin:0 0 18px; }}
+.next-text h2 {{ font-family:var(--serif); font-weight:400; font-size:clamp(25px, 2.5vw, 31px); line-height:1.3; letter-spacing:-.04em; margin:0 0 16px; }}
+.next-text p {{ color:var(--ink-soft); font-size:15.5px; line-height:1.6; margin:0 0 26px; max-width:430px; }}
+.next-btn {{
+  display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+  background:var(--ink); color:var(--page); border-radius:999px; padding:11px 20px; font-size:14.5px; font-weight:500;
+}}
+.next-btn:hover {{ opacity:.88; }}
+.next-text small {{ display:block; margin-top:18px; font-size:12.5px; line-height:1.55; color:var(--ink-soft); max-width:400px; }}
+@media (max-width: 860px) {{
+  .next-card {{ grid-template-columns: 1fr; }}
+  .next-art {{ border-right:0; border-bottom:1px solid var(--line); }}
+}}
+
+/* ---------- the /iconkit page ---------- */
+.ik-hero {{
+  max-width:var(--max); margin:clamp(28px, 5vh, 64px) auto 0; padding:0 28px;
+  display:flex; flex-direction:column; align-items:center;
+}}
+.ik-art {{ width:100%; max-width:600px; }}
+.ik-art svg {{ display:block; width:100%; height:auto; }}
+.ik-hero .next-text {{ padding:clamp(36px, 6vh, 64px) 0 0; align-items:center; text-align:center; }}
+.ik-hero h1 {{ font-size:clamp(34px, 4.1vw, 56px); line-height:1.12; margin:0 0 18px; text-align:center; }}
+.ik-hero .next-text p {{ font-size:17px; max-width:none; white-space:nowrap; }}
+@media (max-width: 640px) {{ .ik-hero .next-text p {{ white-space:normal; }} }}
+.ik-hero .ik-row {{ justify-content:center; }}
+.ik-row {{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }}
+.ik-link {{ color:var(--ink-soft); font-size:14.5px; text-underline-offset:3px; }}
+.ik-sec {{ margin: clamp(110px, 18vh, 200px) 0 0; }}
+.ik-fig {{ margin:44px auto 0; max-width:960px; border:1px solid var(--line); border-radius:22px; background:var(--il-panel); padding:clamp(16px, 3vw, 40px); }}
+.ik-fig svg {{ display:block; width:100%; height:auto; }}
+.ik-grid {{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:18px; margin-top:44px; }}
+.ik-grid.four {{ grid-template-columns:repeat(4, minmax(0, 1fr)); }}
+.ik-cell {{ border:1px solid var(--line); border-radius:16px; background:var(--card); padding:26px 24px 28px; }}
+.ik-cell .n {{ font-family:var(--pixel); font-size:12px; letter-spacing:.1em; color:var(--il-accent); display:block; margin-bottom:16px; }}
+.ik-cell .big {{ font-family:var(--serif); font-size:40px; letter-spacing:-.04em; line-height:1; display:block; margin-bottom:14px; color:var(--ink); }}
+.ik-cell h3 {{ font-size:19px; margin:0 0 10px; }}
+.ik-cell p {{ margin:0; color:var(--ink-soft); font-size:15px; line-height:1.6; }}
+.ik-end .ik-row {{ justify-content:center; margin-top:26px; }}
+@media (max-width: 860px) {{
+  .ik-hero {{ grid-template-columns:1fr; }}
+  .ik-grid, .ik-grid.four {{ grid-template-columns:1fr; }}
+}}
+@media (min-width: 861px) and (max-width: 1100px) {{ .ik-grid.four {{ grid-template-columns:repeat(2, minmax(0, 1fr)); }} }}
+
 /* ---------- footer ---------- */
 .foot {{
   margin: clamp(120px, 20vh, 220px) 0 0; background: var(--il-panel); overflow: hidden;
@@ -436,6 +508,23 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
   <p class="alt">Codex? Clone into <code>~/.agents/skills/spotkit</code> instead.
   Another AI tool, or nothing to install into? Point it at
   <a href="{RAW}/SPEC.md">SPEC.md</a> — one file, every rule.</p>
+</section>
+
+<section class="next" aria-labelledby="ik-title">
+  <div class="next-card">
+    <div class="next-art">
+      <input type="radio" name="ikart" id="ik-a" checked aria-label="Show the anatomy of an icon">
+      <input type="radio" name="ikart" id="ik-b" aria-label="Show a set of icons">
+      <div class="art-a">{IK_ANATOMY}</div>
+      <div class="art-b">{IK_SET}</div>
+      <div class="next-tabs"><label for="ik-a">Anatomy</label><label for="ik-b">Set</label></div>
+    </div>
+    <div class="next-text">
+      <h2 id="ik-title">IconKit: your icon, one prompt away.</h2>
+      <p>Describe a feature. Get a new icon in all six weights.</p>
+      <a class="next-btn" href="/iconkit">Try IconKit</a>
+    </div>
+  </div>
 </section>
 
 </div>
@@ -606,3 +695,118 @@ h1 em {{ font-style: normal; color: var(--ink-soft); }}
 '''
 open(os.path.join(os.path.dirname(__file__), 'index.html'), 'w').write(html)
 print('site/index.html —', len(html) // 1024, 'KB')
+
+
+# ------------------------------------------------------------------ /iconkit
+# A second page, served at /iconkit (vercel cleanUrls). It shares the landing page's
+# head, styles and footer, so the two cannot drift apart.
+import re as _re
+
+_T = "IconKit — your icon, one prompt away"
+_D = "IconKit is a Claude skill that designs custom icons: describe a feature and get a new icon in six weights, as production SVG."
+_head = html[:html.index('</head>')]
+_head = _re.sub(r'<title>.*?</title>', '<title>' + _T + '</title>', _head, flags=_re.S)
+_head = _re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="' + _D + '">', _head)
+_head = _re.sub(r'<meta property="og:title" content="[^"]*">', '<meta property="og:title" content="' + _T + '">', _head)
+_head = _re.sub(r'<meta property="og:description" content="[^"]*">', '<meta property="og:description" content="' + _D + '">', _head)
+_head = _re.sub(r'<link rel="canonical" href="[^"]*">', '<link rel="canonical" href="' + SITE.rstrip('/') + '/iconkit">', _head)
+_head = _re.sub(r'<meta property="og:url" content="[^"]*">', '<meta property="og:url" content="' + SITE.rstrip('/') + '/iconkit">', _head)
+_head = _re.sub(r'<script type="application/ld\+json">.*?</script>\n?', '', _head, flags=_re.S)
+_body = _re.search(r'<body[^>]*>', html).group(0)
+_foot = html[html.index('<footer class="foot">'):html.index('</footer>') + len('</footer>')]
+
+def _cell(n, h, p='', big=False):
+    top = f'<span class="big">{n}</span>' if big else f'<span class="n">{n}</span>'
+    return f'<div class="ik-cell">{top}<h3>{h}</h3>' + (f'<p>{p}</p>' if p else '') + '</div>'
+
+steps = ''.join([
+    _cell('01', 'Describe the feature', 'One sentence. IconKit picks the picture.'),
+    _cell('02', 'One skeleton', 'Drawn once, as centrelines.'),
+    _cell('03', 'Build, then look', 'Six weights, checked down to 16&nbsp;px.'),
+])
+gets = ''.join([
+    _cell('SVG', 'Six weights', 'Thin, light, regular, bold, fill, duotone.'),
+    _cell('TSX', 'A React component', 'Takes <code>weight</code>, <code>size</code> and <code>color</code>.'),
+    _cell('FIG', 'Figma components', 'Added to your library, matching its structure.'),
+    _cell('SRC', 'The source', 'Change a line, rebuild, all six follow.'),
+])
+stats = ''.join([
+    _cell('1,512', 'Reference icons measured', big=True),
+    _cell('44', 'Real icons rebuilt', 'Within 2% of the originals.', True),
+    _cell('6', 'Weights from one drawing', big=True),
+    _cell('0', 'Dependencies', big=True),
+])
+
+ik = f"""{_head}</head>
+{_body}
+<div class="wrap">
+<nav>
+  <a class="brand" href="/" aria-label="Spotkit home">{LOGO}</a>
+  <div class="navr">
+    <a class="ico wide" href="/" aria-label="Back to the Spotkit home page">&larr;<span>Home</span></a>
+    <button class="ico" id="theme" type="button" aria-label="Switch theme">{moon}{sun}</button>
+  </div>
+</nav>
+</div>
+
+<section class="ik-hero">
+  <div class="ik-art">{IK_SET}</div>
+  <div class="next-text">
+    <h1>Your icon, one prompt away.</h1>
+    <p>Describe a feature. Get a new icon in six weights, as production SVG.</p>
+    <div class="ik-row">
+      <a class="next-btn" href="https://github.com/Devesh-Shirsath/iconkit">Try it now</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+<section class="ik-sec">
+  <div class="band">
+    <h2>Drawn to the unit, not by eye.</h2>
+    <p>One skeleton on a 256 grid. Thicken it and you have the weights.</p>
+  </div>
+  <div class="ik-fig">{IK_ANATOMY}</div>
+</section>
+
+<section class="ik-sec">
+  <div class="band"><h2>One sentence in. Six weights out.</h2></div>
+  <div class="ik-grid">{steps}</div>
+</section>
+
+<section class="ik-sec">
+  <div class="band"><h2>What you actually get.</h2></div>
+  <div class="ik-grid four">{gets}</div>
+</section>
+
+<section class="ik-sec">
+  <div class="band"><h2>Measured, then checked.</h2></div>
+  <div class="ik-grid four">{stats}</div>
+</section>
+
+<section class="ik-sec ik-end">
+  <div class="band">
+    <h2>Start with one sentence.</h2>
+    <div class="ik-row">
+      <a class="next-btn" href="https://github.com/Devesh-Shirsath/iconkit">Try it now</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+{_foot}
+<script>
+(function () {{
+  var root = document.documentElement;
+  document.getElementById('theme').addEventListener('click', function () {{
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  }});
+}})();
+</script>
+</body>
+</html>
+"""
+open(os.path.join(os.path.dirname(__file__), 'iconkit.html'), 'w').write(ik)
+print('site/iconkit.html —', len(ik) // 1024, 'KB')
