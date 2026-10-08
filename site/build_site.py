@@ -715,6 +715,14 @@ _head = _re.sub(r'<script type="application/ld\+json">.*?</script>\n?', '', _hea
 _body = _re.search(r'<body[^>]*>', html).group(0)
 _foot = html[html.index('<footer class="foot">'):html.index('</footer>') + len('</footer>')]
 
+from urllib.parse import quote as _quote
+IK_REPO   = 'https://github.com/Devesh-Shirsath/iconkit'
+# "Try it now" opens Claude with this prompt already typed in.
+IK_PROMPT = ('Use the IconKit skill (github.com/Devesh-Shirsath/iconkit) to design an icon for this feature: '
+             'API key rotation, where a key is replaced automatically on a schedule. '
+             'Build it in all six weights as SVG.')
+IK_TRY    = 'https://claude.ai/new?q=' + _quote(IK_PROMPT)
+
 def _cell(n, h, p='', big=False):
     top = f'<span class="big">{n}</span>' if big else f'<span class="n">{n}</span>'
     return f'<div class="ik-cell">{top}<h3>{h}</h3>' + (f'<p>{p}</p>' if p else '') + '</div>'
@@ -755,7 +763,8 @@ ik = f"""{_head}</head>
     <h1>Your icon, one prompt away.</h1>
     <p>Describe a feature. Get a new icon in six weights, as production SVG.</p>
     <div class="ik-row">
-      <a class="next-btn" href="https://github.com/Devesh-Shirsath/iconkit">Try it now</a>
+      <a class="next-btn" href="{IK_TRY}" target="_blank" rel="noopener">Try it now</a>
+      <a class="ico" href="{IK_REPO}" aria-label="IconKit on GitHub" title="IconKit on GitHub">{ghmark}</a>
     </div>
   </div>
 </section>
@@ -789,7 +798,8 @@ ik = f"""{_head}</head>
   <div class="band">
     <h2>Start with one sentence.</h2>
     <div class="ik-row">
-      <a class="next-btn" href="https://github.com/Devesh-Shirsath/iconkit">Try it now</a>
+      <a class="next-btn" href="{IK_TRY}" target="_blank" rel="noopener">Try it now</a>
+      <a class="ico" href="{IK_REPO}" aria-label="IconKit on GitHub" title="IconKit on GitHub">{ghmark}</a>
     </div>
   </div>
 </section>
